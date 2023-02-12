@@ -1,0 +1,3 @@
+/home/janis/Documents/CellScript/build/CMakeFiles/CellScript.dir
+/home/janis/Documents/CellScript/build/CMakeFiles/edit_cache.dir
+/home/janis/Documents/CellScript/build/CMakeFiles/rebuild_cache.dir

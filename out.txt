@@ -1,0 +1,927 @@
+make: Entering directory '/home/janis/Documents/CellScript/build'
+make[1]: Entering directory '/home/janis/Documents/CellScript/build'
+make[2]: Entering directory '/home/janis/Documents/CellScript/build'
+Consolidate compiler generated dependencies of target CellScript
+make[2]: Leaving directory '/home/janis/Documents/CellScript/build'
+make[2]: Entering directory '/home/janis/Documents/CellScript/build'
+[ 20%] Building CXX object CMakeFiles/CellScript.dir/parser.tab.cc.o
+In file included from /home/janis/Documents/CellScript/parser.tab.cc:41:
+parser.yy:16:13: error: ‘YYSTYPE’ was not declared in this scope
+parser.yy:16:21: error: expected primary-expression before ‘,’ token
+parser.yy:16:23: error: ‘YYLTYPE’ was not declared in this scope
+parser.yy:16:31: error: expected primary-expression before ‘)’ token
+parser.yy:16:31: error: expression list treated as compound expression in initializer [-fpermissive]
+parser.yy:18:1: error: expected unqualified-id before ‘%’ token
+In file included from /usr/include/c++/11/map:61,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_map.h:149:15: error: ‘_Rb_tree’ does not name a type
+  149 |       typedef _Rb_tree<key_type, value_type, _Select1st<value_type>,
+      |               ^~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:153:7: error: ‘_Rep_type’ does not name a type; did you mean ‘key_type’?
+  153 |       _Rep_type _M_t;
+      |       ^~~~~~~~~
+      |       key_type
+/usr/include/c++/11/bits/stl_map.h:164:24: error: ‘_Rep_type’ has not been declared
+  164 |       typedef typename _Rep_type::iterator               iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:165:24: error: ‘_Rep_type’ has not been declared
+  165 |       typedef typename _Rep_type::const_iterator         const_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:166:24: error: ‘_Rep_type’ has not been declared
+  166 |       typedef typename _Rep_type::size_type              size_type;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:167:24: error: ‘_Rep_type’ has not been declared
+  167 |       typedef typename _Rep_type::difference_type        difference_type;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:168:24: error: ‘_Rep_type’ has not been declared
+  168 |       typedef typename _Rep_type::reverse_iterator       reverse_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:169:24: error: ‘_Rep_type’ has not been declared
+  169 |       typedef typename _Rep_type::const_reverse_iterator const_reverse_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:172:34: error: ‘_Rep_type’ has not been declared
+  172 |       using node_type = typename _Rep_type::node_type;
+      |                                  ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:173:43: error: ‘_Rep_type’ has not been declared
+  173 |       using insert_return_type = typename _Rep_type::insert_return_type;
+      |                                           ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:615:7: error: ‘node_type’ does not name a type; did you mean ‘size_type’?
+  615 |       node_type
+      |       ^~~~~~~~~
+      |       size_type
+/usr/include/c++/11/bits/stl_map.h:623:7: error: ‘node_type’ does not name a type; did you mean ‘size_type’?
+  623 |       node_type
+      |       ^~~~~~~~~
+      |       size_type
+/usr/include/c++/11/bits/stl_map.h:628:7: error: ‘insert_return_type’ does not name a type
+  628 |       insert_return_type
+      |       ^~~~~~~~~~~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:634:37: error: ‘node_type’ has not been declared
+  634 |       insert(const_iterator __hint, node_type&& __nh)
+      |                                     ^~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h:638:28: error: ‘_Rb_tree_merge_helper’ in namespace ‘std’ does not name a type; did you mean ‘_Hash_merge_helper’?
+  638 |         friend struct std::_Rb_tree_merge_helper;
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            _Hash_merge_helper
+/usr/include/c++/11/bits/stl_map.h:1037:7: error: ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::iterator)’ cannot be overloaded with ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator)’
+ 1037 |       erase(iterator __position)
+      |       ^~~~~
+/usr/include/c++/11/bits/stl_map.h:1031:7: note: previous declaration ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator)’
+ 1031 |       erase(const_iterator __position)
+      |       ^~~~~
+/usr/include/c++/11/bits/stl_map.h:1175:42: error: ‘_M_t’ was not declared in this scope
+ 1175 |         find(const _Kt& __x) -> decltype(_M_t._M_find_tr(__x))
+      |                                          ^~~~
+/usr/include/c++/11/bits/stl_map.h:1175:42: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1200:48: error: ‘_M_t’ was not declared in this scope
+ 1200 |         find(const _Kt& __x) const -> decltype(_M_t._M_find_tr(__x))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_map.h:1200:48: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1221:49: error: ‘_M_t’ was not declared in this scope
+ 1221 |         count(const _Kt& __x) const -> decltype(_M_t._M_count_tr(__x))
+      |                                                 ^~~~
+/usr/include/c++/11/bits/stl_map.h:1221:49: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1265:30: error: ‘_M_t’ was not declared in this scope
+ 1265 |         -> decltype(iterator(_M_t._M_lower_bound_tr(__x)))
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:1265:30: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1290:36: error: ‘_M_t’ was not declared in this scope
+ 1290 |         -> decltype(const_iterator(_M_t._M_lower_bound_tr(__x)))
+      |                                    ^~~~
+/usr/include/c++/11/bits/stl_map.h:1290:36: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1310:30: error: ‘_M_t’ was not declared in this scope
+ 1310 |         -> decltype(iterator(_M_t._M_upper_bound_tr(__x)))
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:1310:30: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1330:36: error: ‘_M_t’ was not declared in this scope
+ 1330 |         -> decltype(const_iterator(_M_t._M_upper_bound_tr(__x)))
+      |                                    ^~~~
+/usr/include/c++/11/bits/stl_map.h:1330:36: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1359:46: error: ‘_M_t’ was not declared in this scope
+ 1359 |         -> decltype(pair<iterator, iterator>(_M_t._M_equal_range_tr(__x)))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:1359:46: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h:1389:15: error: ‘_M_t’ was not declared in this scope
+ 1389 |               _M_t._M_equal_range_tr(__x)))
+      |               ^~~~
+/usr/include/c++/11/bits/stl_map.h:1389:15: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:196:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  196 |       : _M_t(__comp, _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(std::initializer_list<std::pair<const _Key, _Tp> >, const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:231:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  231 |       : _M_t(__comp, _Pair_alloc_type(__a))
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h:232:9: error: ‘_M_t’ was not declared in this scope
+  232 |       { _M_t._M_insert_range_unique(__l.begin(), __l.end()); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:237:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  237 |       : _M_t(_Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(const std::map<_Key, _Tp, _Compare, _Alloc>&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:241:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  241 |       : _M_t(__m._M_t, _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(std::map<_Key, _Tp, _Compare, _Alloc>&&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:247:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  247 |       : _M_t(std::move(__m._M_t), _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(std::initializer_list<std::pair<const _Key, _Tp> >, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:251:9: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  251 |       : _M_t(_Pair_alloc_type(__a))
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h:252:9: error: ‘_M_t’ was not declared in this scope
+  252 |       { _M_t._M_insert_range_unique(__l.begin(), __l.end()); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(_InputIterator, _InputIterator, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:258:11: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  258 |         : _M_t(_Pair_alloc_type(__a))
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h:259:11: error: ‘_M_t’ was not declared in this scope
+  259 |         { _M_t._M_insert_range_unique(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(_InputIterator, _InputIterator)’:
+/usr/include/c++/11/bits/stl_map.h:274:11: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  274 |         : _M_t()
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h:275:11: error: ‘_M_t’ was not declared in this scope
+  275 |         { _M_t._M_insert_range_unique(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h: In constructor ‘std::map<_Key, _Tp, _Compare, _Alloc>::map(_InputIterator, _InputIterator, const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_map.h:293:11: error: class ‘std::map<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  293 |         : _M_t(__comp, _Pair_alloc_type(__a))
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h:294:11: error: ‘_M_t’ was not declared in this scope
+  294 |         { _M_t._M_insert_range_unique(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>& std::map<_Key, _Tp, _Compare, _Alloc>::operator=(std::initializer_list<std::pair<const _Key, _Tp> >)’:
+/usr/include/c++/11/bits/stl_map.h:339:9: error: ‘_M_t’ was not declared in this scope
+  339 |         _M_t._M_assign_unique(__l.begin(), __l.end());
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::allocator_type std::map<_Key, _Tp, _Compare, _Alloc>::get_allocator() const’:
+/usr/include/c++/11/bits/stl_map.h:347:31: error: ‘_M_t’ was not declared in this scope
+  347 |       { return allocator_type(_M_t.get_allocator()); }
+      |                               ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::begin()’:
+/usr/include/c++/11/bits/stl_map.h:357:16: error: ‘_M_t’ was not declared in this scope
+  357 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::begin() const’:
+/usr/include/c++/11/bits/stl_map.h:366:16: error: ‘_M_t’ was not declared in this scope
+  366 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::end()’:
+/usr/include/c++/11/bits/stl_map.h:375:16: error: ‘_M_t’ was not declared in this scope
+  375 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::end() const’:
+/usr/include/c++/11/bits/stl_map.h:384:16: error: ‘_M_t’ was not declared in this scope
+  384 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::rbegin()’:
+/usr/include/c++/11/bits/stl_map.h:393:16: error: ‘_M_t’ was not declared in this scope
+  393 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::rbegin() const’:
+/usr/include/c++/11/bits/stl_map.h:402:16: error: ‘_M_t’ was not declared in this scope
+  402 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::rend()’:
+/usr/include/c++/11/bits/stl_map.h:411:16: error: ‘_M_t’ was not declared in this scope
+  411 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::rend() const’:
+/usr/include/c++/11/bits/stl_map.h:420:16: error: ‘_M_t’ was not declared in this scope
+  420 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::cbegin() const’:
+/usr/include/c++/11/bits/stl_map.h:430:16: error: ‘_M_t’ was not declared in this scope
+  430 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::cend() const’:
+/usr/include/c++/11/bits/stl_map.h:439:16: error: ‘_M_t’ was not declared in this scope
+  439 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::crbegin() const’:
+/usr/include/c++/11/bits/stl_map.h:448:16: error: ‘_M_t’ was not declared in this scope
+  448 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::map<_Key, _Tp, _Compare, _Alloc>::crend() const’:
+/usr/include/c++/11/bits/stl_map.h:457:16: error: ‘_M_t’ was not declared in this scope
+  457 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘bool std::map<_Key, _Tp, _Compare, _Alloc>::empty() const’:
+/usr/include/c++/11/bits/stl_map.h:466:16: error: ‘_M_t’ was not declared in this scope
+  466 |       { return _M_t.empty(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::size_type std::map<_Key, _Tp, _Compare, _Alloc>::size() const’:
+/usr/include/c++/11/bits/stl_map.h:471:16: error: ‘_M_t’ was not declared in this scope
+  471 |       { return _M_t.size(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::size_type std::map<_Key, _Tp, _Compare, _Alloc>::max_size() const’:
+/usr/include/c++/11/bits/stl_map.h:476:16: error: ‘_M_t’ was not declared in this scope
+  476 |       { return _M_t.max_size(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::operator[](const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:499:46: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  499 |         if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:501:17: error: ‘_M_t’ was not declared in this scope
+  501 |           __i = _M_t._M_emplace_hint_unique(__i, std::piecewise_construct,
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h:507:17: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  507 |         return (*__i).second;
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::operator[](std::map<_Key, _Tp, _Compare, _Alloc>::key_type&&)’:
+/usr/include/c++/11/bits/stl_map.h:519:46: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  519 |         if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:520:17: error: ‘_M_t’ was not declared in this scope
+  520 |           __i = _M_t._M_emplace_hint_unique(__i, std::piecewise_construct,
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h:523:17: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  523 |         return (*__i).second;
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::at(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:540:46: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  540 |         if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:542:17: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  542 |         return (*__i).second;
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘const mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::at(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:549:46: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator’ {aka ‘int’})
+  549 |         if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:551:17: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator’ {aka ‘int’})
+  551 |         return (*__i).second;
+      |                 ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::emplace(_Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:577:18: error: ‘_M_t’ was not declared in this scope
+  577 |         { return _M_t._M_emplace_unique(std::forward<_Args>(__args)...); }
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::emplace_hint(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:608:18: error: ‘_M_t’ was not declared in this scope
+  608 |           return _M_t._M_emplace_hint_unique(__pos,
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::insert(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, int&&)’:
+/usr/include/c++/11/bits/stl_map.h:635:16: error: ‘_M_t’ was not declared in this scope
+  635 |       { return _M_t._M_reinsert_node_hint_unique(__hint, std::move(__nh)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘void std::map<_Key, _Tp, _Compare, _Alloc>::merge(std::map<_Key, _Tp, _Cmp2, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_map.h:644:33: error: ‘_Rb_tree_merge_helper’ does not name a type; did you mean ‘_Hash_merge_helper’?
+  644 |           using _Merge_helper = _Rb_tree_merge_helper<map, _Cmp2>;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~
+      |                                 _Hash_merge_helper
+/usr/include/c++/11/bits/stl_map.h:645:11: error: ‘_M_t’ was not declared in this scope
+  645 |           _M_t._M_merge_unique(_Merge_helper::_S_get_tree(__source));
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h:645:32: error: ‘_Merge_helper’ has not been declared
+  645 |           _M_t._M_merge_unique(_Merge_helper::_S_get_tree(__source));
+      |                                ^~~~~~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘void std::map<_Key, _Tp, _Compare, _Alloc>::merge(std::multimap<_Key, _Tp, _Cmp2, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_map.h:657:33: error: ‘_Rb_tree_merge_helper’ does not name a type; did you mean ‘_Hash_merge_helper’?
+  657 |           using _Merge_helper = _Rb_tree_merge_helper<map, _Cmp2>;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~
+      |                                 _Hash_merge_helper
+/usr/include/c++/11/bits/stl_map.h:658:11: error: ‘_M_t’ was not declared in this scope
+  658 |           _M_t._M_merge_unique(_Merge_helper::_S_get_tree(__source));
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h:658:32: error: ‘_Merge_helper’ has not been declared
+  658 |           _M_t._M_merge_unique(_Merge_helper::_S_get_tree(__source));
+      |                                ^~~~~~~~~~~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::try_emplace(const key_type&, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:694:48: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  694 |           if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::try_emplace(std::map<_Key, _Tp, _Compare, _Alloc>::key_type&&, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:711:48: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  711 |           if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::try_emplace(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, const key_type&, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:755:30: error: ‘_M_t’ was not declared in this scope
+  755 |           auto __true_hint = _M_t._M_get_insert_hint_unique_pos(__hint, __k);
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::try_emplace(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::map<_Key, _Tp, _Compare, _Alloc>::key_type&&, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_map.h:773:30: error: ‘_M_t’ was not declared in this scope
+  773 |           auto __true_hint = _M_t._M_get_insert_hint_unique_pos(__hint, __k);
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::insert(const value_type&)’:
+/usr/include/c++/11/bits/stl_map.h:804:16: error: ‘_M_t’ was not declared in this scope
+  804 |       { return _M_t._M_insert_unique(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::insert(std::map<_Key, _Tp, _Compare, _Alloc>::value_type&&)’:
+/usr/include/c++/11/bits/stl_map.h:811:16: error: ‘_M_t’ was not declared in this scope
+  811 |       { return _M_t._M_insert_unique(std::move(__x)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::__enable_if_t<std::is_constructible<std::pair<const _Key, _Tp>, _Pair>::value, std::pair<int, bool> > std::map<_Key, _Tp, _Compare, _Alloc>::insert(_Pair&&)’:
+/usr/include/c++/11/bits/stl_map.h:817:18: error: ‘_M_t’ was not declared in this scope
+  817 |         { return _M_t._M_emplace_unique(std::forward<_Pair>(__x)); }
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::insert(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, const value_type&)’:
+/usr/include/c++/11/bits/stl_map.h:864:16: error: ‘_M_t’ was not declared in this scope
+  864 |       { return _M_t._M_insert_unique_(__position, __x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::insert(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::map<_Key, _Tp, _Compare, _Alloc>::value_type&&)’:
+/usr/include/c++/11/bits/stl_map.h:871:16: error: ‘_M_t’ was not declared in this scope
+  871 |       { return _M_t._M_insert_unique_(__position, std::move(__x)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::__enable_if_t<std::is_constructible<std::pair<const _Key, _Tp>, _Pair>::value, int> std::map<_Key, _Tp, _Compare, _Alloc>::insert(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, _Pair&&)’:
+/usr/include/c++/11/bits/stl_map.h:877:18: error: ‘_M_t’ was not declared in this scope
+  877 |           return _M_t._M_emplace_hint_unique(__position,
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘void std::map<_Key, _Tp, _Compare, _Alloc>::insert(_InputIterator, _InputIterator)’:
+/usr/include/c++/11/bits/stl_map.h:894:11: error: ‘_M_t’ was not declared in this scope
+  894 |         { _M_t._M_insert_range_unique(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::insert_or_assign(const key_type&, _Obj&&)’:
+/usr/include/c++/11/bits/stl_map.h:921:48: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  921 |           if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_map.h:929:12: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  929 |           (*__i).second = std::forward<_Obj>(__obj);
+      |            ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, bool> std::map<_Key, _Tp, _Compare, _Alloc>::insert_or_assign(std::map<_Key, _Tp, _Compare, _Alloc>::key_type&&, _Obj&&)’:
+/usr/include/c++/11/bits/stl_map.h:939:48: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  939 |           if (__i == end() || key_comp()(__k, (*__i).first))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_map.h:947:12: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  947 |           (*__i).second = std::forward<_Obj>(__obj);
+      |            ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::insert_or_assign(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, const key_type&, _Obj&&)’:
+/usr/include/c++/11/bits/stl_map.h:977:30: error: ‘_M_t’ was not declared in this scope
+  977 |           auto __true_hint = _M_t._M_get_insert_hint_unique_pos(__hint, __k);
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:987:12: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+  987 |           (*__i).second = std::forward<_Obj>(__obj);
+      |            ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::insert_or_assign(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::map<_Key, _Tp, _Compare, _Alloc>::key_type&&, _Obj&&)’:
+/usr/include/c++/11/bits/stl_map.h:997:30: error: ‘_M_t’ was not declared in this scope
+  997 |           auto __true_hint = _M_t._M_get_insert_hint_unique_pos(__hint, __k);
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h:1007:12: error: invalid type argument of unary ‘*’ (have ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator’ {aka ‘int’})
+ 1007 |           (*__i).second = std::forward<_Obj>(__obj);
+      |            ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator)’:
+/usr/include/c++/11/bits/stl_map.h:1032:16: error: ‘_M_t’ was not declared in this scope
+ 1032 |       { return _M_t.erase(__position); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::iterator)’:
+/usr/include/c++/11/bits/stl_map.h:1038:16: error: ‘_M_t’ was not declared in this scope
+ 1038 |       { return _M_t.erase(__position); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::size_type std::map<_Key, _Tp, _Compare, _Alloc>::erase(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:1069:16: error: ‘_M_t’ was not declared in this scope
+ 1069 |       { return _M_t.erase(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::erase(std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator)’:
+/usr/include/c++/11/bits/stl_map.h:1089:16: error: ‘_M_t’ was not declared in this scope
+ 1089 |       { return _M_t.erase(__first, __last); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘void std::map<_Key, _Tp, _Compare, _Alloc>::swap(std::map<_Key, _Tp, _Compare, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_map.h:1124:9: error: ‘_M_t’ was not declared in this scope
+ 1124 |       { _M_t.swap(__x._M_t); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘void std::map<_Key, _Tp, _Compare, _Alloc>::clear()’:
+/usr/include/c++/11/bits/stl_map.h:1134:9: error: ‘_M_t’ was not declared in this scope
+ 1134 |       { _M_t.clear(); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::key_compare std::map<_Key, _Tp, _Compare, _Alloc>::key_comp() const’:
+/usr/include/c++/11/bits/stl_map.h:1143:16: error: ‘_M_t’ was not declared in this scope
+ 1143 |       { return _M_t.key_comp(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::value_compare std::map<_Key, _Tp, _Compare, _Alloc>::value_comp() const’:
+/usr/include/c++/11/bits/stl_map.h:1151:30: error: ‘_M_t’ was not declared in this scope
+ 1151 |       { return value_compare(_M_t.key_comp()); }
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::find(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:1170:16: error: ‘_M_t’ was not declared in this scope
+ 1170 |       { return _M_t.find(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::find(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:1195:16: error: ‘_M_t’ was not declared in this scope
+ 1195 |       { return _M_t.find(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::size_type std::map<_Key, _Tp, _Compare, _Alloc>::count(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:1216:16: error: ‘_M_t’ was not declared in this scope
+ 1216 |       { return _M_t.find(__x) == _M_t.end() ? 0 : 1; }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::lower_bound(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:1259:16: error: ‘_M_t’ was not declared in this scope
+ 1259 |       { return _M_t.lower_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::lower_bound(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:1284:16: error: ‘_M_t’ was not declared in this scope
+ 1284 |       { return _M_t.lower_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::iterator std::map<_Key, _Tp, _Compare, _Alloc>::upper_bound(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:1304:16: error: ‘_M_t’ was not declared in this scope
+ 1304 |       { return _M_t.upper_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::map<_Key, _Tp, _Compare, _Alloc>::const_iterator std::map<_Key, _Tp, _Compare, _Alloc>::upper_bound(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:1324:16: error: ‘_M_t’ was not declared in this scope
+ 1324 |       { return _M_t.upper_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, int> std::map<_Key, _Tp, _Compare, _Alloc>::equal_range(const key_type&)’:
+/usr/include/c++/11/bits/stl_map.h:1353:16: error: ‘_M_t’ was not declared in this scope
+ 1353 |       { return _M_t.equal_range(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: In member function ‘std::pair<int, int> std::map<_Key, _Tp, _Compare, _Alloc>::equal_range(const key_type&) const’:
+/usr/include/c++/11/bits/stl_map.h:1382:16: error: ‘_M_t’ was not declared in this scope
+ 1382 |       { return _M_t.equal_range(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_map.h: At global scope:
+/usr/include/c++/11/bits/stl_map.h:1549:5: error: ‘_Rb_tree_merge_helper’ is not a class template
+ 1549 |     _Rb_tree_merge_helper<_GLIBCXX_STD_C::map<_Key, _Val, _Cmp1, _Alloc>,
+      |     ^~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/11/map:62,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_multimap.h:148:15: error: ‘_Rb_tree’ does not name a type
+  148 |       typedef _Rb_tree<key_type, value_type, _Select1st<value_type>,
+      |               ^~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:151:7: error: ‘_Rep_type’ does not name a type; did you mean ‘key_type’?
+  151 |       _Rep_type _M_t;
+      |       ^~~~~~~~~
+      |       key_type
+/usr/include/c++/11/bits/stl_multimap.h:162:24: error: ‘_Rep_type’ has not been declared
+  162 |       typedef typename _Rep_type::iterator               iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:163:24: error: ‘_Rep_type’ has not been declared
+  163 |       typedef typename _Rep_type::const_iterator         const_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:164:24: error: ‘_Rep_type’ has not been declared
+  164 |       typedef typename _Rep_type::size_type              size_type;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:165:24: error: ‘_Rep_type’ has not been declared
+  165 |       typedef typename _Rep_type::difference_type        difference_type;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:166:24: error: ‘_Rep_type’ has not been declared
+  166 |       typedef typename _Rep_type::reverse_iterator       reverse_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:167:24: error: ‘_Rep_type’ has not been declared
+  167 |       typedef typename _Rep_type::const_reverse_iterator const_reverse_iterator;
+      |                        ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:170:34: error: ‘_Rep_type’ has not been declared
+  170 |       using node_type = typename _Rep_type::node_type;
+      |                                  ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:631:7: error: ‘node_type’ does not name a type; did you mean ‘size_type’?
+  631 |       node_type
+      |       ^~~~~~~~~
+      |       size_type
+/usr/include/c++/11/bits/stl_multimap.h:639:7: error: ‘node_type’ does not name a type; did you mean ‘size_type’?
+  639 |       node_type
+      |       ^~~~~~~~~
+      |       size_type
+/usr/include/c++/11/bits/stl_multimap.h:645:14: error: ‘node_type’ has not been declared
+  645 |       insert(node_type&& __nh)
+      |              ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:650:37: error: ‘node_type’ has not been declared
+  650 |       insert(const_iterator __hint, node_type&& __nh)
+      |                                     ^~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h:708:7: error: ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator)’ cannot be overloaded with ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator)’
+  708 |       erase(iterator __position)
+      |       ^~~~~
+/usr/include/c++/11/bits/stl_multimap.h:702:7: note: previous declaration ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator)’
+  702 |       erase(const_iterator __position)
+      |       ^~~~~
+/usr/include/c++/11/bits/stl_multimap.h:849:42: error: ‘_M_t’ was not declared in this scope
+  849 |         find(const _Kt& __x) -> decltype(_M_t._M_find_tr(__x))
+      |                                          ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:849:42: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:873:48: error: ‘_M_t’ was not declared in this scope
+  873 |         find(const _Kt& __x) const -> decltype(_M_t._M_find_tr(__x))
+      |                                                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:873:48: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:891:49: error: ‘_M_t’ was not declared in this scope
+  891 |         count(const _Kt& __x) const -> decltype(_M_t._M_count_tr(__x))
+      |                                                 ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:891:49: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:935:30: error: ‘_M_t’ was not declared in this scope
+  935 |         -> decltype(iterator(_M_t._M_lower_bound_tr(__x)))
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:935:30: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:960:36: error: ‘_M_t’ was not declared in this scope
+  960 |         -> decltype(const_iterator(_M_t._M_lower_bound_tr(__x)))
+      |                                    ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:960:36: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:980:30: error: ‘_M_t’ was not declared in this scope
+  980 |         -> decltype(iterator(_M_t._M_upper_bound_tr(__x)))
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:980:30: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:1000:36: error: ‘_M_t’ was not declared in this scope
+ 1000 |         -> decltype(const_iterator(_M_t._M_upper_bound_tr(__x)))
+      |                                    ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:1000:36: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:1027:46: error: ‘_M_t’ was not declared in this scope
+ 1027 |         -> decltype(pair<iterator, iterator>(_M_t._M_equal_range_tr(__x)))
+      |                                              ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:1027:46: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h:1055:15: error: ‘_M_t’ was not declared in this scope
+ 1055 |               _M_t._M_equal_range_tr(__x)))
+      |               ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:1055:15: error: ‘_M_t’ was not declared in this scope
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:193:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  193 |       : _M_t(__comp, _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(std::initializer_list<std::pair<const _Key, _Tp> >, const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:228:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  228 |       : _M_t(__comp, _Pair_alloc_type(__a))
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:229:9: error: ‘_M_t’ was not declared in this scope
+  229 |       { _M_t._M_insert_range_equal(__l.begin(), __l.end()); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:234:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  234 |       : _M_t(_Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(const std::multimap<_Key, _Tp, _Compare, _Alloc>&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:238:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  238 |       : _M_t(__m._M_t, _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(std::multimap<_Key, _Tp, _Compare, _Alloc>&&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:244:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  244 |       : _M_t(std::move(__m._M_t), _Pair_alloc_type(__a)) { }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(std::initializer_list<std::pair<const _Key, _Tp> >, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:248:9: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  248 |       : _M_t(_Pair_alloc_type(__a))
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:249:9: error: ‘_M_t’ was not declared in this scope
+  249 |       { _M_t._M_insert_range_equal(__l.begin(), __l.end()); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(_InputIterator, _InputIterator, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:255:11: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  255 |         : _M_t(_Pair_alloc_type(__a))
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:256:11: error: ‘_M_t’ was not declared in this scope
+  256 |         { _M_t._M_insert_range_equal(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(_InputIterator, _InputIterator)’:
+/usr/include/c++/11/bits/stl_multimap.h:270:11: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  270 |         : _M_t()
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:271:11: error: ‘_M_t’ was not declared in this scope
+  271 |         { _M_t._M_insert_range_equal(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In constructor ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::multimap(_InputIterator, _InputIterator, const _Compare&, const allocator_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:288:11: error: class ‘std::multimap<_Key, _Tp, _Compare, _Alloc>’ does not have any field named ‘_M_t’
+  288 |         : _M_t(__comp, _Pair_alloc_type(__a))
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:289:11: error: ‘_M_t’ was not declared in this scope
+  289 |         { _M_t._M_insert_range_equal(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>& std::multimap<_Key, _Tp, _Compare, _Alloc>::operator=(std::initializer_list<std::pair<const _Key, _Tp> >)’:
+/usr/include/c++/11/bits/stl_multimap.h:334:9: error: ‘_M_t’ was not declared in this scope
+  334 |         _M_t._M_assign_equal(__l.begin(), __l.end());
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::allocator_type std::multimap<_Key, _Tp, _Compare, _Alloc>::get_allocator() const’:
+/usr/include/c++/11/bits/stl_multimap.h:342:31: error: ‘_M_t’ was not declared in this scope
+  342 |       { return allocator_type(_M_t.get_allocator()); }
+      |                               ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::begin()’:
+/usr/include/c++/11/bits/stl_multimap.h:352:16: error: ‘_M_t’ was not declared in this scope
+  352 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::begin() const’:
+/usr/include/c++/11/bits/stl_multimap.h:361:16: error: ‘_M_t’ was not declared in this scope
+  361 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::end()’:
+/usr/include/c++/11/bits/stl_multimap.h:370:16: error: ‘_M_t’ was not declared in this scope
+  370 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::end() const’:
+/usr/include/c++/11/bits/stl_multimap.h:379:16: error: ‘_M_t’ was not declared in this scope
+  379 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::rbegin()’:
+/usr/include/c++/11/bits/stl_multimap.h:388:16: error: ‘_M_t’ was not declared in this scope
+  388 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::rbegin() const’:
+/usr/include/c++/11/bits/stl_multimap.h:397:16: error: ‘_M_t’ was not declared in this scope
+  397 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::rend()’:
+/usr/include/c++/11/bits/stl_multimap.h:406:16: error: ‘_M_t’ was not declared in this scope
+  406 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::rend() const’:
+/usr/include/c++/11/bits/stl_multimap.h:415:16: error: ‘_M_t’ was not declared in this scope
+  415 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::cbegin() const’:
+/usr/include/c++/11/bits/stl_multimap.h:425:16: error: ‘_M_t’ was not declared in this scope
+  425 |       { return _M_t.begin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::cend() const’:
+/usr/include/c++/11/bits/stl_multimap.h:434:16: error: ‘_M_t’ was not declared in this scope
+  434 |       { return _M_t.end(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::crbegin() const’:
+/usr/include/c++/11/bits/stl_multimap.h:443:16: error: ‘_M_t’ was not declared in this scope
+  443 |       { return _M_t.rbegin(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_reverse_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::crend() const’:
+/usr/include/c++/11/bits/stl_multimap.h:452:16: error: ‘_M_t’ was not declared in this scope
+  452 |       { return _M_t.rend(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘bool std::multimap<_Key, _Tp, _Compare, _Alloc>::empty() const’:
+/usr/include/c++/11/bits/stl_multimap.h:459:16: error: ‘_M_t’ was not declared in this scope
+  459 |       { return _M_t.empty(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::size_type std::multimap<_Key, _Tp, _Compare, _Alloc>::size() const’:
+/usr/include/c++/11/bits/stl_multimap.h:464:16: error: ‘_M_t’ was not declared in this scope
+  464 |       { return _M_t.size(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::size_type std::multimap<_Key, _Tp, _Compare, _Alloc>::max_size() const’:
+/usr/include/c++/11/bits/stl_multimap.h:469:16: error: ‘_M_t’ was not declared in this scope
+  469 |       { return _M_t.max_size(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::emplace(_Args&& ...)’:
+/usr/include/c++/11/bits/stl_multimap.h:492:18: error: ‘_M_t’ was not declared in this scope
+  492 |         { return _M_t._M_emplace_equal(std::forward<_Args>(__args)...); }
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::emplace_hint(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, _Args&& ...)’:
+/usr/include/c++/11/bits/stl_multimap.h:520:18: error: ‘_M_t’ was not declared in this scope
+  520 |           return _M_t._M_emplace_hint_equal(__pos,
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(const value_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:540:16: error: ‘_M_t’ was not declared in this scope
+  540 |       { return _M_t._M_insert_equal(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(std::multimap<_Key, _Tp, _Compare, _Alloc>::value_type&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:547:16: error: ‘_M_t’ was not declared in this scope
+  547 |       { return _M_t._M_insert_equal(std::move(__x)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::__enable_if_t<std::is_constructible<std::pair<const _Key, _Tp>, _Pair>::value, int> std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(_Pair&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:552:18: error: ‘_M_t’ was not declared in this scope
+  552 |         { return _M_t._M_emplace_equal(std::forward<_Pair>(__x)); }
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, const value_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:583:16: error: ‘_M_t’ was not declared in this scope
+  583 |       { return _M_t._M_insert_equal_(__position, __x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::multimap<_Key, _Tp, _Compare, _Alloc>::value_type&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:590:16: error: ‘_M_t’ was not declared in this scope
+  590 |       { return _M_t._M_insert_equal_(__position, std::move(__x)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::__enable_if_t<std::is_constructible<std::pair<const _Key, _Tp>, _Pair&&>::value, int> std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, _Pair&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:596:18: error: ‘_M_t’ was not declared in this scope
+  596 |           return _M_t._M_emplace_hint_equal(__position,
+      |                  ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘void std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(_InputIterator, _InputIterator)’:
+/usr/include/c++/11/bits/stl_multimap.h:614:11: error: ‘_M_t’ was not declared in this scope
+  614 |         { _M_t._M_insert_range_equal(__first, __last); }
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(int&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:646:16: error: ‘_M_t’ was not declared in this scope
+  646 |       { return _M_t._M_reinsert_node_equal(std::move(__nh)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::insert(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, int&&)’:
+/usr/include/c++/11/bits/stl_multimap.h:651:16: error: ‘_M_t’ was not declared in this scope
+  651 |       { return _M_t._M_reinsert_node_hint_equal(__hint, std::move(__nh)); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘void std::multimap<_Key, _Tp, _Compare, _Alloc>::merge(std::multimap<_Key, _Tp, _Cmp2, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_multimap.h:660:70: error: wrong number of template arguments (2, should be 5)
+  660 |           using _Merge_helper = _Rb_tree_merge_helper<multimap, _Cmp2>;
+      |                                                                      ^
+In file included from /usr/include/c++/11/map:61,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_map.h:1550:32: note: provided for ‘template<class _Key, class _Val, class _Cmp1, class _Alloc, class _Cmp2> struct std::_Rb_tree_merge_helper’
+ 1550 |                           _Cmp2>
+      |                                ^
+In file included from /usr/include/c++/11/map:62,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_multimap.h:661:11: error: ‘_M_t’ was not declared in this scope
+  661 |           _M_t._M_merge_equal(_Merge_helper::_S_get_tree(__source));
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:661:31: error: ‘_Merge_helper’ has not been declared
+  661 |           _M_t._M_merge_equal(_Merge_helper::_S_get_tree(__source));
+      |                               ^~~~~~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘void std::multimap<_Key, _Tp, _Compare, _Alloc>::merge(std::map<_Key, _Tp, _Cmp2, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_multimap.h:673:70: error: wrong number of template arguments (2, should be 5)
+  673 |           using _Merge_helper = _Rb_tree_merge_helper<multimap, _Cmp2>;
+      |                                                                      ^
+In file included from /usr/include/c++/11/map:61,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_map.h:1550:32: note: provided for ‘template<class _Key, class _Val, class _Cmp1, class _Alloc, class _Cmp2> struct std::_Rb_tree_merge_helper’
+ 1550 |                           _Cmp2>
+      |                                ^
+In file included from /usr/include/c++/11/map:62,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_multimap.h:674:11: error: ‘_M_t’ was not declared in this scope
+  674 |           _M_t._M_merge_equal(_Merge_helper::_S_get_tree(__source));
+      |           ^~~~
+/usr/include/c++/11/bits/stl_multimap.h:674:31: error: ‘_Merge_helper’ has not been declared
+  674 |           _M_t._M_merge_equal(_Merge_helper::_S_get_tree(__source));
+      |                               ^~~~~~~~~~~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator)’:
+/usr/include/c++/11/bits/stl_multimap.h:703:16: error: ‘_M_t’ was not declared in this scope
+  703 |       { return _M_t.erase(__position); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator)’:
+/usr/include/c++/11/bits/stl_multimap.h:709:16: error: ‘_M_t’ was not declared in this scope
+  709 |       { return _M_t.erase(__position); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::size_type std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(const key_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:740:16: error: ‘_M_t’ was not declared in this scope
+  740 |       { return _M_t.erase(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::erase(std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator, std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator)’:
+/usr/include/c++/11/bits/stl_multimap.h:761:16: error: ‘_M_t’ was not declared in this scope
+  761 |       { return _M_t.erase(__first, __last); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘void std::multimap<_Key, _Tp, _Compare, _Alloc>::swap(std::multimap<_Key, _Tp, _Compare, _Alloc>&)’:
+/usr/include/c++/11/bits/stl_multimap.h:799:9: error: ‘_M_t’ was not declared in this scope
+  799 |       { _M_t.swap(__x._M_t); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘void std::multimap<_Key, _Tp, _Compare, _Alloc>::clear()’:
+/usr/include/c++/11/bits/stl_multimap.h:809:9: error: ‘_M_t’ was not declared in this scope
+  809 |       { _M_t.clear(); }
+      |         ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::key_compare std::multimap<_Key, _Tp, _Compare, _Alloc>::key_comp() const’:
+/usr/include/c++/11/bits/stl_multimap.h:818:16: error: ‘_M_t’ was not declared in this scope
+  818 |       { return _M_t.key_comp(); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::value_compare std::multimap<_Key, _Tp, _Compare, _Alloc>::value_comp() const’:
+/usr/include/c++/11/bits/stl_multimap.h:826:30: error: ‘_M_t’ was not declared in this scope
+  826 |       { return value_compare(_M_t.key_comp()); }
+      |                              ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::find(const key_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:844:16: error: ‘_M_t’ was not declared in this scope
+  844 |       { return _M_t.find(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::find(const key_type&) const’:
+/usr/include/c++/11/bits/stl_multimap.h:868:16: error: ‘_M_t’ was not declared in this scope
+  868 |       { return _M_t.find(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::size_type std::multimap<_Key, _Tp, _Compare, _Alloc>::count(const key_type&) const’:
+/usr/include/c++/11/bits/stl_multimap.h:886:16: error: ‘_M_t’ was not declared in this scope
+  886 |       { return _M_t.count(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::lower_bound(const key_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:929:16: error: ‘_M_t’ was not declared in this scope
+  929 |       { return _M_t.lower_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::lower_bound(const key_type&) const’:
+/usr/include/c++/11/bits/stl_multimap.h:954:16: error: ‘_M_t’ was not declared in this scope
+  954 |       { return _M_t.lower_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::upper_bound(const key_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:974:16: error: ‘_M_t’ was not declared in this scope
+  974 |       { return _M_t.upper_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::multimap<_Key, _Tp, _Compare, _Alloc>::const_iterator std::multimap<_Key, _Tp, _Compare, _Alloc>::upper_bound(const key_type&) const’:
+/usr/include/c++/11/bits/stl_multimap.h:994:16: error: ‘_M_t’ was not declared in this scope
+  994 |       { return _M_t.upper_bound(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::pair<int, int> std::multimap<_Key, _Tp, _Compare, _Alloc>::equal_range(const key_type&)’:
+/usr/include/c++/11/bits/stl_multimap.h:1021:16: error: ‘_M_t’ was not declared in this scope
+ 1021 |       { return _M_t.equal_range(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: In member function ‘std::pair<int, int> std::multimap<_Key, _Tp, _Compare, _Alloc>::equal_range(const key_type&) const’:
+/usr/include/c++/11/bits/stl_multimap.h:1048:16: error: ‘_M_t’ was not declared in this scope
+ 1048 |       { return _M_t.equal_range(__x); }
+      |                ^~~~
+/usr/include/c++/11/bits/stl_multimap.h: At global scope:
+/usr/include/c++/11/bits/stl_multimap.h:1215:32: error: wrong number of template arguments (2, should be 5)
+ 1215 |                           _Cmp2>
+      |                                ^
+In file included from /usr/include/c++/11/map:61,
+                 from parser.yy:23:
+/usr/include/c++/11/bits/stl_map.h:1550:32: note: provided for ‘template<class _Key, class _Val, class _Cmp1, class _Alloc, class _Cmp2> struct std::_Rb_tree_merge_helper’
+ 1550 |                           _Cmp2>
+      |                                ^
+parser.tab.cc: In member function ‘virtual int yy::parser::parse()’:
+parser.tab.cc:604:46: error: ‘yylex’ cannot be used as a function
+parser.yy:79:41: error: cannot convert ‘shared_ptr<shared_ptr<std::shared_ptr<DataType>>>’ to ‘shared_ptr<shared_ptr<DataType>>’
+In file included from parser.yy:11,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/home/janis/Documents/CellScript/program.h:122:37: note:   initializing argument 1 of ‘void Program::attach_assignment(DataPtr, std::shared_ptr<Expression>)’
+  122 |     void attach_assignment(DataPtr mem_location, shared_ptr<Expression> expression);
+      |                            ~~~~~~~~~^~~~~~~~~~~~
+parser.yy:80:66: error: no match for ‘operator=’ (operand types are ‘std::map<std::basic_string_view<char>, std::shared_ptr<std::shared_ptr<DataType> > >::mapped_type’ {aka ‘std::shared_ptr<std::shared_ptr<DataType> >’} and ‘std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >’)
+In file included from /usr/include/c++/11/memory:77,
+                 from /home/janis/Documents/CellScript/datatypes.h:7,
+                 from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/usr/include/c++/11/bits/shared_ptr.h:363:9: note: candidate: ‘template<class _Yp> std::shared_ptr<_Tp>::_Assignable<const std::shared_ptr<_Yp>&> std::shared_ptr<_Tp>::operator=(const std::shared_ptr<_Yp>&) [with _Yp = _Yp; _Tp = std::shared_ptr<DataType>]’
+  363 |         operator=(const shared_ptr<_Yp>& __r) noexcept
+      |         ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:363:9: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/shared_ptr.h: In substitution of ‘template<class _Tp> template<class _Arg> using _Assignable = typename std::enable_if<std::is_assignable<std::__shared_ptr<_Tp>&, _Arg>::value, std::shared_ptr<_Tp>&>::type [with _Arg = const std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >&; _Tp = std::shared_ptr<DataType>]’:
+/usr/include/c++/11/bits/shared_ptr.h:363:2:   required by substitution of ‘template<class _Yp> std::shared_ptr<std::shared_ptr<DataType> >::_Assignable<const std::shared_ptr<_Tp>&> std::shared_ptr<std::shared_ptr<DataType> >::operator=<_Yp>(const std::shared_ptr<_Tp>&) [with _Yp = std::shared_ptr<std::shared_ptr<DataType> >]’
+parser.yy:80:66:   required from here
+/usr/include/c++/11/bits/shared_ptr.h:130:15: error: no type named ‘type’ in ‘struct std::enable_if<false, std::shared_ptr<std::shared_ptr<DataType> >&>’
+  130 |         using _Assignable = typename enable_if<
+      |               ^~~~~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:374:9: note: candidate: ‘template<class _Yp> std::shared_ptr<_Tp>::_Assignable<std::auto_ptr<_Up> > std::shared_ptr<_Tp>::operator=(std::auto_ptr<_Up>&&) [with _Yp = _Yp; _Tp = std::shared_ptr<DataType>]’
+  374 |         operator=(auto_ptr<_Yp>&& __r)
+      |         ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:374:9: note:   template argument deduction/substitution failed:
+parser.yy:80:66: note:   ‘std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >’ is not derived from ‘std::auto_ptr<_Up>’
+In file included from /usr/include/c++/11/memory:77,
+                 from /home/janis/Documents/CellScript/datatypes.h:7,
+                 from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/usr/include/c++/11/bits/shared_ptr.h:391:9: note: candidate: ‘template<class _Yp> std::shared_ptr<_Tp>::_Assignable<std::shared_ptr<_Yp> > std::shared_ptr<_Tp>::operator=(std::shared_ptr<_Yp>&&) [with _Yp = _Yp; _Tp = std::shared_ptr<DataType>]’
+  391 |         operator=(shared_ptr<_Yp>&& __r) noexcept
+      |         ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:391:9: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/shared_ptr.h: In substitution of ‘template<class _Tp> template<class _Arg> using _Assignable = typename std::enable_if<std::is_assignable<std::__shared_ptr<_Tp>&, _Arg>::value, std::shared_ptr<_Tp>&>::type [with _Arg = std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >; _Tp = std::shared_ptr<DataType>]’:
+/usr/include/c++/11/bits/shared_ptr.h:391:2:   required by substitution of ‘template<class _Yp> std::shared_ptr<std::shared_ptr<DataType> >::_Assignable<std::shared_ptr<_Tp> > std::shared_ptr<std::shared_ptr<DataType> >::operator=<_Yp>(std::shared_ptr<_Tp>&&) [with _Yp = std::shared_ptr<std::shared_ptr<DataType> >]’
+parser.yy:80:66:   required from here
+/usr/include/c++/11/bits/shared_ptr.h:130:15: error: no type named ‘type’ in ‘struct std::enable_if<false, std::shared_ptr<std::shared_ptr<DataType> >&>’
+  130 |         using _Assignable = typename enable_if<
+      |               ^~~~~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:399:9: note: candidate: ‘template<class _Yp, class _Del> std::shared_ptr<_Tp>::_Assignable<std::unique_ptr<_Up, _Ep> > std::shared_ptr<_Tp>::operator=(std::unique_ptr<_Up, _Ep>&&) [with _Yp = _Yp; _Del = _Del; _Tp = std::shared_ptr<DataType>]’
+  399 |         operator=(unique_ptr<_Yp, _Del>&& __r)
+      |         ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:399:9: note:   template argument deduction/substitution failed:
+parser.yy:80:66: note:   ‘std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >’ is not derived from ‘std::unique_ptr<_Tp, _Dp>’
+In file included from /usr/include/c++/11/memory:77,
+                 from /home/janis/Documents/CellScript/datatypes.h:7,
+                 from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/usr/include/c++/11/bits/shared_ptr.h:359:19: note: candidate: ‘std::shared_ptr<_Tp>& std::shared_ptr<_Tp>::operator=(const std::shared_ptr<_Tp>&) [with _Tp = std::shared_ptr<DataType>]’
+  359 |       shared_ptr& operator=(const shared_ptr&) noexcept = default;
+      |                   ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:359:29: note:   no known conversion for argument 1 from ‘std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >’ to ‘const std::shared_ptr<std::shared_ptr<DataType> >&’
+  359 |       shared_ptr& operator=(const shared_ptr&) noexcept = default;
+      |                             ^~~~~~~~~~~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:383:7: note: candidate: ‘std::shared_ptr<_Tp>& std::shared_ptr<_Tp>::operator=(std::shared_ptr<_Tp>&&) [with _Tp = std::shared_ptr<DataType>]’
+  383 |       operator=(shared_ptr&& __r) noexcept
+      |       ^~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:383:30: note:   no known conversion for argument 1 from ‘std::shared_ptr<std::shared_ptr<std::shared_ptr<DataType> > >’ to ‘std::shared_ptr<std::shared_ptr<DataType> >&&’
+  383 |       operator=(shared_ptr&& __r) noexcept
+      |                 ~~~~~~~~~~~~~^~~
+parser.yy:88:102: error: ‘DataPtr’ was not declared in this scope
+parser.yy:88:112: error: no matching function for call to ‘make_shared<<expression error> >(std::shared_ptr<Number>)’
+In file included from /usr/include/c++/11/memory:77,
+                 from /home/janis/Documents/CellScript/datatypes.h:7,
+                 from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/usr/include/c++/11/bits/shared_ptr.h:875:5: note: candidate: ‘template<class _Tp, class ... _Args> std::shared_ptr<_Tp> std::make_shared(_Args&& ...)’
+  875 |     make_shared(_Args&&... __args)
+      |     ^~~~~~~~~~~
+/usr/include/c++/11/bits/shared_ptr.h:875:5: note:   template argument deduction/substitution failed:
+parser.yy:88:112: error: template argument 1 is invalid
+parser.yy:101:222: error: expected ‘;’ before ‘}’ token
+parser.yy:102:223: error: expected ‘;’ before ‘}’ token
+parser.yy:103:224: error: expected ‘;’ before ‘}’ token
+In file included from /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:33,
+                 from /usr/include/c++/11/bits/allocator.h:46,
+                 from /usr/include/c++/11/unordered_map:40,
+                 from /usr/include/c++/11/functional:61,
+                 from /usr/include/c++/11/pstl/glue_algorithm_defs.h:13,
+                 from /usr/include/c++/11/algorithm:74,
+                 from /usr/include/gmpxx.h:40,
+                 from /home/janis/Documents/CellScript/datatypes.h:3,
+                 from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/usr/include/c++/11/ext/new_allocator.h: In instantiation of ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = Number; _Args = {std::basic_string_view<char, std::char_traits<char> >&}; _Tp = Number]’:
+/usr/include/c++/11/bits/alloc_traits.h:516:17:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(std::allocator_traits<std::allocator<_CharT> >::allocator_type&, _Up*, _Args&& ...) [with _Up = Number; _Args = {std::basic_string_view<char, std::char_traits<char> >&}; _Tp = Number; std::allocator_traits<std::allocator<_CharT> >::allocator_type = std::allocator<Number>]’
+/usr/include/c++/11/bits/shared_ptr_base.h:519:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {std::basic_string_view<char, std::char_traits<char> >&}; _Tp = Number; _Alloc = std::allocator<Number>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/11/bits/shared_ptr_base.h:650:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = Number; _Alloc = std::allocator<Number>; _Args = {std::basic_string_view<char, std::char_traits<char> >&}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/11/bits/shared_ptr_base.h:1342:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<Number>; _Args = {std::basic_string_view<char, std::char_traits<char> >&}; _Tp = Number; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/11/bits/shared_ptr.h:409:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<Number>; _Args = {std::basic_string_view<char, std::char_traits<char> >&}; _Tp = Number]’
+/usr/include/c++/11/bits/shared_ptr.h:862:14:   required from ‘std::shared_ptr<_Tp> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = Number; _Alloc = std::allocator<Number>; _Args = {std::basic_string_view<char, std::char_traits<char> >&}]’
+/usr/include/c++/11/bits/shared_ptr.h:878:39:   required from ‘std::shared_ptr<_Tp> std::make_shared(_Args&& ...) [with _Tp = Number; _Args = {std::basic_string_view<char, std::char_traits<char> >&}]’
+parser.yy:88:132:   required from here
+/usr/include/c++/11/ext/new_allocator.h:162:11: error: no matching function for call to ‘Number::Number(std::basic_string_view<char>&)’
+  162 |         { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from parser.yy:10,
+                 from /home/janis/Documents/CellScript/parser.tab.cc:41:
+/home/janis/Documents/CellScript/datatypes.h:53:5: note: candidate: ‘Number::Number(const Number&)’
+   53 |     Number(const Number& number);
+      |     ^~~~~~
+/home/janis/Documents/CellScript/datatypes.h:53:26: note:   no known conversion for argument 1 from ‘std::basic_string_view<char>’ to ‘const Number&’
+   53 |     Number(const Number& number);
+      |            ~~~~~~~~~~~~~~^~~~~~
+/home/janis/Documents/CellScript/datatypes.h:52:5: note: candidate: ‘Number::Number(const string&)’
+   52 |     Number(const string& value);
+      |     ^~~~~~
+/home/janis/Documents/CellScript/datatypes.h:52:26: note:   no known conversion for argument 1 from ‘std::basic_string_view<char>’ to ‘const string&’ {aka ‘const std::__cxx11::basic_string<char>&’}
+   52 |     Number(const string& value);
+      |            ~~~~~~~~~~~~~~^~~~~
+/home/janis/Documents/CellScript/datatypes.h:51:5: note: candidate: ‘Number::Number(double)’
+   51 |     Number(double value);
+      |     ^~~~~~
+/home/janis/Documents/CellScript/datatypes.h:51:19: note:   no known conversion for argument 1 from ‘std::basic_string_view<char>’ to ‘double’
+   51 |     Number(double value);
+      |            ~~~~~~~^~~~~
+/home/janis/Documents/CellScript/datatypes.h:50:5: note: candidate: ‘Number::Number()’
+   50 |     Number();
+      |     ^~~~~~
+/home/janis/Documents/CellScript/datatypes.h:50:5: note:   candidate expects 0 arguments, 1 provided
+make[2]: *** [CMakeFiles/CellScript.dir/build.make:76: CMakeFiles/CellScript.dir/parser.tab.cc.o] Error 1
+make[2]: Leaving directory '/home/janis/Documents/CellScript/build'
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/CellScript.dir/all] Error 2
+make[1]: Leaving directory '/home/janis/Documents/CellScript/build'
+make: *** [Makefile:91: all] Error 2
+make: Leaving directory '/home/janis/Documents/CellScript/build'

@@ -1,0 +1,15 @@
+1)Exception: Nav inicializēts, ja nullptr // Padarīts
+2)ADVANCE, BREAK, CONTINUE, BREAK ALL // Padarīts
+2.1) izdzēst map // Padarīts
+2.2) izveidot visus expression // Padarīts
+2.2.1) salabot string reizinājumu // Padarīts
+2.3) Pievienot INF, -INF // Padarīts
+3)Funkcijas
+4)ERROR reportings
+5)Laiks (MS_TIME)
+6)Optimizācijas
+7)Lasīšana no faila
+8)If atgriež vērtību
+
+
+...)warning, ja nested loop vienādi mainīgie

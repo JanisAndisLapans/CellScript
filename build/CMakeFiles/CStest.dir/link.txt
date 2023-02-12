@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/CStest.dir/test.cpp.o CMakeFiles/CStest.dir/datatypes.cc.o -o CStest  -lgmp -lgmpxx -lmpfr 
