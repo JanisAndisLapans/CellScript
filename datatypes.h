@@ -139,7 +139,7 @@ public:
     virtual TypeLabel type() const override { return TypeLabel::NULLTYPE;}
     virtual string_view to_str() const override { return "NULL"; }
 
-    virtual shared_ptr<DataType> copy() const override {return make_shared<NullType>(*this);}
+    virtual shared_ptr<DataType> copy() const override {return make_shared<NullType>();}
 
 };
 
@@ -161,21 +161,25 @@ public:
 };
 
 class Program;
-class FunctionExpression;
+class FunctionStatement;
 
 class Function : public DataType
 {
 private: 
-    vector<DataPtr> arguments;
+    vector<int> arg_variables;
     shared_ptr<Program> program;
 public:    
     virtual string_view type_name() const override { return "Function";}
     virtual TypeLabel type() const override { return TypeLabel::FUNC;}
-    virtual string_view to_str() const override { return "Function at: " + to_string((int)this); }
+    virtual string_view to_str() const override { return "FUNC";}
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<Function>(*this);}
 
-    Function(const vector<DataPtr>& arguments, shared_ptr<Program> program) : arguments(arguments), program(program) { }
+    Function(const vector<int>& arg_variables)
+     : arg_variables(arg_variables) { }
 
-    friend class FunctionExpression;
+    void attach_program(shared_ptr<Program> program) { this->program = program; }
+    int arg_count() const { return arg_variables.size(); };
+
+    friend class FunctionStatement;
 };

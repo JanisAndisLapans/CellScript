@@ -94,45 +94,62 @@ UnaryExpression::UnaryExpression(shared_ptr<Expression> e, UnaryOperationFlag op
     }
 }
 
-ValueExpression::ValueExpression(DataPtr value_ref, string variable_name)
-    : value_ref(value_ref), variable_name(variable_name)
+VariableExpression::VariableExpression(int var_ind, string variable_name)
+    : var_ind(var_ind), variable_name(variable_name)
 {    
 }
 
-FunctionExpression::FunctionExpression(const vector<shared_ptr<Expression>>& arg_vals, shared_ptr<Expression> function_expr)
-    : arg_vals(arg_vals), function_expr(function_expr)
-{    
+LiteralExpression::LiteralExpression(DataPtr value)
+    : value(value)
+{
 }
 
-Data BinaryExpression::eval()
+
+StatementExpression::StatementExpression(shared_ptr<Statement> statement)
+    : statement(statement)
 {
-    return operation(sub_expression1->eval(), sub_expression2->eval());
 }
 
-Data UnaryExpression::eval()
+Data BinaryExpression::eval(vector<Data>& callstack)
 {
-    return operation(sub_expression->eval());
+    return operation(sub_expression1->eval(callstack), sub_expression2->eval(callstack));
 }
 
-Data ValueExpression::eval()
+Data UnaryExpression::eval(vector<Data>& callstack)
 {
-    if(*value_ref == nullptr)
+    return operation(sub_expression->eval(callstack));
+}
+
+Data VariableExpression::eval(vector<Data>& callstack)
+{
+    if(callstack[var_ind] == nullptr)
     {
         cout << "Variable " << variable_name << " was never inititialized" << endl;
     }
-    return (*value_ref)->copy();
+    return callstack[var_ind];
 }
 
-Data FunctionExpression::eval()
+Data LiteralExpression::eval(vector<Data>& callstack)
 {
-    auto function_data = function_expr->eval();
-    shared_ptr<Function> function; 
-    if(!(function = dynamic_pointer_cast<Function>(function_data)))
+    if(*value == nullptr)
     {
-        cout << "Attemp to call a non callable object of type " << function_data->type_name() << endl;
+        cout << "May not use same CONST variable to initialize itself" << endl;
         throw "EXCEPTION";
     }
-    //turpināt
+    return *value;
+}
+
+Data StatementExpression::eval(vector<Data>& callstack)
+{
+    auto res = statement->exec(callstack);
+    if(res.flag != GIVE && res.flag != ASSIGN_RES)
+    {
+        return make_shared<NullType>();
+    }
+    else
+    {
+        return res.value;
+    }
 }
 
 void BinaryExpression::assert_types(const Data op1, const Data op2, TypeLabel op1_type, TypeLabel op2_type, string_view op_name)
@@ -228,7 +245,7 @@ Data BinaryExpression::subtract(const Data op1, const Data op2)
         {
             return make_shared<InfType>(-static_cast<const InfType&>(*op2).getPositivity());
         }
-        return make_shared<Number>(static_cast<const Number&>(*op1) + static_cast<const Number&>(*op2));
+        return make_shared<Number>(static_cast<const Number&>(*op1) - static_cast<const Number&>(*op2));
     }
 }
 
@@ -237,14 +254,14 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
     if(op1->type() == STRING)
     {    
         BinaryExpression::assert_types(op1, op2, STRING, NUMBER, "*");
-        auto op2_num = static_cast<const Number&>(*op2);
-        if(op2_num < 0 || op2_num % 1 != 0)
+        auto op2_ind = static_cast<const Number&>(*op2);
+        if(op2_ind < 0 || op2_ind % 1 != 0)
         {
-            cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_num.to_str() << endl;
+            cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
             throw "Exception";
         }
         auto s = make_shared<String>(""); 
-        for(auto i = 0; op2_num > i; i++)
+        for(auto i = 0; op2_ind > i; i++)
         {
             *s += static_cast<const String&>(*op1);
         }
@@ -264,17 +281,17 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
     }
     else //Number 
     {
-        BinaryExpression::assert_types_multiple(op1, op2, INF, {NUMBER, STRING, INF}, "*");
+        BinaryExpression::assert_types_multiple(op1, op2, NUMBER, {NUMBER, STRING, INF}, "*");
         if(op2->type() == STRING)
         {
-            auto op1_num = static_cast<const Number&>(*op1);
-            if(op1_num < 0 || op1_num % 1 != 0)
+            auto op1_ind = static_cast<const Number&>(*op1);
+            if(op1_ind < 0 || op1_ind % 1 != 0)
             {
-                cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op1_num.to_str() << endl;
+                cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op1_ind.to_str() << endl;
                 throw "Exception";
             }
             auto s = make_shared<String>(""); 
-            for(auto i = 0; op1_num > i; i++)
+            for(auto i = 0; op1_ind > i; i++)
             {
                 *s += static_cast<const String&>(*op2);
             }
@@ -299,25 +316,25 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
 Data BinaryExpression::divide(const Data op1, const Data op2)
 {
     BinaryExpression::assert_types(op1, op2, NUMBER, NUMBER, "/");
-    auto op2_num = static_cast<const Number&>(*op2);
-    if(op2_num == 0)
+    auto op2_ind = static_cast<const Number&>(*op2);
+    if(op2_ind == 0)
     {
         cout << "Divison by zero" << endl;
         throw "Exception";
     }
-    return make_shared<Number>(static_cast<const Number&>(*op1) / op2_num);
+    return make_shared<Number>(static_cast<const Number&>(*op1) / op2_ind);
 }
 
 Data BinaryExpression::modulo(const Data op1, const Data op2)
 {
     BinaryExpression::assert_types(op1, op2, NUMBER, NUMBER, "/");
-    auto op2_num = static_cast<const Number&>(*op2);
-    if(op2_num == 0)
+    auto op2_ind = static_cast<const Number&>(*op2);
+    if(op2_ind == 0)
     {
         cout << "Divison by zero" << endl;
         throw "Exception";
     }
-    return make_shared<Number>(static_cast<const Number&>(*op1) % op2_num);
+    return make_shared<Number>(static_cast<const Number&>(*op1) % op2_ind);
 }
 
 Data BinaryExpression::pow(const Data op1, const Data op2)
@@ -544,38 +561,63 @@ void Program::attach_statement(shared_ptr<Statement> statement)
     statements.push_back(statement);
 }
 
-ExecutionResult Program::run()
+ExecutionResult Program::run(vector<Data>& callstack)
 {
+    int i = 0;
     for(auto& statement : statements)
     {
-        auto res = statement->exec();
-        if(res.flag != NONE && (res.original_scope == -1 || res.original_scope == scope))
+        auto res = statement->exec(callstack);
+        if(res.flag != NONE && res.flag != ASSIGN_RES && (res.original_scope == -1 || res.original_scope == scope))
         {
+            if(res.flag == GIVE && res.original_scope != -1)
+            {
+                //GIVE attiecas tikai uz vienu koda bloku (program) (neatkarīgi no scope, ja jau ir uzstādīts scope, tad GIVE jau ir apturējis vienu programmu)
+                continue;
+            }
             res.original_scope = scope;
             return res;
         }
+        i++;
     }
     return ExecutionResult(NONE);
 }
 
-ExecutionResult PrintStatement::exec()
+ExecutionResult Program::run(const vector<pair<int, Data>>& init_vars)
 {
-    cout << data->eval()->to_str() << endl;
+    vector<Data> callstack(callstack_size, nullptr);
+    for(auto [ind, data] : init_vars)
+    {
+        callstack[ind] = data;
+    }
+    return run(callstack);
+}
+
+ExecutionResult Program::run()
+{
+    vector<Data> callstack(callstack_size, nullptr);
+    return run(callstack);
+}
+
+
+ExecutionResult PrintStatement::exec(vector<Data>& callstack)
+{
+    cout << data->eval(callstack)->to_str() << endl;
     return ExecutionResult(NONE);
 }
 
-ExecutionResult AssignStatement::exec()
+ExecutionResult AssignStatement::exec(vector<Data>& callstack)
 {
-    *mem_location = data->eval();
-    return ExecutionResult(NONE);
+
+    callstack[variable_ind] = data->eval(callstack);
+    return ExecutionResult(ASSIGN_RES, callstack[variable_ind]);
 }
 
-ExecutionResult IfStatement::exec()
+ExecutionResult IfStatement::exec(vector<Data>& callstack)
 {
     for(auto riter = branches.rbegin(); riter!=branches.rend(); riter++)
     {
         auto& [expr, to_do] = *riter;
-        auto test_val = expr->eval();
+        auto test_val = expr->eval(callstack);
         
         //Pārbauda bai ir būla tips
         shared_ptr<Boolean> test_val_bool;
@@ -588,33 +630,39 @@ ExecutionResult IfStatement::exec()
         //Pārbauda, vai bool_val == true
         if(*test_val_bool)
         {    
-            return to_do->run();
+            return to_do->run(callstack);
         }
     }
 
     //Ja ir else izpilda
     if(else_prog != nullptr)
-        return else_prog->run();
+        return else_prog->run(callstack);
 
     return ExecutionResult(NONE);
 }
 
-ExecutionResult ForCounterLoop::exec()
+ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
 {
-
-    *counter_mem = start->eval();
+    if(dynamic_pointer_cast<VariableExpression>(start) || dynamic_pointer_cast<LiteralExpression>(start))
+    {
+        callstack[counter_ind] = start->eval(callstack)->copy();
+    }
+    else
+    {
+        callstack[counter_ind] = start->eval(callstack);
+    }
 
     shared_ptr<Number> counter_num;
 
-    if(!(counter_num = dynamic_pointer_cast<Number>(*counter_mem)))
+    if(!(counter_num = dynamic_pointer_cast<Number>(callstack[counter_ind])))
     {
-        cout << "Counter must be of type Number, " << (*counter_mem)->type_name() << " is invalid" << endl;
+        cout << "Counter must be of type Number, " << (callstack[counter_ind])->type_name() << " is invalid" << endl;
         throw "Exception";        
     }
 
     while(true)
     {
-        auto end_val = end->eval();
+        auto end_val = end->eval(callstack);
 
         shared_ptr<Number> end_val_num;
         shared_ptr<InfType> end_val_inf;
@@ -633,7 +681,7 @@ ExecutionResult ForCounterLoop::exec()
             throw "Exception";    
         }
 
-        auto jump_val = jump_amount->eval();
+        auto jump_val = jump_amount->eval(callstack);
 
         shared_ptr<Number> jump_val_num;
 
@@ -653,7 +701,7 @@ ExecutionResult ForCounterLoop::exec()
         || (positive && *counter_num < *end_val_num) || (!positive && *counter_num > *end_val_num))
         {
             //Palaiž programmu cikla sākumā
-            auto res = loop_program->run();
+            auto res = loop_program->run(callstack);
             
             if(res.flag == ADVANCE)
             {
@@ -687,23 +735,67 @@ ExecutionResult ForCounterLoop::exec()
     return ExecutionResult(NONE);
 }
 
-ExecutionResult BreakStatement::exec()
+ExecutionResult BreakStatement::exec(vector<Data>& callstack)
 {
     return ExecutionResult(BREAK);
 }
 
-ExecutionResult BreakAll::exec()
+ExecutionResult BreakAll::exec(vector<Data>& callstack)
 {
     return ExecutionResult(BREAK_ALL);
 }
 
-ExecutionResult Advance::exec()
+ExecutionResult Advance::exec(vector<Data>& callstack)
 {
-    auto advance_amount = amount->eval();
+    auto advance_amount = amount->eval(callstack);
     if(advance_amount->type() != NUMBER)
     {
         cout << "ADVANCE parameter must be a Number, " << advance_amount->type_name() << " provided"<<endl;
         throw "EXCEPTION";
     }
     return ExecutionResult(ADVANCE, advance_amount);
+}
+
+ExecutionResult Return::exec(vector<Data>& callstack)
+{   
+    return ExecutionResult(RETURN, value->eval(callstack));
+}
+
+ExecutionResult Give::exec(vector<Data>& callstack)
+{
+    return ExecutionResult(GIVE, value->eval(callstack));
+}
+
+ExecutionResult FunctionStatement::exec(vector<Data>& callstack)
+{
+    auto function_data = function_expr->eval(callstack);
+    shared_ptr<Function> function; 
+    if(!(function = dynamic_pointer_cast<Function>(function_data)))
+    {
+        cout << "Attempt to call a non callable object of type " << function_data->type_name() << endl;
+        throw "EXCEPTION";
+    }
+
+    if(arg_vals.size() != function->arg_variables.size())
+    {
+        cout << arg_vals.size() << " arguemnts provided to function but " << function->arg_variables.size() << " required.";
+    }
+
+    vector<pair<int, Data>> args;
+
+    for(auto i = 0; i<function->arg_variables.size(); i++)
+    {
+        args.push_back(make_pair(function->arg_variables[i], arg_vals[i]->eval(callstack)));         
+    }
+
+    auto res = function->program->run(args);
+    if(res.flag != RETURN)
+    {
+        return ExecutionResult(NONE);
+    }
+    else
+    {
+        return ExecutionResult(GIVE, res.value);
+    }
+
 }

@@ -1,15 +1,20 @@
 1)Exception: Nav inicializēts, ja nullptr // Padarīts
 2)ADVANCE, BREAK, CONTINUE, BREAK ALL // Padarīts
-2.1) izdzēst map // Padarīts
+2.1) izdzēst globālo mainīgo map no parser.yy (aizvietojot ar interpreter klasi) // Padarīts
 2.2) izveidot visus expression // Padarīts
 2.2.1) salabot string reizinājumu // Padarīts
 2.3) Pievienot INF, -INF // Padarīts
-3)Funkcijas
+3)Funkcijas // Padarīts
+3.0.5) izveidot const_expr // Padarīts
+3.1) pielabot funkciju un klašu aprakstus  // Padarīts
+3.2) error handlings const assignment // Padarīts
 4)ERROR reportings
+4.1) Atpazīt stack overflow ar bezgalīgu rekursiju
 5)Laiks (MS_TIME)
-6)Optimizācijas
+6)Optimizācijas izteiksmēm (Expression)
 7)Lasīšana no faila
-8)If atgriež vērtību
-
-
-...)warning, ja nested loop vienādi mainīgie
+8)If atgriež vērtību // Padarīts
+9)warning, ja nested loop vienādi mainīgie
+10) Pievienot sarakstus un vārdnīcas
+11) for each, while, mutable, immutable tipi
+12) Mainīgo capture priekš funckijām ar USING

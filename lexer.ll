@@ -35,7 +35,7 @@
 
 white [ \t]+
 digit [0-9]
-alpha [A-Za-z_]
+alpha [A-Za-z_] 
 alphanum [A-Za-z0-9_]
 integer {digit}+
 exponent [eE][+-]?{integer}
@@ -44,6 +44,7 @@ id {alpha}{alphanum}*
 str_dqoute \"[^\"]*\"
 str_sqoute \'[^\']*\'
 str {str_dqoute}|{str_sqoute}
+one_line_comment #.*
 
 %% 
 
@@ -54,7 +55,11 @@ str {str_dqoute}|{str_sqoute}
 
 
 {white} {}
+{one_line_comment} return token::ONE_LINE_COMMENT; 
 
+"SELF" return token::SELF;
+"GIVE" return token::GIVE;
+"RETURN" return token::RETURN; 
 "FUNC" return token::FUNC;
 "ENDFUNC" return token::ENDFUNC;
 "INF" return token::INF;
