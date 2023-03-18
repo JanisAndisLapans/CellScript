@@ -57,6 +57,12 @@ one_line_comment #.*
 {white} {}
 {one_line_comment} return token::ONE_LINE_COMMENT; 
 
+"Number" return token::NumType;
+"Boolean" return token::BoolType;
+"Bool" return token::BoolType;
+"String" return token::StrType;
+
+"AS" return token::AS;
 "SELF" return token::SELF;
 "GIVE" return token::GIVE;
 "RETURN" return token::RETURN; 

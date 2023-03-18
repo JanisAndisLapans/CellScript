@@ -430,11 +430,8 @@ namespace CS {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // const_expr
-      char dummy1[sizeof (Data)];
-
       // @2
-      char dummy2[sizeof (DataPtr)];
+      char dummy1[sizeof (DataPtr)];
 
       // @1
       // @3
@@ -445,47 +442,48 @@ namespace CS {
       // @8
       // @9
       // @10
-      char dummy3[sizeof (int)];
+      char dummy2[sizeof (int)];
 
       // assignment
-      char dummy4[sizeof (shared_ptr<AssignStatement>)];
+      char dummy3[sizeof (shared_ptr<AssignStatement>)];
 
       // expr
-      char dummy5[sizeof (shared_ptr<Expression>)];
+      // expr_val
+      char dummy4[sizeof (shared_ptr<Expression>)];
 
       // for_counter_loop
-      char dummy6[sizeof (shared_ptr<ForCounterLoop>)];
+      char dummy5[sizeof (shared_ptr<ForCounterLoop>)];
 
       // function
       // @11
       // @12
-      char dummy7[sizeof (shared_ptr<Function>)];
+      char dummy6[sizeof (shared_ptr<Function>)];
 
       // function_call
-      char dummy8[sizeof (shared_ptr<FunctionStatement>)];
+      char dummy7[sizeof (shared_ptr<FunctionStatement>)];
 
       // if_statement
-      char dummy9[sizeof (shared_ptr<IfStatement>)];
+      char dummy8[sizeof (shared_ptr<IfStatement>)];
 
       // program
-      char dummy10[sizeof (shared_ptr<Program>)];
+      char dummy9[sizeof (shared_ptr<Program>)];
 
       // statement
-      char dummy11[sizeof (shared_ptr<Statement>)];
+      char dummy10[sizeof (shared_ptr<Statement>)];
 
       // DEC
       // STR
       // ID
-      char dummy12[sizeof (string)];
+      char dummy11[sizeof (string)];
 
       // elif_branch
-      char dummy13[sizeof (vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>)];
+      char dummy12[sizeof (vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>)];
 
       // expr_list
-      char dummy14[sizeof (vector<shared_ptr<Expression>>)];
+      char dummy13[sizeof (vector<shared_ptr<Expression>>)];
 
       // id_list
-      char dummy15[sizeof (vector<string>)];
+      char dummy14[sizeof (vector<string>)];
     };
 
     /// The size of the largest semantic type.
@@ -589,7 +587,11 @@ namespace CS {
     ENDFUNC = 306,                 // ENDFUNC
     COLUMN = 307,                  // COLUMN
     COMMA = 308,                   // COMMA
-    GIVE = 309                     // GIVE
+    AS = 309,                      // AS
+    NumType = 310,                 // NumType
+    BoolType = 311,                // BoolType
+    StrType = 312,                 // StrType
+    GIVE = 313                     // GIVE
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -606,7 +608,7 @@ namespace CS {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 55, ///< Number of tokens.
+        YYNTOKENS = 59, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -662,33 +664,37 @@ namespace CS {
         S_ENDFUNC = 51,                          // ENDFUNC
         S_COLUMN = 52,                           // COLUMN
         S_COMMA = 53,                            // COMMA
-        S_GIVE = 54,                             // GIVE
-        S_YYACCEPT = 55,                         // $accept
-        S_input = 56,                            // input
-        S_program = 57,                          // program
-        S_statement = 58,                        // statement
-        S_function_call = 59,                    // function_call
-        S_assignment = 60,                       // assignment
-        S_61_1 = 61,                             // @1
-        S_62_2 = 62,                             // @2
-        S_if_statement = 63,                     // if_statement
-        S_for_counter_loop = 64,                 // for_counter_loop
-        S_65_3 = 65,                             // @3
-        S_66_4 = 66,                             // @4
-        S_67_5 = 67,                             // @5
-        S_68_6 = 68,                             // @6
-        S_69_7 = 69,                             // @7
-        S_70_8 = 70,                             // @8
-        S_71_9 = 71,                             // @9
-        S_72_10 = 72,                            // @10
-        S_elif_branch = 73,                      // elif_branch
-        S_expr = 74,                             // expr
-        S_const_expr = 75,                       // const_expr
-        S_expr_list = 76,                        // expr_list
-        S_function = 77,                         // function
-        S_78_11 = 78,                            // @11
-        S_79_12 = 79,                            // @12
-        S_id_list = 80                           // id_list
+        S_AS = 54,                               // AS
+        S_NumType = 55,                          // NumType
+        S_BoolType = 56,                         // BoolType
+        S_StrType = 57,                          // StrType
+        S_GIVE = 58,                             // GIVE
+        S_YYACCEPT = 59,                         // $accept
+        S_input = 60,                            // input
+        S_program = 61,                          // program
+        S_statement = 62,                        // statement
+        S_function_call = 63,                    // function_call
+        S_assignment = 64,                       // assignment
+        S_65_1 = 65,                             // @1
+        S_66_2 = 66,                             // @2
+        S_if_statement = 67,                     // if_statement
+        S_for_counter_loop = 68,                 // for_counter_loop
+        S_69_3 = 69,                             // @3
+        S_70_4 = 70,                             // @4
+        S_71_5 = 71,                             // @5
+        S_72_6 = 72,                             // @6
+        S_73_7 = 73,                             // @7
+        S_74_8 = 74,                             // @8
+        S_75_9 = 75,                             // @9
+        S_76_10 = 76,                            // @10
+        S_elif_branch = 77,                      // elif_branch
+        S_expr = 78,                             // expr
+        S_expr_val = 79,                         // expr_val
+        S_expr_list = 80,                        // expr_list
+        S_function = 81,                         // function
+        S_82_11 = 82,                            // @11
+        S_83_12 = 83,                            // @12
+        S_id_list = 84                           // id_list
       };
     };
 
@@ -725,23 +731,19 @@ namespace CS {
       {
         switch (this->kind ())
     {
-      case symbol_kind::S_const_expr: // const_expr
-        value.move< Data > (std::move (that.value));
-        break;
-
-      case symbol_kind::S_62_2: // @2
+      case symbol_kind::S_66_2: // @2
         value.move< DataPtr > (std::move (that.value));
         break;
 
-      case symbol_kind::S_61_1: // @1
-      case symbol_kind::S_65_3: // @3
-      case symbol_kind::S_66_4: // @4
-      case symbol_kind::S_67_5: // @5
-      case symbol_kind::S_68_6: // @6
-      case symbol_kind::S_69_7: // @7
-      case symbol_kind::S_70_8: // @8
-      case symbol_kind::S_71_9: // @9
-      case symbol_kind::S_72_10: // @10
+      case symbol_kind::S_65_1: // @1
+      case symbol_kind::S_69_3: // @3
+      case symbol_kind::S_70_4: // @4
+      case symbol_kind::S_71_5: // @5
+      case symbol_kind::S_72_6: // @6
+      case symbol_kind::S_73_7: // @7
+      case symbol_kind::S_74_8: // @8
+      case symbol_kind::S_75_9: // @9
+      case symbol_kind::S_76_10: // @10
         value.move< int > (std::move (that.value));
         break;
 
@@ -750,6 +752,7 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.move< shared_ptr<Expression> > (std::move (that.value));
         break;
 
@@ -758,8 +761,8 @@ namespace CS {
         break;
 
       case symbol_kind::S_function: // function
-      case symbol_kind::S_78_11: // @11
-      case symbol_kind::S_79_12: // @12
+      case symbol_kind::S_82_11: // @11
+      case symbol_kind::S_83_12: // @12
         value.move< shared_ptr<Function> > (std::move (that.value));
         break;
 
@@ -816,20 +819,6 @@ namespace CS {
 #else
       basic_symbol (typename Base::kind_type t, const location_type& l)
         : Base (t)
-        , location (l)
-      {}
-#endif
-
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Data&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Data& v, const location_type& l)
-        : Base (t)
-        , value (v)
         , location (l)
       {}
 #endif
@@ -1054,23 +1043,19 @@ namespace CS {
         // Value type destructor.
 switch (yykind)
     {
-      case symbol_kind::S_const_expr: // const_expr
-        value.template destroy< Data > ();
-        break;
-
-      case symbol_kind::S_62_2: // @2
+      case symbol_kind::S_66_2: // @2
         value.template destroy< DataPtr > ();
         break;
 
-      case symbol_kind::S_61_1: // @1
-      case symbol_kind::S_65_3: // @3
-      case symbol_kind::S_66_4: // @4
-      case symbol_kind::S_67_5: // @5
-      case symbol_kind::S_68_6: // @6
-      case symbol_kind::S_69_7: // @7
-      case symbol_kind::S_70_8: // @8
-      case symbol_kind::S_71_9: // @9
-      case symbol_kind::S_72_10: // @10
+      case symbol_kind::S_65_1: // @1
+      case symbol_kind::S_69_3: // @3
+      case symbol_kind::S_70_4: // @4
+      case symbol_kind::S_71_5: // @5
+      case symbol_kind::S_72_6: // @6
+      case symbol_kind::S_73_7: // @7
+      case symbol_kind::S_74_8: // @8
+      case symbol_kind::S_75_9: // @9
+      case symbol_kind::S_76_10: // @10
         value.template destroy< int > ();
         break;
 
@@ -1079,6 +1064,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.template destroy< shared_ptr<Expression> > ();
         break;
 
@@ -1087,8 +1073,8 @@ switch (yykind)
         break;
 
       case symbol_kind::S_function: // function
-      case symbol_kind::S_78_11: // @11
-      case symbol_kind::S_79_12: // @12
+      case symbol_kind::S_82_11: // @11
+      case symbol_kind::S_83_12: // @12
         value.template destroy< shared_ptr<Function> > ();
         break;
 
@@ -2103,6 +2089,66 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_AS (location_type l)
+      {
+        return symbol_type (token::AS, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_AS (const location_type& l)
+      {
+        return symbol_type (token::AS, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NumType (location_type l)
+      {
+        return symbol_type (token::NumType, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NumType (const location_type& l)
+      {
+        return symbol_type (token::NumType, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BoolType (location_type l)
+      {
+        return symbol_type (token::BoolType, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BoolType (const location_type& l)
+      {
+        return symbol_type (token::BoolType, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_StrType (location_type l)
+      {
+        return symbol_type (token::StrType, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_StrType (const location_type& l)
+      {
+        return symbol_type (token::StrType, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_GIVE (location_type l)
       {
         return symbol_type (token::GIVE, std::move (l));
@@ -2167,7 +2213,7 @@ switch (yykind)
     /// \param yyvalue   the value to check
     static bool yy_table_value_is_error_ (int yyvalue) YY_NOEXCEPT;
 
-    static const short yypact_ninf_;
+    static const signed char yypact_ninf_;
     static const signed char yytable_ninf_;
 
     /// Convert a scanner token kind \a t to a symbol kind.
@@ -2201,7 +2247,7 @@ switch (yykind)
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
     // number is the opposite.  If YYTABLE_NINF, syntax error.
-    static const short yytable_[];
+    static const unsigned char yytable_[];
 
     static const short yycheck_[];
 
@@ -2445,7 +2491,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 1324,     ///< Last index in yytable_.
+      yylast_ = 994,     ///< Last index in yytable_.
       yynnts_ = 26,  ///< Number of nonterminal symbols.
       yyfinal_ = 3 ///< Termination state number.
     };
@@ -2459,7 +2505,7 @@ switch (yykind)
 
 #line 7 "parser.yy"
 } // CS
-#line 2463 "parser.tab.hh"
+#line 2509 "parser.tab.hh"
 
 
 

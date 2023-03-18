@@ -7,7 +7,12 @@
 #include <stack>
 #include <string>
 #include <string_view>
+#include <algorithm>
+#include <cstring>
+#include <unordered_set>
+#include <unordered_map>
 #include "datatypes.h"
+#include <algorithm>
 
 class Expression
 {
@@ -16,9 +21,12 @@ class Expression
 
     Darbības princips ir balstīts uz izteiksmju parsing koku, kas implementēts rekursīvi
 */
-
+protected:
+    vector<Data> const_stack; // tukšs steks, ko pielieto callstack vietā konstantām operācijām
 public:
     virtual Data eval(vector<Data>& callstack) = 0;
+    virtual bool is_const() const = 0; // Vai izteiksme satur mainīgas daļas
+    virtual shared_ptr<Expression> reduce_const() = 0; // Saīsina izteiksmi pārveršot konstantās daļas par LiteralExpression
 };
 
 class BinaryExpression : public Expression
@@ -31,7 +39,6 @@ private:
     function<Data(const Data, const Data)> operation; 
     shared_ptr<Expression> sub_expression1, sub_expression2; 
     
-
     static void assert_types(const Data op1, const Data op2, TypeLabel op1_type, TypeLabel op2_type, string_view op_name);
     static void assert_types_multiple(const Data op1, const Data op2, TypeLabel op1_type, const vector<TypeLabel>& op2_types, string_view op_name)
 ;
@@ -60,9 +67,13 @@ public:
         ADD, SUB, MULT, DIV, MOD, POW, GT, LT, EQ_GT, EQ_LT, EQ, NEQ, AND, OR, XOR, NEITHER
     };
  
+    BinaryOperationFlag op_flag;
+
     BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op);
 
     virtual Data eval(vector<Data>& callstack) override;
+    virtual shared_ptr<Expression> reduce_const() override;
+    virtual bool is_const() const override { return false; }
 };
 
 class UnaryExpression : public Expression
@@ -71,24 +82,33 @@ class UnaryExpression : public Expression
         Vienas darbības izteiksme sastāv no vienas apakšizteiksmes un darbības, ko ar to veikt
     */
 
-private:
-    function<Data(const Data)> operation; 
-    shared_ptr<Expression> sub_expression; 
-
-    static void assert_type(const Data op, const vector<TypeLabel>& op_types, string_view op_name);
-    static Data invert(const Data op);
-    static Data logical_not(const Data op);
-
 public:
+    static void assert_type(const Data op, const vector<TypeLabel>& op_types, string_view op_name);
 
     enum UnaryOperationFlag
     {
-        NOT, INV
+        NOT, INV, TO_STR, TO_NUM, TO_BOOL
     };
 
     UnaryExpression(shared_ptr<Expression> e, UnaryOperationFlag op);
 
     virtual Data eval(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
+    virtual shared_ptr<Expression> reduce_const() override;
+
+private:
+
+    UnaryOperationFlag op_flag;
+
+    function<Data(const Data)> operation; 
+    shared_ptr<Expression> sub_expression; 
+
+    static Data invert(const Data op);
+    static Data logical_not(const Data op);
+    static Data to_str(const Data op);
+    static Data to_num(const Data op);
+    static Data to_bool(const Data op);
+
 };
 
 class Statement;
@@ -108,6 +128,9 @@ private:
 public:
     StatementExpression(shared_ptr<Statement> statement);
     virtual Data eval(vector<Data>& callstack) override;
+    virtual bool is_const() const override;
+    virtual shared_ptr<Expression> reduce_const() override;
+
 };
 
 class LiteralExpression : public Expression
@@ -121,6 +144,9 @@ private:
 public:
     LiteralExpression(DataPtr value);
     virtual Data eval(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return true; }
+    virtual shared_ptr<Expression> reduce_const() override;
+
 };
 
 class VariableExpression : public Expression
@@ -137,7 +163,8 @@ private:
 public:
     VariableExpression(int var_ind, string variable_name="");
     virtual Data eval(vector<Data>& callstack) override;
-
+    virtual bool is_const() const override { return false; }
+    virtual shared_ptr<Expression> reduce_const() override;
 };
 
 enum ExecutionFlag
@@ -173,6 +200,7 @@ class Statement
 
 public:
    virtual ExecutionResult exec(vector<Data>& callstack) = 0;
+   virtual bool is_const() const = 0;
 };
 
 class PrintStatement : public Statement
@@ -186,6 +214,7 @@ public:
     PrintStatement(shared_ptr<Expression> data) : data(data) {}
 
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
 };
 
 class AssignStatement : public Statement
@@ -200,6 +229,7 @@ public:
     AssignStatement(int variable_ind, shared_ptr<Expression> data) : variable_ind(variable_ind) , data(data) {}
 
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
 };
 
 class Program;
@@ -213,10 +243,13 @@ class IfStatement : public Statement
 private:
     vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> branches;
     shared_ptr<Program> else_prog;
+    bool constness;
 public:
-    IfStatement(vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>&& branches, shared_ptr<Program> else_prog=nullptr) : branches(branches), else_prog(else_prog) {}
+    IfStatement(vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>&& branches, shared_ptr<Program> else_prog=nullptr);
 
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return constness; }
+
 };
 
 class ForCounterLoop : public Statement
@@ -234,7 +267,7 @@ public:
     ForCounterLoop(int counter_ind, shared_ptr<Expression> start, shared_ptr<Expression> end, shared_ptr<Expression> jump_amount, shared_ptr<Program> loop_program) : counter_ind(counter_ind), start(start), end(end), jump_amount(jump_amount), loop_program(loop_program) {};
     
     virtual ExecutionResult exec(vector<Data>& callstack) override;
-
+    virtual bool is_const() const override { return false; }
 };
 
 class BreakStatement : public Statement
@@ -243,6 +276,7 @@ class BreakStatement : public Statement
 
 public:
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
 };
 
 class BreakAll : public Statement
@@ -251,6 +285,7 @@ class BreakAll : public Statement
 
 public:
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
 };
 
 class Advance : public Statement
@@ -262,6 +297,7 @@ private:
 public:
     Advance(shared_ptr<Expression> amount) : amount(amount) {}
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return true; }
 };
 
 class Return : public Statement
@@ -275,6 +311,7 @@ private:
 public:
     Return(shared_ptr<Expression> value) : value(value) {}
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
 };
 
 class FunctionStatement : public Statement
@@ -286,10 +323,11 @@ class FunctionStatement : public Statement
 private:
     vector<shared_ptr<Expression>> arg_vals; // izteiksmes vērtībām, ko padod funkcijas mainīgajiem 
     shared_ptr<Expression> function_expr; // Izteiksme, kuras rezultātam ir jābūt izsaucamai funkcijai
+    bool constness;
 public:
-    FunctionStatement(const vector<shared_ptr<Expression>>& arg_vals, shared_ptr<Expression> function_expr) 
-    : arg_vals(arg_vals), function_expr(function_expr) {}
+    FunctionStatement(const vector<shared_ptr<Expression>>& arg_vals, shared_ptr<Expression> function_expr);
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return constness; }
 };
 
 class Give : public Statement
@@ -303,6 +341,7 @@ private:
 public:
     Give(shared_ptr<Expression> value) : value(value) {}
     virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return true; }
 };
 
 class Program
@@ -318,18 +357,19 @@ private:
     vector<shared_ptr<Statement>> statements;
     int scope; // 0 - globālais , u.t.t.
     int callstack_size;
+    bool constness = true;
 
 public:
     Program(int scope, int callstack_size=-1) : scope(scope), callstack_size (callstack_size)  {};
     Program(shared_ptr<Statement> first_statement, int scope, int callstack_size=-1) 
      : scope(scope), callstack_size (callstack_size)
-    { statements.push_back(first_statement); }
+    { attach_statement(first_statement); }
 
     void attach_statement(shared_ptr<Statement> statement);
 
     ExecutionResult run();
     ExecutionResult run(const vector<pair<int, Data>>& init_vars);
     ExecutionResult run(vector<Data>& callstack);
-
+    bool is_const() const { return constness; }
     void set_callstack_size(int size) {callstack_size = size;}
 };

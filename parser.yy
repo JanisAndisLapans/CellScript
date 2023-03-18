@@ -56,8 +56,7 @@
     #undef yylex
     #define yylex scanner.yylex
 
-    vector<Data> const_stack;
-
+    vector<Data> const_stack; // tukšs steks, ko pielieto callstack vietā konstantām operācijām
 }
 
 %token<string> DEC
@@ -75,9 +74,10 @@
 %token<string> ID
 %token IF ELSE ELIF ENDIF PRINT FOR BY TO ENDFOR FUNC ENDFUNC
 %token COLUMN COMMA
+%token AS NumType BoolType StrType
 
 %type<shared_ptr<Expression>> expr
-%type<Data> const_expr;
+%type<shared_ptr<Expression>> expr_val
 %nterm<shared_ptr<Statement>> statement
 %nterm<shared_ptr<Program>> program;
 %nterm<vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>> elif_branch
@@ -88,7 +88,6 @@
 %type<shared_ptr<Function>> function
 %type<vector<string>> id_list
 %type<vector<shared_ptr<Expression>>> expr_list
-
 /*
     Darbību secība
 */ 
@@ -101,6 +100,7 @@
 %left NOT
 %left PLUS MINUS
 %left TIMES DIVIDE MOD
+%right AS
 %left POWER
 %left LEFT_PARENTHESES RIGHT_PARENTHESES
 
@@ -119,7 +119,7 @@ program: %empty {
     if(interpreter.is_sep_scope())
         $$ = make_shared<Program>(interpreter.get_scope_number(),interpreter.get_top_scope_size());
     else
-      $$ = make_shared<Program>(interpreter.get_scope_number());  
+        $$ = make_shared<Program>(interpreter.get_scope_number());  
 }
 | program statement EOL{
     if($2 != nullptr)
@@ -148,7 +148,7 @@ program: %empty {
 statement: assignment {
     $$ = $1;
 }
-| PRINT expr {
+| PRINT expr_val {
     $$ = make_shared<PrintStatement>($2);
 
 }
@@ -207,7 +207,7 @@ statement: assignment {
 }
 ;
 
-function_call: expr LEFT_PARENTHESES expr_list RIGHT_PARENTHESES { 
+function_call: expr_val LEFT_PARENTHESES expr_list RIGHT_PARENTHESES { 
     $$ = make_shared<FunctionStatement>($3, $1); 
 }
 | SELF LEFT_PARENTHESES expr_list RIGHT_PARENTHESES{
@@ -241,7 +241,7 @@ assignment: ID ASSIGN
         $$ = interpreter.declare_variable($1);
     }
 }
-expr{
+expr_val{
     $$ = make_shared<AssignStatement>($3, $4);
 }
 | CONST ID ASSIGN
@@ -258,39 +258,53 @@ expr{
         $$ = interpreter.declare_const_variable($2);
     }
 }
-const_expr{
-    *$4 = $5;
+expr_val{
+    if(!$5->is_const())
+    {
+        cout << "ERROR: CONST assignment requires a CONST expression." <<endl;
+        return 1;
+    }
+
+    *$4 = $5->eval(const_stack);
     $$ = nullptr;
 }
 ;
 
-if_statement: IF expr COLUMN EOL program elif_branch ENDIF {
+if_statement: IF expr_val COLUMN EOL program elif_branch ENDIF {
     $6.push_back(make_pair($2, $5));
     $$ = make_shared<IfStatement>(move($6));
 }
-| IF expr COLUMN EOL program elif_branch ELSE COLUMN EOL program ENDIF {
+| IF expr_val COLUMN EOL program elif_branch ELSE COLUMN EOL program ENDIF {
     $6.push_back(make_pair($2, $5));
     $$ = make_shared<IfStatement>(move($6), $10);
 }
-| IF expr COLUMN statement elif_branch ENDIF {
+| IF expr_val COLUMN statement elif_branch ENDIF {
     $5.push_back(make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1)));
     $$ = make_shared<IfStatement>(move($5));
 }
-| IF expr COLUMN statement elif_branch ELSE COLUMN EOL program ENDIF {
+| IF expr_val COLUMN statement elif_branch ELSE COLUMN EOL program ENDIF {
     $5.push_back(make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1)));
     $$ = make_shared<IfStatement>(move($5), $9);
 }
-| IF expr COLUMN EOL program elif_branch ELSE COLUMN statement ENDIF {
+| IF expr_val COLUMN EOL program elif_branch ELSE COLUMN statement ENDIF {
     $6.push_back(make_pair($2, $5));
     $$ = make_shared<IfStatement>(move($6), make_shared<Program>($9, interpreter.get_scope_number(), 1));
 }
-| IF expr COLUMN statement elif_branch ELSE COLUMN statement ENDIF {
+| IF expr_val COLUMN statement elif_branch ELSE COLUMN statement ENDIF {
     $5.push_back(make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1)));
     $$ = make_shared<IfStatement>(move($5), make_shared<Program>($8, interpreter.get_scope_number(), 1));
 }
+| IF expr_val COLUMN statement{
+    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1))};
+    $$ = make_shared<IfStatement>(move(ifs));
+}
+| IF expr_val COLUMN statement ELSE COLUMN statement{
+    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1))};
+    $$ = make_shared<IfStatement>(move(ifs), make_shared<Program>($7, interpreter.get_scope_number(), 1));
+}
 ;
 
-for_counter_loop: FOR ID ASSIGN expr TO expr BY expr COLUMN EOL
+for_counter_loop: FOR ID ASSIGN expr_val TO expr_val BY expr_val COLUMN EOL
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -310,7 +324,7 @@ for_counter_loop: FOR ID ASSIGN expr TO expr BY expr COLUMN EOL
     $$ = make_shared<ForCounterLoop>($11, $4, $6, $8, $12);
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID ASSIGN expr TO expr BY expr COLUMN
+| FOR ID ASSIGN expr_val TO expr_val BY expr_val COLUMN
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -325,12 +339,12 @@ for_counter_loop: FOR ID ASSIGN expr TO expr BY expr COLUMN EOL
         $$ = interpreter.declare_variable($2);
     }
 }
- statement ENDFOR{
+ statement{
     //Izveido ciklu
     $$ = make_shared<ForCounterLoop>($10, $4, $6, $8, make_shared<Program>($11, interpreter.get_scope_number(), 1));
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID ASSIGN expr TO expr COLUMN EOL
+| FOR ID ASSIGN expr_val TO expr_val COLUMN EOL
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -350,7 +364,7 @@ program ENDFOR{
     $$ = make_shared<ForCounterLoop>($9, $4, $6, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), $10);
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID ASSIGN expr TO expr COLUMN
+| FOR ID ASSIGN expr_val TO expr_val COLUMN
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -365,12 +379,12 @@ program ENDFOR{
         $$ = interpreter.declare_variable($2);
     }
 }
-statement ENDFOR{
+statement{
     //Izveido ciklu
     $$ = make_shared<ForCounterLoop>($8, $4, $6, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), make_shared<Program>($9, interpreter.get_scope_number(), 1));
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID TO expr COLUMN EOL
+| FOR ID TO expr_val COLUMN EOL
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -390,7 +404,7 @@ program ENDFOR{
     $$ = make_shared<ForCounterLoop>($7, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), $4, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), $8);
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID TO expr COLUMN 
+| FOR ID TO expr_val COLUMN 
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -405,13 +419,13 @@ program ENDFOR{
         $$ = interpreter.declare_variable($2);
     }
 }
-statement ENDFOR{
+statement{
     
     //Izveido ciklu
     $$ = make_shared<ForCounterLoop>($6, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), $4, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), make_shared<Program>($7, interpreter.get_scope_number(), 1));
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID TO expr BY expr COLUMN EOL
+| FOR ID TO expr_val BY expr_val COLUMN EOL
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -432,7 +446,7 @@ program ENDFOR{
     $$ = make_shared<ForCounterLoop>($9, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), $4, $6, $10);
     interpreter.mark_is_in_loop(false);
 }
-| FOR ID TO expr BY expr COLUMN
+| FOR ID TO expr_val BY expr_val COLUMN
 <int>{
     //Deklarē skaitītāja mainīgo, ja neeksistē
     interpreter.mark_is_in_loop(true);
@@ -447,7 +461,7 @@ program ENDFOR{
         $$ = interpreter.declare_variable($2);
     }
 }
- statement ENDFOR{
+ statement{
     //Izveido ciklu
     $$ = make_shared<ForCounterLoop>($8, make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), $4, $6, make_shared<Program>($9, interpreter.get_scope_number(), 1));
     interpreter.mark_is_in_loop(false);
@@ -455,17 +469,23 @@ program ENDFOR{
 ;
 
 elif_branch: %empty {$$ = vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>(); }
-| ELIF expr COLUMN EOL program elif_branch {
+| ELIF expr_val COLUMN EOL program elif_branch {
     $6.push_back(make_pair($2, $5));
     $$ = move($6);
 }
-| ELIF expr COLUMN statement elif_branch {
+| ELIF expr_val COLUMN statement elif_branch {
     $5.push_back(make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1)));
     $$ = move($5);
 }
 ;
 
-expr: ID {
+expr: DEC { $$ = make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>($1))); }
+| STR { $$ = make_shared<LiteralExpression>( make_shared<Data>(make_shared<String>(move($1)))); }
+| TRUE { $$ =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(true))); }
+| FALSE { $$ = make_shared<LiteralExpression>( make_shared<Data>(make_shared<Boolean>(false))); }
+| NULL_TOKEN { $$ =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<NullType>())); }
+| INF { $$ =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<InfType>())); }
+| ID {
     bool non_declared;
     if(interpreter.is_const($1))
     {
@@ -485,7 +505,7 @@ expr: ID {
         }
     }
 }
-| const_expr { $$ = make_shared<LiteralExpression>(make_shared<Data>($1)); }
+| function { $$ =  make_shared<LiteralExpression>(make_shared<Data>($1)); }
 | expr PLUS expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::ADD);}
 | expr MINUS expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::SUB);}
 | expr TIMES expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::MULT);}
@@ -502,58 +522,28 @@ expr: ID {
 | expr OR expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::OR);}
 | expr XOR expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::XOR);}
 | expr NEITHER expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::NEITHER);}
+| expr AS NumType {$$ = make_shared<UnaryExpression>($1, UnaryExpression::TO_NUM);}
+| expr AS BoolType {$$ = make_shared<UnaryExpression>($1, UnaryExpression::TO_BOOL);}
+| expr AS StrType {$$ = make_shared<UnaryExpression>($1, UnaryExpression::TO_STR);}
 | MINUS expr {$$ = make_shared<UnaryExpression> ($2, UnaryExpression::INV);}
 | NOT expr {$$ = make_shared<UnaryExpression> ($2, UnaryExpression::NOT);}
 | if_statement { $$ = make_shared<StatementExpression> ($1); }
 | function_call { $$ = make_shared<StatementExpression> ($1); }
-| assignment { $$ = make_shared<StatementExpression> ($1); }
+| assignment { $$ = make_shared<StatementExpression> ($1);}
+| LEFT_PARENTHESES expr RIGHT_PARENTHESES {$$ = $2;}
 ;
 
-const_expr: DEC { $$ = make_shared<Number>($1); }
-| STR { $$ = make_shared<String>(move($1)); }
-| TRUE { $$ = make_shared<Boolean>(true); }
-| FALSE { $$ = make_shared<Boolean>(false); }
-| NULL_TOKEN { $$ = make_shared<NullType>(); }
-| INF { $$ = make_shared<InfType>(); }
-| ID{
-    bool non_declared;
-    if(interpreter.is_const($1))
-    {
-        $$ = *interpreter.get_const_val($1, non_declared);
-    }
-    else{
-        cout << "Variable " << $1 << " is not declared CONST" << ", only CONST values may be assigned to CONST variables." <<endl;
-        return 1;
-    }
-} 
-|function { $$ = $1; }
-| const_expr PLUS const_expr {$$ = BinaryExpression(make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::ADD).eval(const_stack);}
-| const_expr MINUS const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::SUB).eval(const_stack);}
-| const_expr TIMES const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::MULT).eval(const_stack);}
-| const_expr MOD const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::MOD).eval(const_stack);}
-| const_expr DIVIDE const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::DIV).eval(const_stack);}
-| const_expr POWER const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::POW).eval(const_stack);}
-| const_expr EQUAL const_expr {$$ = BinaryExpression(make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::EQ).eval(const_stack);}
-| const_expr NOT_EQUAL const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::NEQ).eval(const_stack);}
-| const_expr GREATER_THAN const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::GT).eval(const_stack);}
-| const_expr LESS_THAN const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::LT).eval(const_stack);}
-| const_expr GREATER_THAN_EQ const_expr {$$ = BinaryExpression(make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::EQ_GT).eval(const_stack);}
-| const_expr LESS_THAN_EQ const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::EQ_LT).eval(const_stack);}
-| const_expr AND const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::AND).eval(const_stack);}
-| const_expr OR const_expr {$$ = BinaryExpression(make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::OR).eval(const_stack);}
-| const_expr XOR const_expr {$$ = BinaryExpression (make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::XOR).eval(const_stack);}
-| const_expr NEITHER const_expr {$$ = BinaryExpression(make_shared<LiteralExpression>(make_shared<Data>($1)),make_shared<LiteralExpression>(make_shared<Data>($3)), BinaryExpression::NEITHER).eval(const_stack);}
-| MINUS const_expr {$$ = UnaryExpression (make_shared<LiteralExpression>(make_shared<Data>($2)), UnaryExpression::INV).eval(const_stack);}
-| NOT const_expr {$$ = UnaryExpression (make_shared<LiteralExpression>(make_shared<Data>($2)), UnaryExpression::NOT).eval(const_stack);}
-| LEFT_PARENTHESES const_expr RIGHT_PARENTHESES {$$ = $2;}
+expr_val: expr {
+    $$ = $1->reduce_const();
+}
 ;
 
 expr_list: %empty { $$ = vector<shared_ptr<Expression>>(); }
-| expr COMMA expr_list {
+| expr_val COMMA expr_list {
     $3.push_back($1);
     $$ = move($3);
 }
-| expr { $$ = {$1}; }
+| expr_val { $$ = {$1}; }
 ;
 
 function: FUNC LEFT_PARENTHESES id_list RIGHT_PARENTHESES COLUMN EOL
@@ -589,6 +579,7 @@ program ENDFUNC{
 | FUNC LEFT_PARENTHESES id_list RIGHT_PARENTHESES COLUMN
 <shared_ptr<Function>>
 {
+    interpreter.make_new_scope();
     vector<int> arg_inds;
     for(const auto& id_name : $3)
     {
@@ -609,7 +600,7 @@ program ENDFUNC{
     $$ = make_shared<Function>(arg_inds);
     interpreter.push_function($$);
 }
-statement ENDFUNC{
+statement{
     $6->attach_program(make_shared<Program>($7, interpreter.get_scope_number(), 1 + $6->arg_count()));
     $$ = $6;
     interpreter.pop_scope();

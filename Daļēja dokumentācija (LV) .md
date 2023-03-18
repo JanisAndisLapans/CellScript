@@ -81,7 +81,7 @@ ELSE : PRINT "Nē" ENDIF
 
     4.1) Ternārais IF var atgriezt vērtību, piemēram
 
-        res = IF TRUE: GIVE "YES" ELSE: GIVE "NO" ENDIF
+        res = IF TRUE: GIVE "YES" ELSE: GIVE "NO"
         
         un pat
 
@@ -141,6 +141,12 @@ ENDFOR
 3
 6
 
+Arī ciklu var rakstīt vienā rindā:
+FOR i TO 3: PRINT i + 1 
+#Rezultāts
+1
+2
+3
     5.1) Cikla apturēšana
         BREAK - aptur šobrīdējo ciklu
         BREAK ALL - aptur "nested" ciklus, obligāti jāraksta ar vienu atstarpi starp vārdiem
@@ -180,4 +186,15 @@ ENDFOR
     PRINT n_fib(4) #Rezultāts 3
     PRINT n_fib(10) #Rezultāts 55
 
-7) STOP atslēgasvārds kalpo kā EOF, lai varētu darbināt programmu konsolē (tas eksistē tikai uz izstrādes laiku)
+    Funckiju var rakstīt arī vienā rindā:
+
+    get_pi = FUNC() : RETURN 3.14
+
+7) Konstantās izteiksmes
+    Jebkuras izteiksmes, kas sastāv no literāļiem, iebūvētajiem operatoriem (+, -, /, == ...) un funkciju izsaukumiem (ar konstantiem argumentiem), konstantiem mainīgajiem ir konstantas.
+
+    Konstantas izteiksmes tiek garantēti aprēķinātas tikai vienu reizi programmas izpildes laikā 
+
+    CONST mainīgajiem var piešķirt tikai konstantantas izteiksmes
+
+...) STOP atslēgasvārds kalpo kā EOF, lai varētu darbināt programmu konsolē (tas eksistē tikai uz izstrādes laiku)
