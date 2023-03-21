@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include "datatypes.h"
 #include <algorithm>
+#include <iostream>
 
 class Expression
 {
@@ -29,13 +30,32 @@ public:
     virtual shared_ptr<Expression> reduce_const() = 0; // Saīsina izteiksmi pārveršot konstantās daļas par LiteralExpression
 };
 
-class BinaryExpression : public Expression
+class BinaryExpression : public Expression, public std::enable_shared_from_this<BinaryExpression>
 {
     /*
         Divu darbību izteiksme sastāv no divām apakšizteiksmēm un darbības, ko ar tām veikt
     */
-private:
 
+
+public:
+
+    enum BinaryOperationFlag
+    {
+        ADD, SUB, MULT, DIV, MOD, POW, GT, LT, EQ_GT, EQ_LT, EQ, NEQ, AND, OR, XOR, NEITHER
+    };
+ 
+    BinaryOperationFlag op_flag;
+
+    BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op);
+
+    virtual Data eval(vector<Data>& callstack) override;
+    
+    virtual shared_ptr<Expression> reduce_const() override;
+    virtual bool is_const() const override { return false; }
+
+private:
+    void shift_constants();
+    shared_ptr<Expression> fold_constants();
     function<Data(const Data, const Data)> operation; 
     shared_ptr<Expression> sub_expression1, sub_expression2; 
     
@@ -60,22 +80,7 @@ private:
     static Data logical_xor(const Data op1, const Data op2);
     static Data logical_neither(const Data op1, const Data op2);
 
-public:
-
-    enum BinaryOperationFlag
-    {
-        ADD, SUB, MULT, DIV, MOD, POW, GT, LT, EQ_GT, EQ_LT, EQ, NEQ, AND, OR, XOR, NEITHER
-    };
- 
-    BinaryOperationFlag op_flag;
-
-    BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op);
-
-    virtual Data eval(vector<Data>& callstack) override;
-    virtual shared_ptr<Expression> reduce_const() override;
-    virtual bool is_const() const override { return false; }
 };
-
 class UnaryExpression : public Expression
 {
     /*

@@ -17,4 +17,4 @@
 9)warning, ja nested loop vienādi mainīgie
 10) Pievienot sarakstus un vārdnīcas
 11) for each, while, mutable, immutable tipi
-12) Uzlabot constant folding sarežģītākām izteiksmēm
+12) Uzlabot constant folding sarežģītākām izteiksmēm // Padarīts

@@ -3,6 +3,7 @@
 BinaryExpression::BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op)
 : sub_expression1(e1), sub_expression2(e2), op_flag(op)
 {
+    //uzstāda pareizo aprēķina funkciju
     switch(op)
     {
         case ADD:
@@ -661,54 +662,107 @@ Data UnaryExpression::to_bool(const Data op)
     }
 }
 
+
+
 shared_ptr<Expression> BinaryExpression::reduce_const()
 {
-    // Constant folding algoritms
+    //pārvieto konstantes zemāk, lai savilktu ejot atpakaļ rekursijā (ar const folding algoritmu)
 
-    sub_expression1 = sub_expression1->reduce_const();
-    sub_expression2 = sub_expression2->reduce_const();
+    auto op = op_flag;
+    auto left_expr = sub_expression1, right_expr = sub_expression2;
 
-    static const unordered_set<BinaryOperationFlag> logical_ops = {OR, NEITHER, AND};
-
-    if(sub_expression1->is_const() && sub_expression2->is_const())
+    shared_ptr<BinaryExpression> bin_non_const;
+    bool const_left; 
+    if(dynamic_pointer_cast<BinaryExpression>(sub_expression1) && sub_expression2->is_const())
     {
-        return make_shared<LiteralExpression>(make_shared<Data>(eval(const_stack)));
+        bin_non_const = dynamic_pointer_cast<BinaryExpression>(sub_expression1);
+        const_left = false;
     }
-    else if(logical_ops.count(op_flag))
+    else if(dynamic_pointer_cast<BinaryExpression>(sub_expression2) && sub_expression1->is_const())
+    {    
+
+        bin_non_const = dynamic_pointer_cast<BinaryExpression>(sub_expression2);
+        const_left = true;
+    }
+    else goto skip_rearrange;
+
+    if(op_flag == ADD || op_flag == SUB)
     {
+        if(!(bin_non_const->op_flag == ADD || bin_non_const->op_flag == SUB))
+            goto skip_rearrange;
+    }
+    else if(op_flag == MULT || op_flag == DIV)
+    {    
+        if(!(bin_non_const->op_flag == MULT || bin_non_const->op_flag == DIV))
+            goto skip_rearrange;
+    }
+    else goto skip_rearrange;
 
-        static const unordered_map<BinaryOperationFlag, string_view> operators = 
-        {{AND, "AND"}, {NEITHER, "NEITHER"}, {OR, "OR"}};
-
-        Data const_side_val;
-        if(sub_expression1->is_const())
+    if(!bin_non_const->sub_expression1->is_const() && !bin_non_const->sub_expression2->is_const())
+    {
+        if(const_left)
         {
-            const_side_val = sub_expression1->eval(const_stack);
-        }
-        else if(sub_expression2->is_const())
-        {
-            const_side_val = sub_expression2->eval(const_stack);
+            right_expr = shared_from_this();
+            this->sub_expression2 = bin_non_const->sub_expression2;
+            left_expr = bin_non_const->sub_expression1;
+            bin_non_const->sub_expression1 = shared_from_this();
         }
         else
         {
-            goto return_self;
+            left_expr = shared_from_this();
+            this->sub_expression1 = bin_non_const->sub_expression1;
+            right_expr = bin_non_const->sub_expression2;
+            bin_non_const->sub_expression2 = shared_from_this();
+        }
+        op = bin_non_const->op_flag;
+    }
+
+    // Constant folding algoritms
+
+    skip_rearrange:
+
+    left_expr = left_expr->reduce_const();
+    right_expr = right_expr->reduce_const();
+
+
+    static const unordered_set<BinaryOperationFlag> logical_ops = {OR, NEITHER, AND};
+
+    if(left_expr->is_const() && right_expr->is_const())
+    {
+        return make_shared<LiteralExpression>(make_shared<Data>(eval(const_stack)));
+    }
+    else if(logical_ops.count(op))
+    {
+
+        static const unordered_map<BinaryOperationFlag, string_view> operators = 
+        {{AND, "AND"}, {NEITHER, "NEITHER"}, {OR, "OR"}};     
+
+        Data const_side_val;
+        if(left_expr->is_const())
+        {
+            const_side_val = left_expr->eval(const_stack);
+        }
+        else if(right_expr->is_const())
+        {
+            const_side_val = right_expr->eval(const_stack);
         }
 
-        UnaryExpression::assert_type(const_side_val, {BOOLEAN}, operators.at(op_flag));
+
+        UnaryExpression::assert_type(const_side_val, {BOOLEAN}, operators.at(op));
 
         auto const_bool = dynamic_pointer_cast<Boolean>(const_side_val);
     
         //iespējams, ka loģisko izteiksmi var atrisināt zinot tikai vienu pusi
 
-        if(op_flag == AND && !const_bool)
+        if(op == AND && !const_bool)
         {
             return make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(false)));
         }
-        else if(op_flag == OR && const_bool)
+        else if(op == OR && const_bool)
         {
             return make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(true)));
         }
-        else if(op_flag == NEITHER && const_bool)
+        else if(op == NEITHER && const_bool)
         {
             return make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(false)));
         }
@@ -717,22 +771,23 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
     }
     
     BinaryOperationFlag commut, non_commut;
-    if(op_flag == ADD || op_flag == SUB)
+    if(op == ADD || op == SUB)
     {
         commut = ADD;
         non_commut = SUB;
     }
-    else if(op_flag == MULT || op_flag == DIV)
+    else if(op == MULT || op == DIV)
     {
         commut = MULT;
         non_commut = DIV;
     }
     else goto return_self;
     
-    if(auto bin_expr1 = dynamic_pointer_cast<BinaryExpression>(sub_expression1))
+    if(auto bin_expr1 = dynamic_pointer_cast<BinaryExpression>(left_expr))
     {
         shared_ptr<Expression>* const_side_expr1, *const_side_expr2, *non_const_side1, *non_const_side2;
         bool left_side_const1, left_side_const2;
+        
         if(bin_expr1->sub_expression1->is_const())
         {
             const_side_expr1 = &bin_expr1->sub_expression1;
@@ -749,7 +804,8 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
         {
             goto return_self;
         }
-        if(auto bin_expr2 = dynamic_pointer_cast<BinaryExpression>(sub_expression2))
+
+        if(auto bin_expr2 = dynamic_pointer_cast<BinaryExpression>(right_expr))
         {
             
             if(bin_expr2->sub_expression1->is_const())
@@ -770,7 +826,7 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
             }
 
 
-            if(op_flag == commut)
+            if(op == commut)
             {
                 if(bin_expr1->op_flag == commut)
                 {
@@ -833,7 +889,7 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
                     }
                 }
             }
-            else if(op_flag == non_commut)
+            else if(op == non_commut)
             {
                 if(bin_expr1->op_flag == commut)
                 {
@@ -898,55 +954,55 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
                 }
             }
         }
-        else if(sub_expression2->is_const())
+        else if(right_expr->is_const())
         {
-            if(op_flag == commut)
+            if(op == commut)
             {
                 if(bin_expr1->op_flag == commut) // (1 + x) + 2 = 3 + x 
                 {
                     return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                    BinaryExpression(*const_side_expr1, sub_expression2, commut).eval(const_stack))), *non_const_side1, commut); 
+                    BinaryExpression(*const_side_expr1, right_expr, commut).eval(const_stack))), *non_const_side1, commut); 
                 }
                 else if(bin_expr1->op_flag == non_commut)
-                {
+                {            
                     if(left_side_const1) // (1 - x) + 2 = 3 - x 
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(*const_side_expr1, sub_expression2, commut).eval(const_stack))), *non_const_side1, non_commut); 
+                        BinaryExpression(*const_side_expr1, right_expr, commut).eval(const_stack))), *non_const_side1, non_commut); 
                     }
                     else // (x - 1) + 2 = 1 + x 
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(sub_expression2, *const_side_expr1, non_commut).eval(const_stack))), *non_const_side1, commut); 
+                        BinaryExpression(right_expr, *const_side_expr1, non_commut).eval(const_stack))), *non_const_side1, commut); 
                     }
                 }
             }
-            else if(op_flag == non_commut)
+            else if(op == non_commut)
             {        
                 if(bin_expr1->op_flag == commut) // (1 + x) - 2 = -1 + x
                 {
                     return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                    BinaryExpression(*const_side_expr1, sub_expression2, non_commut).eval(const_stack))), *non_const_side1, commut); 
+                    BinaryExpression(*const_side_expr1, right_expr, non_commut).eval(const_stack))), *non_const_side1, commut); 
                 }
                 else if(bin_expr1->op_flag == non_commut)
                 {
                     if(left_side_const1) // (1 - x) - 2 = -1 - x
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(*const_side_expr1, sub_expression2, non_commut).eval(const_stack))), *non_const_side1, non_commut); 
+                        BinaryExpression(*const_side_expr1, right_expr, non_commut).eval(const_stack))), *non_const_side1, non_commut); 
                     }
                     else // (x - 1) - 2 = -3 + x 
                     {
                         return make_shared<BinaryExpression>(*non_const_side1,
-                            make_shared<LiteralExpression>(make_shared<Data>(BinaryExpression(*const_side_expr1, sub_expression2, commut).eval(const_stack))), non_commut); 
+                            make_shared<LiteralExpression>(make_shared<Data>(BinaryExpression(*const_side_expr1, right_expr, commut).eval(const_stack))), non_commut); 
                     }
                 }
             }
         }
     }
-    else if(sub_expression1->is_const())
+    else if(left_expr->is_const())
     {
-        if(auto bin_expr = dynamic_pointer_cast<BinaryExpression>(sub_expression2))
+        if(auto bin_expr = dynamic_pointer_cast<BinaryExpression>(right_expr))
         {
             shared_ptr<Expression>* const_side_expr, *non_const_side;
             bool left_side_const;
@@ -966,45 +1022,45 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
             {
                 goto return_self;
             }
-            if(op_flag == commut)
+            if(op == commut)
             {
                     if(bin_expr->op_flag == commut) // 2 + (1 + x) = 3 + x 
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(*const_side_expr, sub_expression1, commut).eval(const_stack))), *non_const_side, commut); 
+                        BinaryExpression(*const_side_expr, left_expr, commut).eval(const_stack))), *non_const_side, commut); 
                     }
                     else if(bin_expr->op_flag == non_commut)
                     {
                         if(left_side_const) //  2 + (1 - x) = 3 - x 
                         {
                             return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                            BinaryExpression(*const_side_expr, sub_expression1, commut).eval(const_stack))), *non_const_side, non_commut); 
+                            BinaryExpression(*const_side_expr, left_expr, commut).eval(const_stack))), *non_const_side, non_commut); 
                         }
                         else //  2 + (x - 1) = 1 + x 
                         {
                             return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                            BinaryExpression(sub_expression1, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
+                            BinaryExpression(left_expr, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
                         }
                     }
             }
-            else if(op_flag == non_commut)
+            else if(op == non_commut)
             {
                 if(bin_expr->op_flag == commut) // 2 - (1 + x) = 1 + x
                 {
                     return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                    BinaryExpression(sub_expression1, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
+                    BinaryExpression(left_expr, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
                 }
                 else if(bin_expr->op_flag == non_commut)
                 {
                     if(left_side_const) // 2 - (1 - x) = 1 + x
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(sub_expression1, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
+                        BinaryExpression(left_expr, *const_side_expr, non_commut).eval(const_stack))), *non_const_side, commut); 
                     }
                     else //  2 - (x - 1) = 3 - x 
                     {
                         return make_shared<BinaryExpression>(make_shared<LiteralExpression>(make_shared<Data>(
-                        BinaryExpression(sub_expression1, *const_side_expr, commut).eval(const_stack))), *non_const_side, non_commut); 
+                        BinaryExpression(left_expr, *const_side_expr, commut).eval(const_stack))), *non_const_side, non_commut); 
                     }
                 }
             }
@@ -1013,7 +1069,7 @@ shared_ptr<Expression> BinaryExpression::reduce_const()
 
     return_self: //neko nemaina
 
-    return make_shared<BinaryExpression>(*this); 
+    return make_shared<BinaryExpression>(left_expr, right_expr, op); 
 }
 
 shared_ptr<Expression> UnaryExpression::reduce_const()

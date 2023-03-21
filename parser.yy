@@ -92,7 +92,8 @@
     Darbību secība
 */ 
 
-%left IF ELSE ELIF ENDIF FOR BY TO COLUMN CONST ADVANCE RETURN GIVE
+%nonassoc COLUMN
+%nonassoc IF ELSE ELIF ENDIF FOR BY TO CONST ADVANCE RETURN GIVE
 %left ASSIGN
 %left OR XOR NEITHER
 %left AND
@@ -294,13 +295,13 @@ if_statement: IF expr_val COLUMN EOL program elif_branch ENDIF {
     $5.push_back(make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1)));
     $$ = make_shared<IfStatement>(move($5), make_shared<Program>($8, interpreter.get_scope_number(), 1));
 }
-| IF expr_val COLUMN statement{
-    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1))};
-    $$ = make_shared<IfStatement>(move(ifs));
-}
 | IF expr_val COLUMN statement ELSE COLUMN statement{
     vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1))};
     $$ = make_shared<IfStatement>(move(ifs), make_shared<Program>($7, interpreter.get_scope_number(), 1));
+}
+| IF expr_val COLUMN statement{
+    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair($2, make_shared<Program>($4, interpreter.get_scope_number(), 1))};
+    $$ = make_shared<IfStatement>(move(ifs));
 }
 ;
 
