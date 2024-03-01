@@ -1,4 +1,4 @@
-# Install script for directory: /home/janis/Documents/CellScript
+# Install script for directory: /home/vboxuser/Documents/cellscript/CellScript
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/janis/Documents/CellScript/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/vboxuser/Documents/cellscript/CellScript/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
