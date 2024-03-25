@@ -1,3 +1,1 @@
-FOR I = 1 TO 15:
-  PRINT I^2
-ENDFOR
+

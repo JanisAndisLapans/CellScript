@@ -2894,7 +2894,7 @@ void CS::CS_Parser::error( const location_type &l, const std::string &err_messag
 int main(int argc, char *argv[])
 {
     cout << "test" << argc << argv[1] << endl;
-    /*std::ifstream ifs(argv[0], std::ifstream::in);
+    std::ifstream ifs(argv[0], std::ifstream::in);
     auto lexer = make_unique<CS::CS_Scanner>(&ifs);
     auto parser = make_unique<CS::CS_Parser>(*lexer);
     interpreter.make_new_scope(); //Globālais
@@ -2902,5 +2902,5 @@ int main(int argc, char *argv[])
     {
         //
     }
-    interpreter.pop_scope();*/
+    interpreter.pop_scope();
 }

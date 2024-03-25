@@ -1,0 +1,48 @@
+#quicksort
+
+
+CONST partition = FUNC(arr, low, high):
+  #choose the pivot
+   
+  pivot=arr[high]
+  #Index of smaller element and Indicate
+  #the right position of pivot found so far
+  i=(low-1)
+   
+  FOR j=low TO high + 1:
+    #If current element is smaller than the pivot
+    IF arr[j]<pivot:
+      #Increment index of smaller element
+      i = i + 1
+      temp = arr[i]
+      arr[i] = arr[j]
+      arr[i] = temp
+    ENDIF
+  ENDFOR
+  temp = arr[i+1]
+  arr[i+1] = arr[high]
+  arr[high] = temp   
+  RETURN i + 1
+ENDFUNC 
+# The Quicksort function Implement
+            
+CONST quickSort = FUNC(arr, low, high):
+  # when low is less than high
+  IF low<high:
+  
+    # pi is the partition return index of pivot
+     
+    pi = partition(arr,low,high)
+     
+    #Recursion Call
+    #smaller element than pivot goes left and
+    #higher element goes right
+    quickSort(arr,low,pi-1)
+    quickSort(arr,pi+1,high)
+  ENDIF
+ENDFUNC
+              
+
+test_arr = [10,7,8,9,1,5]
+quickSort(test_arr, 0, LEN(test_arr) - 1)
+PRINT test_arr
