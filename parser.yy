@@ -14,6 +14,7 @@
     #include <string>
     #include <string>
     #include <vector>
+    #include <fstream>
     #include "datatypes.h"
     #include "program.h"
     #include "interpreter.h"
@@ -57,12 +58,37 @@
     #define yylex scanner.yylex
 
     vector<Data> const_stack; // tukšs steks, ko pielieto callstack vietā konstantām operācijām
+
+    int get_variable(string name, bool declare = true) 
+    {
+        bool non_declared;
+        auto index = interpreter.get_variable(name, non_declared);
+        if(!non_declared || interpreter.is_const(name))
+        {
+            if(interpreter.is_const(name))
+            {
+                cout << "ERROR: variable declared CONST in this scope, cannot be altered" <<endl;
+                return -1;
+            }
+        }
+        else
+        {
+            if(!declare) 
+            {
+                cout << "ERROR: variable must be declared" << endl;
+                return -1;
+            }
+            return interpreter.declare_variable(name);
+        }
+
+        return index;
+    } 
 }
 
 %token<string> DEC
 %token<string> STR
 %token ONE_LINE_COMMENT
-%token PLUS MINUS TIMES DIVIDE POWER ASSIGN MOD
+%token PLUS MINUS TIMES DIVIDE POWER ASSIGN MOD PLUS_ASSIGN MINUS_ASSIGN TIMES_ASSIGN DIVIDE_ASSIGN MOD_ASSIGN
 %token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL
 %token CONST SELF
 %token AND OR XOR NEITHER
@@ -70,9 +96,9 @@
 %token TRUE FALSE NULL_TOKEN INF
 %token LEFT_PARENTHESES RIGHT_PARENTHESES
 %token EOL
-%token STOP
+%token END_OF_FILE
 %token<string> ID
-%token IF ELSE ELIF ENDIF PRINT FOR BY TO ENDFOR FUNC ENDFUNC
+%token IF ELSE ELIF ENDIF PRINT FOR BY TO ENDFOR FUNC ENDFUNC WHILE ENDWHILE
 %token COLUMN COMMA
 %token AS NumType BoolType StrType
 
@@ -83,6 +109,7 @@
 %nterm<vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>> elif_branch
 %nterm<shared_ptr<IfStatement>> if_statement
 %nterm<shared_ptr<ForCounterLoop>> for_counter_loop
+%nterm<shared_ptr<WhileLoop>> while_loop
 %nterm<shared_ptr<AssignStatement>> assignment
 %nterm<shared_ptr<FunctionStatement>> function_call
 %type<shared_ptr<Function>> function
@@ -93,8 +120,8 @@
 */ 
 
 %nonassoc COLUMN
-%nonassoc IF ELSE ELIF ENDIF FOR BY TO CONST ADVANCE RETURN GIVE
-%left ASSIGN
+%nonassoc IF ELSE ELIF ENDIF FOR BY TO CONST ADVANCE RETURN GIVE LEN
+%left ASSIGN PLUS_ASSIGN MINUS_ASSIGN TIMES_ASSIGN DIVIDE_ASSIGN MOD_ASSIGN
 %left OR XOR NEITHER
 %left AND
 %left EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT_EQUAL
@@ -103,14 +130,14 @@
 %left TIMES DIVIDE MOD
 %right AS
 %left POWER
-%left LEFT_PARENTHESES RIGHT_PARENTHESES
+%left LEFT_PARENTHESES RIGHT_PARENTHESES LEFT_BRACKET RIGHT_BRACKET
 
 
 //Gramatika un likumi 
 
 %%
  
-input: program STOP EOL { 
+input: program END_OF_FILE { 
     $1->run();
     return 0;
     }
@@ -149,6 +176,9 @@ program: %empty {
 statement: assignment {
     $$ = $1;
 }
+| expr LEFT_BRACKET expr RIGHT_BRACKET ASSIGN expr {
+    $$ = make_shared<IndexAssignStatement>($1, $3, $6);
+}
 | PRINT expr_val {
     $$ = make_shared<PrintStatement>($2);
 
@@ -157,6 +187,9 @@ statement: assignment {
     $$ = $1;
 }
 |for_counter_loop{
+    $$ = $1;
+}
+| while_loop {
     $$ = $1;
 }
 | BREAK{
@@ -227,23 +260,23 @@ function_call: expr_val LEFT_PARENTHESES expr_list RIGHT_PARENTHESES {
 
 assignment: ID ASSIGN 
 <int>{
-    bool non_declared;
-    $$ = interpreter.get_variable($1, non_declared);
-    if(!non_declared)
-    {
-        if(interpreter.is_const($1))
-        {
-            cout << "ERROR: variable declared CONST in this scope, cannot be altered" <<endl;
-            return 1;
-        }
-    }
-    else
-    {
-        $$ = interpreter.declare_variable($1);
+    $$ = get_variable($1);
+    if($$ == -1) { // Error
+        return 1;
     }
 }
 expr_val{
     $$ = make_shared<AssignStatement>($3, $4);
+}
+| ID PLUS_ASSIGN 
+<int>{
+    $$ = get_variable($1, false);
+    if($$ == -1) { // Error
+        return 1;
+    }
+}
+expr_val{
+    $$ = make_shared<AssignStatement>($3, $4, make_shared<PlusAssignmentOperation>());
 }
 | CONST ID ASSIGN
 <DataPtr>{
@@ -304,6 +337,25 @@ if_statement: IF expr_val COLUMN EOL program elif_branch ENDIF {
     $$ = make_shared<IfStatement>(move(ifs));
 }
 ;
+
+while_loop: WHILE expr_val COLUMN EOL
+<void*> {
+    interpreter.mark_is_in_loop(true);
+} 
+program ENDWHILE {
+    //Izveido ciklu
+    $$ = make_shared<WhileLoop>($2, $6);
+    interpreter.mark_is_in_loop(false);
+}
+| WHILE expr_val COLUMN 
+<void*> {
+    interpreter.mark_is_in_loop(true);
+} 
+statement {
+    //Izveido ciklu
+    $$ = make_shared<WhileLoop>($2, make_shared<Program>($5, interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
 
 for_counter_loop: FOR ID ASSIGN expr_val TO expr_val BY expr_val COLUMN EOL
 <int>{
@@ -532,6 +584,9 @@ expr: DEC { $$ = make_shared<LiteralExpression>(make_shared<Data>(make_shared<Nu
 | function_call { $$ = make_shared<StatementExpression> ($1); }
 | assignment { $$ = make_shared<StatementExpression> ($1);}
 | LEFT_PARENTHESES expr RIGHT_PARENTHESES {$$ = $2;}
+| LEFT_BRACKET expr_list RIGHT_BRACKET { $$ = make_shared<InititializerListExpression>($2); }
+| expr LEFT_BRACKET expr RIGHT_BRACKET { $$ = make_shared<BinaryExpression>($1, $3, BinaryExpression::INDEX); }
+| LEN LEFT_PARENTHESES expr RIGHT_PARENTHESES { $$ = make_shared<LengthExpression>($3); }
 ;
 
 expr_val: expr {
@@ -623,9 +678,16 @@ void CS::CS_Parser::error( const location_type &l, const std::string &err_messag
    std::cerr << "Error: " << err_message << " at " << l << "\n";
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    auto lexer = make_unique<CS::CS_Scanner>(&cin);
+    if(argc < 2)
+    {
+        cout << "ERROR: No file provided" << endl;
+        return 0;
+    } 
+
+    std::ifstream ifs(argv[1], std::ifstream::in);
+    auto lexer = make_unique<CS::CS_Scanner>(&ifs);
     auto parser = make_unique<CS::CS_Parser>(*lexer);
     interpreter.make_new_scope(); //Globālais
     if(parser->parse() == 0) //Nav kļūdu

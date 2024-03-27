@@ -85,7 +85,9 @@ one_line_comment #.*
 "TO" return token::TO;
 "BY" return token::BY;
 "ENDFOR" return token::ENDFOR;
-"STOP" return token::STOP;
+"LEN" return token::LEN;
+"WHILE" return token::WHILE;
+"ENDWHILE" return token::ENDWHILE;
 
 "," return token::COMMA;
 ":" return token::COLUMN;
@@ -97,6 +99,8 @@ one_line_comment #.*
 "%" return token::MOD;
 "(" return token::LEFT_PARENTHESES;
 ")" return token::RIGHT_PARENTHESES;
+"[" return token::LEFT_BRACKET;
+"]" return token::RIGHT_BRACKET;
 "=" return token::ASSIGN;
 "==" return token::EQUAL;
 "<" return token::LESS_THAN;
@@ -104,6 +108,11 @@ one_line_comment #.*
 "<=" return token::LESS_THAN_EQ;
 ">=" return token::GREATER_THAN_EQ;
 "!=" return token::NOT_EQUAL;
+"+=" return token::PLUS_ASSIGN;
+"-=" return token::MINUS_ASSIGN;
+"*=" return token::TIMES_ASSIGN;
+"/=" return token::DIVIDE_ASSIGN;
+"%=" return token::MOD_ASSIGN;
 "NOT" return token::NOT;
 "AND" return token::AND;
 "OR" return token::OR;
@@ -111,11 +120,13 @@ one_line_comment #.*
 "NEITHER" return token::NEITHER;
 "TRUE" return token::TRUE;
 "FALSE" return token::FALSE;
-
 "\n" return token::EOL;
+
+<<EOF>> return token::END_OF_FILE;
 
 {id} {yylval->build<string>(yytext); return token::ID;}
 {real} {yylval->build<string>(yytext); return token::DEC;}
 {str} { string str = yytext; str.erase(0,1); /*Noņem sākuma " */ str.erase(str.size() - 1); /* Noņem beigu "*/ yylval->build<string>(move(str)); return token::STR;}
+
 %%
 

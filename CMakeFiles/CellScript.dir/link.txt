@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/CellScript.dir/lex.yy.cc.o CMakeFiles/CellScript.dir/parser.tab.cc.o CMakeFiles/CellScript.dir/datatypes.cc.o CMakeFiles/CellScript.dir/interpreter.cc.o CMakeFiles/CellScript.dir/program.cc.o -o CellScript  -lgmp -lgmpxx -lmpfr 

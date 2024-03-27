@@ -1,0 +1,3 @@
+/home/vboxuser/Documents/cellscript/CellScript/CMakeFiles/CellScript.dir
+/home/vboxuser/Documents/cellscript/CellScript/CMakeFiles/edit_cache.dir
+/home/vboxuser/Documents/cellscript/CellScript/CMakeFiles/rebuild_cache.dir

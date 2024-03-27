@@ -146,7 +146,7 @@ Number Number::ln() const
     return res;
 }
 
-string_view Number::to_str() const
+string Number::to_str() const
 {
     const mpfr_prec_t DEFAULT_PREC_MAX = 10; 
 
@@ -155,7 +155,6 @@ string_view Number::to_str() const
     //Ja DECIMAL_PLACES_TO_OUTPUT >= 0, tad parāda tieši decimal places skaitļus aiz komata. Ja trūkst pievieno papildus 0
 
     char* c_str;
-    
     if(DECIMAL_PLACES_TO_OUTPUT < 0)
     { 
         mpfr_asprintf(&c_str, "%.*Rf", DEFAULT_PREC_MAX, this->value);
@@ -196,12 +195,17 @@ string_view Number::to_str() const
         {
             len = i+1;
         }
-        return string_view(c_str, len);
+        string str;
+        str.assign(c_str, c_str+len);
+        free(c_str);
+        return str;
     } 
     else
     {
         mpfr_asprintf(&c_str, "%.*Rf", DECIMAL_PLACES_TO_OUTPUT, this->value);
-        return string_view(c_str);
+        string str(c_str);
+        free(c_str);
+        return str;
     }
 }
 
@@ -246,4 +250,58 @@ Number Number::operator-() const
 Number::~Number()
 {
     mpfr_clear(this->value);
+}
+
+string List::to_str() const 
+{
+    string arr_str = "[";
+
+    bool first = true;
+
+    for(const auto& obj : this->list) 
+    {
+        if(!first) 
+        {
+            arr_str += ", "; 
+        }
+        first = false;
+
+        if(obj->type() == STRING)
+        {
+            arr_str += '"' + obj->to_str() + '"';
+        }
+        else 
+        {
+            arr_str += obj->to_str();
+        }
+    }
+
+    arr_str += "]";
+
+    return arr_str;
+}
+
+unsigned long Number::get_int() const 
+{
+    mpfr_t truncated;
+    mpfr_init2(truncated, PRECISION);
+
+    if(mpfr_trunc(truncated, this->value) != 0) 
+    {
+        cout << "Could not convert number " << this->to_str() << " to an integer" << endl;
+    }
+
+    mpfr_clear(truncated);
+
+    return mpfr_get_si(this->value, MPFR_RNDF);
+}
+
+List List::get_copy() const {
+    List l(this->list);
+    return l;
+}
+
+void String::append(shared_ptr<String> other) 
+{
+    *this += *other;
 }

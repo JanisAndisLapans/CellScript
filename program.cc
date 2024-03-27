@@ -1,5 +1,7 @@
 #include "program.h"
 
+vector<Data> Expression::const_stack;
+
 BinaryExpression::BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op)
 : sub_expression1(e1), sub_expression2(e2), op_flag(op)
 {
@@ -69,6 +71,10 @@ BinaryExpression::BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Express
         case NEITHER:
             this->operation = bind(static_cast<Data(*)(const Data, const Data)>
             (&BinaryExpression::logical_neither), _1, _2);
+            break;
+        case INDEX:
+            this->operation = bind(static_cast<Data(*)(const Data, const Data)>
+            (&BinaryExpression::index), _1, _2);
             break;                                        
         default:
             throw "Unexpected operation flag";
@@ -113,11 +119,11 @@ FunctionStatement::FunctionStatement(const vector<shared_ptr<Expression>>& arg_v
     {
         if(!arg_val->is_const())
         {
-            this->constness = false;
-            break;
+           this->constness = false;
+           return;
         }
     }
-    this->constness = true;
+    this->constness = function_expr->is_const();
 }
 
 IfStatement::IfStatement(vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>&& branches, shared_ptr<Program> else_prog)
@@ -151,6 +157,24 @@ LiteralExpression::LiteralExpression(DataPtr value)
 {
 }
 
+InititializerListExpression::InititializerListExpression(const vector<shared_ptr<Expression>>& values)
+    : values(values)
+{
+    this->all_const = true;
+    for(const auto& expr : values) 
+    {
+        if(!expr->is_const())
+        {
+            this->all_const = false;
+            break;
+        }
+    }
+}
+
+LengthExpression::LengthExpression(shared_ptr<Expression> list)
+    : list(list)
+{
+}
 
 StatementExpression::StatementExpression(shared_ptr<Statement> statement)
     : statement(statement)
@@ -190,6 +214,30 @@ Data LiteralExpression::eval(vector<Data>& callstack)
     }
     return *value;
 }
+
+Data InititializerListExpression::eval(vector<Data>& callstack)
+{
+    auto list = make_shared<List>(this->values.size());
+    for(auto iter = this->values.rbegin(); iter != this->values.rend(); iter++) 
+    {
+        list->push((*iter)->eval(callstack));
+    }
+
+    return list;
+}
+
+
+Data LengthExpression::eval(vector<Data>& callstack)
+{
+    auto llist = list->eval(callstack);
+    if(llist->type() != LIST) {
+        cout << "LEN may only be used on a List type" << endl;
+        throw "EXCEPTION";
+    }
+    
+    return make_shared<Number>(dynamic_pointer_cast<List>(llist)->get_size());
+}
+
 
 Data StatementExpression::eval(vector<Data>& callstack)
 {
@@ -263,6 +311,27 @@ Data BinaryExpression::add(const Data op1, const Data op2)
         }
         return op1->copy();
     }
+    else if(op1->type() == LIST) 
+    {
+       auto list1 = static_cast<const List&>(*op1);
+       if(op2->type() == LIST)
+       {
+            auto list2 = static_cast<const List&>(*op2);
+            auto list_res = make_shared<List>(list1.get_copy());
+
+            for(auto i = 0; i < list2.get_size(); i++) 
+            {
+                list_res->push(list2.get(i));
+            }
+            return list_res; 
+        }
+        else 
+        {
+            auto copy = make_shared<List>(list1.get_copy());
+            copy->push(op2);
+            return copy;
+        }
+    }
     else //Number
     {
         BinaryExpression::assert_types_multiple(op1, op2, NUMBER, {NUMBER, INF}, "+");
@@ -329,6 +398,30 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
         {
             return make_shared<InfType>(-static_cast<const InfType&>(*op1).getPositivity());
         }
+    }
+    else if(op1->type() == LIST)
+    {
+        BinaryExpression::assert_types(op1, op2, LIST, NUMBER, "*");
+        auto op2_ind = static_cast<const Number&>(*op2);
+        if(op2_ind < 0 || op2_ind % 1 != 0)
+        {
+            cout << "List repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
+            throw "Exception";
+        }
+
+        auto list = static_cast<const List&>(*op1);
+
+        auto repeat_times = op2_ind.get_int();
+
+        auto list_res = make_shared<List>(list.get_size() * repeat_times);
+        
+        for(auto x = 0; x < repeat_times; x++) {
+            for(auto i = 0; i < list.get_size(); i++) {
+                list_res->push(list.get(i));
+            }
+        }
+
+        return list_res;
     }
     else //Number 
     {
@@ -589,6 +682,22 @@ Data BinaryExpression::logical_neither(const Data op1, const Data op2)
 
     BinaryExpression::assert_types(op1, op2, BOOLEAN, BOOLEAN, "NEITHER (NOR)");
     return make_shared<Boolean>(!(static_cast<const Boolean&>(*op1) || static_cast<const Boolean&>(*op2)));
+}
+
+Data BinaryExpression::index(const Data op1, const Data op2)
+{
+    if (op1->type() == LIST) {
+        BinaryExpression::assert_types(op1, op2, LIST, NUMBER, "[idx]");
+        auto list = dynamic_pointer_cast<List>(op1);
+        auto index = dynamic_pointer_cast<Number>(op2);
+        if(*index >= list->get_size())
+        {
+            cout << "Index " << index->to_str() << " out of range! List size: " << list->get_size() << endl;
+            throw "EXCEPTION"; 
+        }
+        return list->get(index->get_int());
+    }
+    //else if(op1->type() == DICT) 
 }
 
 Data UnaryExpression::invert(const Data op)
@@ -1095,6 +1204,24 @@ shared_ptr<Expression> LiteralExpression::reduce_const()
     return make_shared<LiteralExpression>(*this);
 }
 
+shared_ptr<Expression> InititializerListExpression::reduce_const()
+{
+    if(this->all_const) {
+        return make_shared<LiteralExpression>(make_shared<Data>(this->eval(const_stack)));
+    }
+    
+    return make_shared<InititializerListExpression>(*this);
+}
+
+shared_ptr<Expression> LengthExpression::reduce_const()
+{
+    if(this->is_const()) {
+        return make_shared<LiteralExpression>(make_shared<Data>(this->eval(const_stack)));
+    }
+
+    return make_shared<LengthExpression>(*this);
+}
+
 shared_ptr<Expression> VariableExpression::reduce_const()
 {
     return make_shared<VariableExpression>(*this);
@@ -1161,10 +1288,51 @@ ExecutionResult PrintStatement::exec(vector<Data>& callstack)
 
 ExecutionResult AssignStatement::exec(vector<Data>& callstack)
 {
-
-    callstack[variable_ind] = data->eval(callstack);
+    auto val = data->eval(callstack);
+    if(this->assignment_oper != nullptr) 
+    {
+        val = this->assignment_oper->operation_result(callstack[variable_ind], val);
+    }
+    
+    callstack[variable_ind] = val;
     return ExecutionResult(ASSIGN_RES, callstack[variable_ind]);
 }
+
+ExecutionResult IndexAssignStatement::exec(vector<Data>& callstack)
+{
+    auto list = this->list_expr->eval(callstack);
+    auto index = this->idx_expr->eval(callstack);
+    auto val = this->val_expr->eval(callstack);
+
+    if(list->type() != LIST) 
+    {
+        cout << "Not an array" << endl;
+        throw "EXCEPTION";
+    }
+    else
+    {
+        if(index->type() != NUMBER) {
+            cout << "Index must be a number" << endl;
+            throw "EXCEPTION";
+        }
+        auto idx_int = dynamic_pointer_cast<Number>(index)->get_int();
+        auto llist = dynamic_pointer_cast<List>(list);
+        if(llist->get_size() <= idx_int) {
+            cout << "Index " << idx_int << " out of range. Size: " << llist->get_size() << endl;
+            throw "EXCEPTION";
+        }
+
+        if(this->assignment_oper != nullptr) 
+        {
+            val = this->assignment_oper->operation_result(llist->get(idx_int), val);
+        }
+
+        llist->set(val, idx_int);
+    }
+
+    return ExecutionResult(ASSIGN_RES, val);
+}
+
 
 ExecutionResult IfStatement::exec(vector<Data>& callstack)
 {
@@ -1195,6 +1363,37 @@ ExecutionResult IfStatement::exec(vector<Data>& callstack)
     return ExecutionResult(NONE);
 }
 
+ExecutionResult WhileLoop::exec(vector<Data>& callstack) {
+    while(true)
+    {
+        shared_ptr<Boolean> test_val_bool;
+        if(test_val_bool = dynamic_pointer_cast<Boolean>(condition->eval(callstack))) {
+            if(!(*test_val_bool)) {
+                return ExecutionResult(NONE);
+            }
+
+            auto res = loop_program->run(callstack);
+
+            if(res.flag == BREAK) {
+                return ExecutionResult(NONE);
+            } else if(res.flag == BREAK_ALL || res.flag == RETURN) {
+                return res;
+            } else if(res.flag == ADVANCE && *dynamic_pointer_cast<Number>(res.value) > 1) {
+                cout << "ADVANCE not allowed in WHILE loop" << endl;
+                throw exception();
+            } else if(res.flag == ADVANCE && *dynamic_pointer_cast<Number>(res.value) == 0) {
+                cout << "REPEAT not allowed in WHILE loop" << endl;
+                throw exception();
+            } else if (res.flag != NONE) {
+                return res;
+            }
+        } else {
+            cout << "Only boolean conditions allowed for WHILE loop!" << endl;
+            throw exception();
+        }
+    }
+}
+
 ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
 {
     if(dynamic_pointer_cast<VariableExpression>(start) || dynamic_pointer_cast<LiteralExpression>(start))
@@ -1208,14 +1407,14 @@ ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
 
     shared_ptr<Number> counter_num;
 
-    if(!(counter_num = dynamic_pointer_cast<Number>(callstack[counter_ind])))
-    {
-        cout << "Counter must be of type Number, " << (callstack[counter_ind])->type_name() << " is invalid" << endl;
-        throw "Exception";        
-    }
-
     while(true)
     {
+        if(!(counter_num = dynamic_pointer_cast<Number>(callstack[counter_ind])))
+        {
+            cout << "Counter must be of type Number, " << (callstack[counter_ind])->type_name() << " is invalid" << endl;
+            throw "Exception";        
+        }
+
         auto end_val = end->eval(callstack);
 
         shared_ptr<Number> end_val_num;
@@ -1277,7 +1476,7 @@ ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
             else
             {
                 //Izmaina counter pēc cikla darbības ar jauno vērtību
-                *counter_num = next_counter_pos; 
+                callstack[counter_ind] = make_shared<Number>(next_counter_pos); 
             }
         }
         else
@@ -1352,4 +1551,40 @@ ExecutionResult FunctionStatement::exec(vector<Data>& callstack)
         return ExecutionResult(GIVE, res.value);
     }
 
+}
+
+Data PlusAssignmentOperation::operation_result(Data initial, const Data val) 
+{
+    if(auto arr = dynamic_pointer_cast<List>(initial)) 
+    {
+        if(auto arr2 = dynamic_pointer_cast<List>(val)) 
+        {
+            for(auto i = 0; i < arr2->get_size(); i++) 
+            {
+                arr->push(arr2->get(i));
+            }
+        }
+        else
+            arr->push(val);
+    }
+    else if(auto str = dynamic_pointer_cast<String>(initial)) 
+    {
+        if(auto str2 = dynamic_pointer_cast<String>(val))
+        {
+            str->append(str2);
+        }
+        else
+            goto default_oper;
+    }
+    else 
+    {
+        default_oper:
+        return BinaryExpression(
+            make_shared<LiteralExpression>(make_shared<Data>(initial)), 
+            make_shared<LiteralExpression>(make_shared<Data>(val)),
+            BinaryExpression::ADD)
+        .eval(Expression::const_stack);
+    }
+
+    return initial;
 }

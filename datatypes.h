@@ -11,12 +11,10 @@
 #include <iostream>
 
 using namespace std;
-using namespace placeholders;
-
 
 enum TypeLabel
 {
-    NUMBER, STRING, BOOLEAN, NULLTYPE, INF, FUNC
+    NUMBER, STRING, BOOLEAN, NULLTYPE, INF, FUNC, LIST
 };
 
 class DataType
@@ -27,7 +25,7 @@ class DataType
 public:
    virtual string_view type_name() const = 0; // Atgriež nosaukumu katram tipam
    virtual TypeLabel type() const  = 0; //Atgriež tipu kā TypeLabel enum vērtību
-   virtual string_view to_str() const = 0;
+   virtual string to_str() const = 0;
    virtual shared_ptr<DataType> copy() const = 0;
 };
 
@@ -56,6 +54,8 @@ public:
 
     virtual string_view type_name() const override { return "Number";}
     virtual TypeLabel type() const override { return TypeLabel::NUMBER;}
+
+    unsigned long get_int() const;
 
     Number& operator=(double value);
     Number& operator=(const string& value);
@@ -86,7 +86,7 @@ public:
     bool operator>=(const Number& operand) const;
     bool operator<=(const Number& operand) const;
     
-    virtual string_view to_str() const override;
+    virtual string to_str() const override;
     
     virtual shared_ptr<DataType> copy() const override {return make_shared<Number>(*this);}
     
@@ -102,10 +102,11 @@ public:
     
     virtual string_view type_name() const override { return "String"; }
     virtual TypeLabel type() const override { return TypeLabel::STRING; }
-    virtual string_view to_str() const override { return *this; }
+    virtual string to_str() const override { return *this; }
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<String>(*this);}
 
+    void append(shared_ptr<String> other);
 };
 
 template<typename T>
@@ -126,7 +127,7 @@ public:
     
     virtual string_view type_name() const override { return "Boolean";}
     virtual TypeLabel type() const override { return TypeLabel::BOOLEAN;}
-    virtual string_view to_str() const override { return *this ? "TRUE" : "FALSE" ;}
+    virtual string to_str() const override { return *this ? "TRUE" : "FALSE" ;}
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<Boolean>(*this);}
 
@@ -137,7 +138,7 @@ class NullType : public DataType
 public:    
     virtual string_view type_name() const override { return "NullType";}
     virtual TypeLabel type() const override { return TypeLabel::NULLTYPE;}
-    virtual string_view to_str() const override { return "NULL"; }
+    virtual string to_str() const override { return "NULL"; }
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<NullType>();}
 
@@ -150,7 +151,7 @@ private:
 public:    
     virtual string_view type_name() const override { return "InfinityType";}
     virtual TypeLabel type() const override { return TypeLabel::INF;}
-    virtual string_view to_str() const override { return positivity > 0 ? "INF" : "-INF" ; }
+    virtual string to_str() const override { return positivity > 0 ? "INF" : "-INF" ; }
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<InfType>(*this);}
 
@@ -171,7 +172,7 @@ private:
 public:    
     virtual string_view type_name() const override { return "Function";}
     virtual TypeLabel type() const override { return TypeLabel::FUNC;}
-    virtual string_view to_str() const override { return "FUNC";}
+    virtual string to_str() const override { return "FUNC";}
 
     virtual shared_ptr<DataType> copy() const override {return make_shared<Function>(*this);}
 
@@ -182,4 +183,28 @@ public:
     int arg_count() const { return arg_variables.size(); };
 
     friend class FunctionStatement;
+};
+
+class List : public DataType
+{
+private: 
+    vector<Data> list;
+public:    
+    virtual string_view type_name() const override { return "List";}
+    virtual TypeLabel type() const override { return TypeLabel::LIST;}
+    virtual string to_str() const;
+
+    virtual shared_ptr<DataType> copy() const override {return make_shared<List>(list);}
+
+    List(int initial_size)
+      { }
+    
+    List(vector <Data> list)
+     : list(list) { }
+
+    void push(Data val) { list.push_back(val); };
+    void set(Data val, int index) { list[index] = val; }
+    Data get(unsigned long i) const { return list[i]; }
+    unsigned long get_size() const { return list.size(); } 
+    List get_copy() const;
 };

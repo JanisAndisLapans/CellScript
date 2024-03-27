@@ -15,6 +15,8 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace placeholders;
+
 class Expression
 {
 /*
@@ -22,9 +24,8 @@ class Expression
 
     Darbības princips ir balstīts uz izteiksmju parsing koku, kas implementēts rekursīvi
 */
-protected:
-    vector<Data> const_stack; // tukšs steks, ko pielieto callstack vietā konstantām operācijām
 public:
+    static vector<Data> const_stack; // tukšs steks, ko pielieto callstack vietā konstantām operācijām
     virtual Data eval(vector<Data>& callstack) = 0;
     virtual bool is_const() const = 0; // Vai izteiksme satur mainīgas daļas
     virtual shared_ptr<Expression> reduce_const() = 0; // Saīsina izteiksmi pārveršot konstantās daļas par LiteralExpression
@@ -41,7 +42,7 @@ public:
 
     enum BinaryOperationFlag
     {
-        ADD, SUB, MULT, DIV, MOD, POW, GT, LT, EQ_GT, EQ_LT, EQ, NEQ, AND, OR, XOR, NEITHER
+        ADD, SUB, MULT, DIV, MOD, POW, GT, LT, EQ_GT, EQ_LT, EQ, NEQ, AND, OR, XOR, NEITHER, INDEX
     };
  
     BinaryOperationFlag op_flag;
@@ -79,6 +80,7 @@ private:
     static Data logical_or(const Data op1, const Data op2);
     static Data logical_xor(const Data op1, const Data op2);
     static Data logical_neither(const Data op1, const Data op2);
+    static Data index(const Data op1, const Data op2);
 
 };
 class UnaryExpression : public Expression
@@ -154,6 +156,39 @@ public:
 
 };
 
+class InititializerListExpression : public Expression
+{
+    /*
+        Saraksta izteiksme
+    */
+
+private:
+    vector<shared_ptr<Expression>> values;
+    bool all_const;
+public:
+    InititializerListExpression(const vector<shared_ptr<Expression>>& values);
+    virtual Data eval(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return all_const; }
+    virtual shared_ptr<Expression> reduce_const() override;
+
+};
+
+class LengthExpression : public Expression
+{
+    /*
+        Izteiksme, kam piesaistīta jau aprēķināta vērtība kā literālis (5, 3.14, "test") vai CONST mainīgais.
+    */
+
+private:
+    shared_ptr<Expression> list;
+public:
+    LengthExpression(shared_ptr<Expression> list);
+    virtual Data eval(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return list->is_const(); }
+    virtual shared_ptr<Expression> reduce_const() override;
+
+};
+
 class VariableExpression : public Expression
 {
 
@@ -164,7 +199,6 @@ class VariableExpression : public Expression
 private:
     int var_ind;
     string variable_name; // priekš kļūdu paziņojumiem
-
 public:
     VariableExpression(int var_ind, string variable_name="");
     virtual Data eval(vector<Data>& callstack) override;
@@ -222,7 +256,29 @@ public:
     virtual bool is_const() const override { return false; }
 };
 
-class AssignStatement : public Statement
+class AssignmentOperation
+{
+    public:
+        virtual Data operation_result(Data initial, const Data val) = 0;
+};
+
+class PlusAssignmentOperation : public AssignmentOperation
+{
+    public:
+        virtual Data operation_result(Data initial, const Data val) override;
+};
+
+class BaseAssignStatement : public Statement {
+    protected:
+        shared_ptr<AssignmentOperation> assignment_oper;
+    public:
+        BaseAssignStatement(shared_ptr<AssignmentOperation> assignment_oper) 
+            : assignment_oper (assignment_oper)
+        {
+        }
+};
+
+class AssignStatement : public BaseAssignStatement
 {
     /*
         Ievieto variable_ind pozīcijā iekš callstack data->eval() vērtību 
@@ -231,13 +287,29 @@ private:
     int variable_ind;
     shared_ptr<Expression> data;  
 public:
-    AssignStatement(int variable_ind, shared_ptr<Expression> data) : variable_ind(variable_ind) , data(data) {}
+    AssignStatement(int variable_ind, shared_ptr<Expression> data, shared_ptr<AssignmentOperation> assignOper = nullptr) 
+        : variable_ind(variable_ind) , data(data), BaseAssignStatement(assignOper) {}
 
     virtual ExecutionResult exec(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
 };
 
-class Program;
+class IndexAssignStatement : public BaseAssignStatement
+{
+    /*
+        Iestata saraksta indeksu arr[i] = val
+    */
+private:
+    shared_ptr<Expression> list_expr;
+    shared_ptr<Expression> idx_expr;
+    shared_ptr<Expression> val_expr;
+public:
+    IndexAssignStatement(shared_ptr<Expression> list_expr, shared_ptr<Expression> idx_expr, shared_ptr<Expression> val_expr, shared_ptr<AssignmentOperation> assignOper = nullptr) 
+    : list_expr(list_expr) , idx_expr(idx_expr), val_expr(val_expr), BaseAssignStatement(assignOper) {}
+
+    virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
+};
 
 class IfStatement : public Statement
 {
@@ -274,6 +346,24 @@ public:
     virtual ExecutionResult exec(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
 };
+
+class WhileLoop : public Statement
+{
+    /*
+        while cikls ar nosacijumu
+    */
+
+private:
+    shared_ptr<Expression> condition;
+    shared_ptr<Program> loop_program;
+public:
+    WhileLoop(shared_ptr<Expression> condition, shared_ptr<Program> loop_program) 
+    : condition(condition), loop_program(loop_program) {}
+    
+    virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
+};
+
 
 class BreakStatement : public Statement
 {

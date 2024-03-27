@@ -12,9 +12,9 @@
 4.1) Atpazīt stack overflow ar bezgalīgu rekursiju
 5)Laiks (MS_TIME)
 6)Optimizācijas izteiksmēm (Expression)
-7)Lasīšana no faila
+7)Lasīšana no faila // Padarīts
 8)If atgriež vērtību // Padarīts
 9)warning, ja nested loop vienādi mainīgie
-10) Pievienot sarakstus un vārdnīcas
-11) for each, while, mutable, immutable tipi
+10) Pievienot sarakstus un vārdnīcas // saraksti ir
+11) for each, while tipi // while ir
 12) Uzlabot constant folding sarežģītākām izteiksmēm // Padarīts
