@@ -1,10 +1,6 @@
-n:= 0;
-sum:=0;
-read a;
-while a > 0 do
-  n:=n+1;
-  sum:=sum+a;
-  read a;
-end;
-write n, sum;
+a = TRUE
+b = 4
+PRINT a + b
+
+
 

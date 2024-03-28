@@ -214,7 +214,20 @@ namespace CS {
   {
     switch (this->kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.copy< DataPtr > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.copy< int > (YY_MOVE (that.value));
         break;
 
@@ -223,7 +236,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.copy< shared_ptr<Expression> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.copy< shared_ptr<ForCounterLoop> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.copy< shared_ptr<Function> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.copy< shared_ptr<FunctionStatement> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -243,15 +271,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.copy< string > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.copy< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.copy< vector<shared_ptr<Expression>> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.copy< vector<string> > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.copy< void* > (YY_MOVE (that.value));
         break;
 
@@ -286,7 +324,20 @@ namespace CS {
     super_type::move (s);
     switch (this->kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.move< DataPtr > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.move< int > (YY_MOVE (s.value));
         break;
 
@@ -295,7 +346,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.move< shared_ptr<Expression> > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.move< shared_ptr<ForCounterLoop> > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.move< shared_ptr<Function> > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.move< shared_ptr<FunctionStatement> > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -315,15 +381,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.move< string > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.move< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.move< vector<shared_ptr<Expression>> > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.move< vector<string> > (YY_MOVE (s.value));
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.move< void* > (YY_MOVE (s.value));
         break;
 
@@ -428,7 +504,20 @@ namespace CS {
   {
     switch (that.kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.YY_MOVE_OR_COPY< DataPtr > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
@@ -437,7 +526,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.YY_MOVE_OR_COPY< shared_ptr<Expression> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.YY_MOVE_OR_COPY< shared_ptr<ForCounterLoop> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.YY_MOVE_OR_COPY< shared_ptr<Function> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.YY_MOVE_OR_COPY< shared_ptr<FunctionStatement> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -457,15 +561,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.YY_MOVE_OR_COPY< string > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.YY_MOVE_OR_COPY< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.YY_MOVE_OR_COPY< vector<shared_ptr<Expression>> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.YY_MOVE_OR_COPY< vector<string> > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.YY_MOVE_OR_COPY< void* > (YY_MOVE (that.value));
         break;
 
@@ -484,7 +598,20 @@ namespace CS {
   {
     switch (that.kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.move< DataPtr > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.move< int > (YY_MOVE (that.value));
         break;
 
@@ -493,7 +620,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.move< shared_ptr<Expression> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.move< shared_ptr<ForCounterLoop> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.move< shared_ptr<Function> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.move< shared_ptr<FunctionStatement> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -513,15 +655,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.move< string > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.move< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.move< vector<shared_ptr<Expression>> > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.move< vector<string> > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.move< void* > (YY_MOVE (that.value));
         break;
 
@@ -540,7 +692,20 @@ namespace CS {
     state = that.state;
     switch (that.kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.copy< DataPtr > (that.value);
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.copy< int > (that.value);
         break;
 
@@ -549,7 +714,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.copy< shared_ptr<Expression> > (that.value);
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.copy< shared_ptr<ForCounterLoop> > (that.value);
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.copy< shared_ptr<Function> > (that.value);
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.copy< shared_ptr<FunctionStatement> > (that.value);
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -569,15 +749,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.copy< string > (that.value);
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.copy< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (that.value);
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.copy< vector<shared_ptr<Expression>> > (that.value);
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.copy< vector<string> > (that.value);
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.copy< void* > (that.value);
         break;
 
@@ -595,7 +785,20 @@ namespace CS {
     state = that.state;
     switch (that.kind ())
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        value.move< DataPtr > (that.value);
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         value.move< int > (that.value);
         break;
 
@@ -604,7 +807,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         value.move< shared_ptr<Expression> > (that.value);
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        value.move< shared_ptr<ForCounterLoop> > (that.value);
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        value.move< shared_ptr<Function> > (that.value);
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        value.move< shared_ptr<FunctionStatement> > (that.value);
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -624,15 +842,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         value.move< string > (that.value);
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        value.move< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > (that.value);
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        value.move< vector<shared_ptr<Expression>> > (that.value);
         break;
 
       case symbol_kind::S_id_list: // id_list
         value.move< vector<string> > (that.value);
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         value.move< void* > (that.value);
         break;
 
@@ -894,7 +1122,20 @@ namespace CS {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case symbol_kind::S_40_1: // @1
+      case symbol_kind::S_78_3: // @3
+        yylhs.value.emplace< DataPtr > ();
+        break;
+
+      case symbol_kind::S_76_1: // @1
+      case symbol_kind::S_77_2: // @2
+      case symbol_kind::S_84_6: // @6
+      case symbol_kind::S_85_7: // @7
+      case symbol_kind::S_86_8: // @8
+      case symbol_kind::S_87_9: // @9
+      case symbol_kind::S_88_10: // @10
+      case symbol_kind::S_89_11: // @11
+      case symbol_kind::S_90_12: // @12
+      case symbol_kind::S_91_13: // @13
         yylhs.value.emplace< int > ();
         break;
 
@@ -903,7 +1144,22 @@ namespace CS {
         break;
 
       case symbol_kind::S_expr: // expr
+      case symbol_kind::S_expr_val: // expr_val
         yylhs.value.emplace< shared_ptr<Expression> > ();
+        break;
+
+      case symbol_kind::S_for_counter_loop: // for_counter_loop
+        yylhs.value.emplace< shared_ptr<ForCounterLoop> > ();
+        break;
+
+      case symbol_kind::S_function: // function
+      case symbol_kind::S_97_14: // @14
+      case symbol_kind::S_98_15: // @15
+        yylhs.value.emplace< shared_ptr<Function> > ();
+        break;
+
+      case symbol_kind::S_function_call: // function_call
+        yylhs.value.emplace< shared_ptr<FunctionStatement> > ();
         break;
 
       case symbol_kind::S_if_statement: // if_statement
@@ -923,15 +1179,25 @@ namespace CS {
         break;
 
       case symbol_kind::S_DEC: // DEC
+      case symbol_kind::S_STR: // STR
       case symbol_kind::S_ID: // ID
         yylhs.value.emplace< string > ();
+        break;
+
+      case symbol_kind::S_elif_branch: // elif_branch
+        yylhs.value.emplace< vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ();
+        break;
+
+      case symbol_kind::S_expr_list: // expr_list
+        yylhs.value.emplace< vector<shared_ptr<Expression>> > ();
         break;
 
       case symbol_kind::S_id_list: // id_list
         yylhs.value.emplace< vector<string> > ();
         break;
 
-      case symbol_kind::S_43_2: // $@2
+      case symbol_kind::S_81_4: // $@4
+      case symbol_kind::S_82_5: // $@5
         yylhs.value.emplace< void* > ();
         break;
 
@@ -956,89 +1222,94 @@ namespace CS {
           switch (yyn)
             {
   case 2: // input: program END_OF_FILE
-#line 125 "parser.yy"
+#line 140 "parser.yy"
                            { 
     yystack_[1].value.as < shared_ptr<Program> > ()->run();
     return 0;
     }
-#line 965 "parser.tab.cc"
+#line 1231 "parser.tab.cc"
     break;
 
-  case 3: // program: statement SCOL program
-#line 131 "parser.yy"
-                                {
-    yylhs.value.as < shared_ptr<Program> > () = yystack_[0].value.as < shared_ptr<Program> > ();
-
-    if(yystack_[2].value.as < shared_ptr<Statement> > () != nullptr) {
-        yylhs.value.as < shared_ptr<Program> > ()->attach_statement(yystack_[2].value.as < shared_ptr<Statement> > ());
-    }
-
-    yylhs.value.as < shared_ptr<Program> > ()->set_callstack_size(interpreter.get_top_scope_size());      
-}
-#line 979 "parser.tab.cc"
-    break;
-
-  case 4: // program: EOL program
-#line 140 "parser.yy"
-              {
-    yylhs.value.as < shared_ptr<Program> > () = yystack_[0].value.as < shared_ptr<Program> > ();
-}
-#line 987 "parser.tab.cc"
-    break;
-
-  case 5: // program: statement
-#line 143 "parser.yy"
-            {
-    if(interpreter.is_sep_scope())
-        yylhs.value.as < shared_ptr<Program> > () = make_shared<Program>(interpreter.get_scope_number(),interpreter.get_top_scope_size());
-    else
-        yylhs.value.as < shared_ptr<Program> > () = make_shared<Program>(interpreter.get_scope_number());
-
-    if(yystack_[0].value.as < shared_ptr<Statement> > () != nullptr) {
-        yylhs.value.as < shared_ptr<Program> > ()->attach_statement(yystack_[0].value.as < shared_ptr<Statement> > ());
-    }
-
-    yylhs.value.as < shared_ptr<Program> > ()->set_callstack_size(interpreter.get_top_scope_size());      
-}
-#line 1004 "parser.tab.cc"
-    break;
-
-  case 6: // program: statement EOL
-#line 155 "parser.yy"
+  case 3: // program: %empty
+#line 146 "parser.yy"
                 {
     if(interpreter.is_sep_scope())
         yylhs.value.as < shared_ptr<Program> > () = make_shared<Program>(interpreter.get_scope_number(),interpreter.get_top_scope_size());
     else
-        yylhs.value.as < shared_ptr<Program> > () = make_shared<Program>(interpreter.get_scope_number());
-
-    if(yystack_[1].value.as < shared_ptr<Statement> > () != nullptr) {
-        yylhs.value.as < shared_ptr<Program> > ()->attach_statement(yystack_[1].value.as < shared_ptr<Statement> > ());
-    }
-
-    yylhs.value.as < shared_ptr<Program> > ()->set_callstack_size(interpreter.get_top_scope_size());      
+        yylhs.value.as < shared_ptr<Program> > () = make_shared<Program>(interpreter.get_scope_number());  
 }
-#line 1021 "parser.tab.cc"
+#line 1242 "parser.tab.cc"
     break;
 
-  case 7: // statement: assignment
+  case 4: // program: program statement EOL
+#line 152 "parser.yy"
+                       {
+    if(yystack_[1].value.as < shared_ptr<Statement> > () != nullptr)
+    {
+        yystack_[2].value.as < shared_ptr<Program> > ()->attach_statement(yystack_[1].value.as < shared_ptr<Statement> > ());
+    }
+    yylhs.value.as < shared_ptr<Program> > () = yystack_[2].value.as < shared_ptr<Program> > ();
+    yystack_[2].value.as < shared_ptr<Program> > ()->set_callstack_size(interpreter.get_top_scope_size());
+}
+#line 1255 "parser.tab.cc"
+    break;
+
+  case 5: // program: program statement ONE_LINE_COMMENT EOL
+#line 160 "parser.yy"
+                                        {
+    if(yystack_[2].value.as < shared_ptr<Statement> > () != nullptr)
+    {
+        yystack_[3].value.as < shared_ptr<Program> > ()->attach_statement(yystack_[2].value.as < shared_ptr<Statement> > ());
+    }
+    yylhs.value.as < shared_ptr<Program> > () = yystack_[3].value.as < shared_ptr<Program> > ();
+    yystack_[3].value.as < shared_ptr<Program> > ()->set_callstack_size(interpreter.get_top_scope_size());
+}
+#line 1268 "parser.tab.cc"
+    break;
+
+  case 6: // program: program EOL
 #line 168 "parser.yy"
+             {
+    yylhs.value.as < shared_ptr<Program> > () = yystack_[1].value.as < shared_ptr<Program> > ();
+}
+#line 1276 "parser.tab.cc"
+    break;
+
+  case 7: // program: program ONE_LINE_COMMENT EOL
+#line 171 "parser.yy"
+                              {
+    yylhs.value.as < shared_ptr<Program> > () = yystack_[2].value.as < shared_ptr<Program> > ();
+}
+#line 1284 "parser.tab.cc"
+    break;
+
+  case 8: // statement: assignment
+#line 176 "parser.yy"
                       {
     yylhs.value.as < shared_ptr<Statement> > () = yystack_[0].value.as < shared_ptr<AssignStatement> > ();
 }
-#line 1029 "parser.tab.cc"
+#line 1292 "parser.tab.cc"
     break;
 
-  case 8: // statement: PRINT expr
-#line 171 "parser.yy"
-             {
+  case 9: // statement: expr LEFT_BRACKET expr RIGHT_BRACKET ASSIGN expr
+#line 179 "parser.yy"
+                                                   {
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<IndexAssignStatement>(yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[3].value.as < shared_ptr<Expression> > (), yystack_[0].value.as < shared_ptr<Expression> > ());
+}
+#line 1300 "parser.tab.cc"
+    break;
+
+  case 10: // statement: PRINT expr_val
+#line 182 "parser.yy"
+                 {
     yylhs.value.as < shared_ptr<Statement> > () = make_shared<PrintStatement>(yystack_[0].value.as < shared_ptr<Expression> > ());
 
 }
-#line 1038 "parser.tab.cc"
+#line 1309 "parser.tab.cc"
     break;
 
-  case 9: // statement: READ id_list
-#line 175 "parser.yy"
+  case 11: // statement: READ id_list
+#line 186 "parser.yy"
                {
     vector<int> arg_inds;
     for(const auto& id_name : yystack_[0].value.as < vector<string> > ())
@@ -1047,88 +1318,625 @@ namespace CS {
     }
     yylhs.value.as < shared_ptr<Statement> > () = make_shared<ReadStatement>(arg_inds);
 }
-#line 1051 "parser.tab.cc"
+#line 1322 "parser.tab.cc"
     break;
 
-  case 10: // statement: if_statement
-#line 183 "parser.yy"
+  case 12: // statement: if_statement
+#line 194 "parser.yy"
                {
     yylhs.value.as < shared_ptr<Statement> > () = yystack_[0].value.as < shared_ptr<IfStatement> > ();
 }
-#line 1059 "parser.tab.cc"
+#line 1330 "parser.tab.cc"
     break;
 
-  case 11: // statement: while_loop
-#line 186 "parser.yy"
+  case 13: // statement: for_counter_loop
+#line 197 "parser.yy"
+                 {
+    yylhs.value.as < shared_ptr<Statement> > () = yystack_[0].value.as < shared_ptr<ForCounterLoop> > ();
+}
+#line 1338 "parser.tab.cc"
+    break;
+
+  case 14: // statement: while_loop
+#line 200 "parser.yy"
              {
     yylhs.value.as < shared_ptr<Statement> > () = yystack_[0].value.as < shared_ptr<WhileLoop> > ();
 }
-#line 1067 "parser.tab.cc"
+#line 1346 "parser.tab.cc"
     break;
 
-  case 12: // @1: %empty
-#line 192 "parser.yy"
+  case 15: // statement: BREAK
+#line 203 "parser.yy"
+       {
+    if(!interpreter.in_loop())
+    {
+        cout << "ERROR: BREAK statement outside loop" << endl;
+    }
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<BreakStatement>();
+}
+#line 1358 "parser.tab.cc"
+    break;
+
+  case 16: // statement: BREAK_ALL
+#line 210 "parser.yy"
+           {
+    if(!interpreter.in_loop())
+    {
+        cout << "ERROR: BREAK ALL statement outside loop" << endl;
+    }
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<BreakAll>();
+}
+#line 1370 "parser.tab.cc"
+    break;
+
+  case 17: // statement: ADVANCE expr
+#line 217 "parser.yy"
+              {
+    if(!interpreter.in_loop())
+    {
+        cout << "ERROR: ADVANCE statement outside loop" << endl;
+    }
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Advance>(yystack_[0].value.as < shared_ptr<Expression> > ());
+}
+#line 1382 "parser.tab.cc"
+    break;
+
+  case 18: // statement: CONTINUE
+#line 224 "parser.yy"
+          {
+    if(!interpreter.in_loop())
+    {
+        cout << "ERROR: ADVANCE statement outside loop" << endl;
+    }
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Advance>(make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))));
+}
+#line 1394 "parser.tab.cc"
+    break;
+
+  case 19: // statement: REPEAT
+#line 231 "parser.yy"
+        {
+    if(!interpreter.in_loop())
+    {
+        cout << "ERROR: REPEAT statement outside loop" << endl;
+    }
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Advance>(make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))));
+}
+#line 1406 "parser.tab.cc"
+    break;
+
+  case 20: // statement: RETURN
+#line 238 "parser.yy"
+        {
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Return>(make_shared<LiteralExpression>(make_shared<Data>(make_shared<NullType>())));
+}
+#line 1414 "parser.tab.cc"
+    break;
+
+  case 21: // statement: RETURN expr
+#line 241 "parser.yy"
+             {
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Return>(yystack_[0].value.as < shared_ptr<Expression> > ());
+}
+#line 1422 "parser.tab.cc"
+    break;
+
+  case 22: // statement: GIVE expr
+#line 244 "parser.yy"
+           {
+    yylhs.value.as < shared_ptr<Statement> > () = make_shared<Give>(yystack_[0].value.as < shared_ptr<Expression> > ());
+}
+#line 1430 "parser.tab.cc"
+    break;
+
+  case 23: // statement: function_call
+#line 247 "parser.yy"
+               {
+    yylhs.value.as < shared_ptr<Statement> > () = yystack_[0].value.as < shared_ptr<FunctionStatement> > ();
+}
+#line 1438 "parser.tab.cc"
+    break;
+
+  case 24: // function_call: expr_val LEFT_PARENTHESES expr_list RIGHT_PARENTHESES
+#line 252 "parser.yy"
+                                                                     { 
+    yylhs.value.as < shared_ptr<FunctionStatement> > () = make_shared<FunctionStatement>(yystack_[1].value.as < vector<shared_ptr<Expression>> > (), yystack_[3].value.as < shared_ptr<Expression> > ()); 
+}
+#line 1446 "parser.tab.cc"
+    break;
+
+  case 25: // function_call: SELF LEFT_PARENTHESES expr_list RIGHT_PARENTHESES
+#line 255 "parser.yy"
+                                                   {
+    if(auto func = interpreter.get_curr_function())
+    {
+        yylhs.value.as < shared_ptr<FunctionStatement> > () = make_shared<FunctionStatement>(yystack_[1].value.as < vector<shared_ptr<Expression>> > (), make_shared<LiteralExpression>(make_shared<Data>(func))); 
+    }
+    else
+    {
+        cout << "Attempt to call SELF in global scope" << endl;
+        return 1;
+    }
+
+}
+#line 1463 "parser.tab.cc"
+    break;
+
+  case 26: // @1: %empty
+#line 270 "parser.yy"
      {
     yylhs.value.as < int > () = get_variable(yystack_[1].value.as < string > ());
     if(yylhs.value.as < int > () == -1) { // Error
         return 1;
     }
 }
-#line 1078 "parser.tab.cc"
+#line 1474 "parser.tab.cc"
     break;
 
-  case 13: // assignment: ID ASSIGN @1 expr
-#line 198 "parser.yy"
-    {
+  case 27: // assignment: ID ASSIGN @1 expr_val
+#line 276 "parser.yy"
+        {
     yylhs.value.as < shared_ptr<AssignStatement> > () = make_shared<AssignStatement>(yystack_[1].value.as < int > (), yystack_[0].value.as < shared_ptr<Expression> > ());
 }
-#line 1086 "parser.tab.cc"
+#line 1482 "parser.tab.cc"
     break;
 
-  case 14: // if_statement: IF expr THEN program ENDIF
-#line 203 "parser.yy"
-                                        {
-    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair(yystack_[3].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ())};
+  case 28: // @2: %empty
+#line 280 "parser.yy"
+     {
+    yylhs.value.as < int > () = get_variable(yystack_[1].value.as < string > (), false);
+    if(yylhs.value.as < int > () == -1) { // Error
+        return 1;
+    }
+}
+#line 1493 "parser.tab.cc"
+    break;
+
+  case 29: // assignment: ID PLUS_ASSIGN @2 expr_val
+#line 286 "parser.yy"
+        {
+    yylhs.value.as < shared_ptr<AssignStatement> > () = make_shared<AssignStatement>(yystack_[1].value.as < int > (), yystack_[0].value.as < shared_ptr<Expression> > (), make_shared<PlusAssignmentOperation>());
+}
+#line 1501 "parser.tab.cc"
+    break;
+
+  case 30: // @3: %empty
+#line 290 "parser.yy"
+         {
+    bool non_declared;
+    interpreter.get_variable(yystack_[1].value.as < string > (), non_declared);
+    if(!non_declared || interpreter.is_const(yystack_[1].value.as < string > ()))
+    {
+        cout << "ERROR: variable was already declared in this scope." << endl;
+        return 1;
+    }
+    else
+    {
+        yylhs.value.as < DataPtr > () = interpreter.declare_const_variable(yystack_[1].value.as < string > ());
+    }
+}
+#line 1519 "parser.tab.cc"
+    break;
+
+  case 31: // assignment: CONST ID ASSIGN @3 expr_val
+#line 303 "parser.yy"
+        {
+    if(!yystack_[0].value.as < shared_ptr<Expression> > ()->is_const())
+    {
+        cout << "ERROR: CONST assignment requires a CONST expression." <<endl;
+        return 1;
+    }
+
+    *yystack_[1].value.as < DataPtr > () = yystack_[0].value.as < shared_ptr<Expression> > ()->eval(const_stack);
+    yylhs.value.as < shared_ptr<AssignStatement> > () = nullptr;
+}
+#line 1534 "parser.tab.cc"
+    break;
+
+  case 32: // if_statement: IF expr_val COLUMN EOL program elif_branch ENDIF
+#line 315 "parser.yy"
+                                                               {
+    yystack_[1].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[2].value.as < shared_ptr<Program> > ()));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[1].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()));
+}
+#line 1543 "parser.tab.cc"
+    break;
+
+  case 33: // if_statement: IF expr_val COLUMN EOL program elif_branch ELSE COLUMN EOL program ENDIF
+#line 319 "parser.yy"
+                                                                           {
+    yystack_[5].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[9].value.as < shared_ptr<Expression> > (), yystack_[6].value.as < shared_ptr<Program> > ()));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[5].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()), yystack_[1].value.as < shared_ptr<Program> > ());
+}
+#line 1552 "parser.tab.cc"
+    break;
+
+  case 34: // if_statement: IF expr_val COLUMN statement elif_branch ENDIF
+#line 323 "parser.yy"
+                                                 {
+    yystack_[1].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[4].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[2].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1)));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[1].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()));
+}
+#line 1561 "parser.tab.cc"
+    break;
+
+  case 35: // if_statement: IF expr_val COLUMN statement elif_branch ELSE COLUMN EOL program ENDIF
+#line 327 "parser.yy"
+                                                                         {
+    yystack_[5].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[8].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[6].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1)));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[5].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()), yystack_[1].value.as < shared_ptr<Program> > ());
+}
+#line 1570 "parser.tab.cc"
+    break;
+
+  case 36: // if_statement: IF expr_val COLUMN EOL program elif_branch ELSE COLUMN statement ENDIF
+#line 331 "parser.yy"
+                                                                         {
+    yystack_[4].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[8].value.as < shared_ptr<Expression> > (), yystack_[5].value.as < shared_ptr<Program> > ()));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[4].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()), make_shared<Program>(yystack_[1].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+}
+#line 1579 "parser.tab.cc"
+    break;
+
+  case 37: // if_statement: IF expr_val COLUMN statement elif_branch ELSE COLUMN statement ENDIF
+#line 335 "parser.yy"
+                                                                       {
+    yystack_[4].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[7].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[5].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1)));
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(yystack_[4].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ()), make_shared<Program>(yystack_[1].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+}
+#line 1588 "parser.tab.cc"
+    break;
+
+  case 38: // if_statement: IF expr_val COLUMN statement ELSE COLUMN statement
+#line 339 "parser.yy"
+                                                    {
+    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair(yystack_[5].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[3].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1))};
+    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(ifs), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+}
+#line 1597 "parser.tab.cc"
+    break;
+
+  case 39: // if_statement: IF expr_val COLUMN statement
+#line 343 "parser.yy"
+                              {
+    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair(yystack_[2].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1))};
     yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(ifs));
 }
-#line 1095 "parser.tab.cc"
+#line 1606 "parser.tab.cc"
     break;
 
-  case 15: // if_statement: IF expr THEN program ELSE program ENDIF
-#line 207 "parser.yy"
-                                         {
-    vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> ifs = {make_pair(yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[3].value.as < shared_ptr<Program> > ())};
-    yylhs.value.as < shared_ptr<IfStatement> > () = make_shared<IfStatement>(move(ifs), yystack_[1].value.as < shared_ptr<Program> > ());
-}
-#line 1104 "parser.tab.cc"
-    break;
-
-  case 16: // $@2: %empty
-#line 214 "parser.yy"
+  case 40: // $@4: %empty
+#line 350 "parser.yy"
         {
     interpreter.mark_is_in_loop(true);
 }
-#line 1112 "parser.tab.cc"
+#line 1614 "parser.tab.cc"
     break;
 
-  case 17: // while_loop: WHILE expr DO $@2 program OD
-#line 217 "parser.yy"
-           {
+  case 41: // while_loop: WHILE expr_val COLUMN EOL $@4 program ENDWHILE
+#line 353 "parser.yy"
+                 {
     //Izveido ciklu
-    yylhs.value.as < shared_ptr<WhileLoop> > () = make_shared<WhileLoop>(yystack_[4].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ());
+    yylhs.value.as < shared_ptr<WhileLoop> > () = make_shared<WhileLoop>(yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ());
     interpreter.mark_is_in_loop(false);
 }
-#line 1122 "parser.tab.cc"
+#line 1624 "parser.tab.cc"
     break;
 
-  case 18: // expr: DEC
-#line 223 "parser.yy"
+  case 42: // $@5: %empty
+#line 359 "parser.yy"
+        {
+    interpreter.mark_is_in_loop(true);
+}
+#line 1632 "parser.tab.cc"
+    break;
+
+  case 43: // while_loop: WHILE expr_val COLUMN $@5 statement
+#line 362 "parser.yy"
+          {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<WhileLoop> > () = make_shared<WhileLoop>(yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
+#line 1642 "parser.tab.cc"
+    break;
+
+  case 44: // @6: %empty
+#line 369 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[8].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[8].value.as < string > ());
+    }
+}
+#line 1661 "parser.tab.cc"
+    break;
+
+  case 45: // for_counter_loop: FOR ID ASSIGN expr_val TO expr_val BY expr_val COLUMN EOL @6 program ENDFOR
+#line 383 "parser.yy"
+               {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[2].value.as < int > (), yystack_[9].value.as < shared_ptr<Expression> > (), yystack_[7].value.as < shared_ptr<Expression> > (), yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ());
+    interpreter.mark_is_in_loop(false);
+}
+#line 1671 "parser.tab.cc"
+    break;
+
+  case 46: // @7: %empty
+#line 389 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[7].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[7].value.as < string > ());
+    }
+}
+#line 1690 "parser.tab.cc"
+    break;
+
+  case 47: // for_counter_loop: FOR ID ASSIGN expr_val TO expr_val BY expr_val COLUMN @7 statement
+#line 403 "parser.yy"
+          {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[1].value.as < int > (), yystack_[7].value.as < shared_ptr<Expression> > (), yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
+#line 1700 "parser.tab.cc"
+    break;
+
+  case 48: // @8: %empty
+#line 409 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[6].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[6].value.as < string > ());
+    }
+}
+#line 1719 "parser.tab.cc"
+    break;
+
+  case 49: // for_counter_loop: FOR ID ASSIGN expr_val TO expr_val COLUMN EOL @8 program ENDFOR
+#line 423 "parser.yy"
+              {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[2].value.as < int > (), yystack_[7].value.as < shared_ptr<Expression> > (), yystack_[5].value.as < shared_ptr<Expression> > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), yystack_[1].value.as < shared_ptr<Program> > ());
+    interpreter.mark_is_in_loop(false);
+}
+#line 1729 "parser.tab.cc"
+    break;
+
+  case 50: // @9: %empty
+#line 429 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[5].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[5].value.as < string > ());
+    }
+}
+#line 1748 "parser.tab.cc"
+    break;
+
+  case 51: // for_counter_loop: FOR ID ASSIGN expr_val TO expr_val COLUMN @9 statement
+#line 443 "parser.yy"
+         {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[1].value.as < int > (), yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
+#line 1758 "parser.tab.cc"
+    break;
+
+  case 52: // @10: %empty
+#line 449 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[4].value.as < string > (), non_declared);
+    if(!non_declared)
+    {                
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {        
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[4].value.as < string > ());
+    }
+}
+#line 1777 "parser.tab.cc"
+    break;
+
+  case 53: // for_counter_loop: FOR ID TO expr_val COLUMN EOL @10 program ENDFOR
+#line 463 "parser.yy"
+              {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[2].value.as < int > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), yystack_[5].value.as < shared_ptr<Expression> > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), yystack_[1].value.as < shared_ptr<Program> > ());
+    interpreter.mark_is_in_loop(false);
+}
+#line 1787 "parser.tab.cc"
+    break;
+
+  case 54: // @11: %empty
+#line 469 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[3].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[3].value.as < string > ());
+    }
+}
+#line 1806 "parser.tab.cc"
+    break;
+
+  case 55: // for_counter_loop: FOR ID TO expr_val COLUMN @11 statement
+#line 483 "parser.yy"
+         {
+    
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[1].value.as < int > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(1))), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
+#line 1817 "parser.tab.cc"
+    break;
+
+  case 56: // @12: %empty
+#line 490 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[6].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[6].value.as < string > ());
+    }
+}
+#line 1836 "parser.tab.cc"
+    break;
+
+  case 57: // for_counter_loop: FOR ID TO expr_val BY expr_val COLUMN EOL @12 program ENDFOR
+#line 504 "parser.yy"
+              {
+
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[2].value.as < int > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), yystack_[7].value.as < shared_ptr<Expression> > (), yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ());
+    interpreter.mark_is_in_loop(false);
+}
+#line 1847 "parser.tab.cc"
+    break;
+
+  case 58: // @13: %empty
+#line 511 "parser.yy"
+     {
+    //Deklarē skaitītāja mainīgo, ja neeksistē
+    interpreter.mark_is_in_loop(true);
+    bool non_declared;
+    auto var = interpreter.get_variable(yystack_[5].value.as < string > (), non_declared);
+    if(!non_declared)
+    {
+        yylhs.value.as < int > () = var;
+    }
+    else
+    {
+        yylhs.value.as < int > () = interpreter.declare_variable(yystack_[5].value.as < string > ());
+    }
+}
+#line 1866 "parser.tab.cc"
+    break;
+
+  case 59: // for_counter_loop: FOR ID TO expr_val BY expr_val COLUMN @13 statement
+#line 525 "parser.yy"
+          {
+    //Izveido ciklu
+    yylhs.value.as < shared_ptr<ForCounterLoop> > () = make_shared<ForCounterLoop>(yystack_[1].value.as < int > (), make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(0))), yystack_[5].value.as < shared_ptr<Expression> > (), yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1));
+    interpreter.mark_is_in_loop(false);
+}
+#line 1876 "parser.tab.cc"
+    break;
+
+  case 60: // elif_branch: %empty
+#line 532 "parser.yy"
+                    {yylhs.value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > () = vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>(); }
+#line 1882 "parser.tab.cc"
+    break;
+
+  case 61: // elif_branch: ELIF expr_val COLUMN EOL program elif_branch
+#line 533 "parser.yy"
+                                               {
+    yystack_[0].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[4].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Program> > ()));
+    yylhs.value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > () = move(yystack_[0].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ());
+}
+#line 1891 "parser.tab.cc"
+    break;
+
+  case 62: // elif_branch: ELIF expr_val COLUMN statement elif_branch
+#line 537 "parser.yy"
+                                             {
+    yystack_[0].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ().push_back(make_pair(yystack_[3].value.as < shared_ptr<Expression> > (), make_shared<Program>(yystack_[1].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1)));
+    yylhs.value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > () = move(yystack_[0].value.as < vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> > ());
+}
+#line 1900 "parser.tab.cc"
+    break;
+
+  case 63: // expr: DEC
+#line 543 "parser.yy"
           { yylhs.value.as < shared_ptr<Expression> > () = make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>(yystack_[0].value.as < string > ()))); }
-#line 1128 "parser.tab.cc"
+#line 1906 "parser.tab.cc"
     break;
 
-  case 19: // expr: ID
-#line 224 "parser.yy"
+  case 64: // expr: STR
+#line 544 "parser.yy"
+      { yylhs.value.as < shared_ptr<Expression> > () = make_shared<LiteralExpression>( make_shared<Data>(make_shared<String>(move(yystack_[0].value.as < string > ())))); }
+#line 1912 "parser.tab.cc"
+    break;
+
+  case 65: // expr: TRUE
+#line 545 "parser.yy"
+       { yylhs.value.as < shared_ptr<Expression> > () =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(true))); }
+#line 1918 "parser.tab.cc"
+    break;
+
+  case 66: // expr: FALSE
+#line 546 "parser.yy"
+        { yylhs.value.as < shared_ptr<Expression> > () = make_shared<LiteralExpression>( make_shared<Data>(make_shared<Boolean>(false))); }
+#line 1924 "parser.tab.cc"
+    break;
+
+  case 67: // expr: NULL_TOKEN
+#line 547 "parser.yy"
+             { yylhs.value.as < shared_ptr<Expression> > () =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<NullType>())); }
+#line 1930 "parser.tab.cc"
+    break;
+
+  case 68: // expr: INF
+#line 548 "parser.yy"
+      { yylhs.value.as < shared_ptr<Expression> > () =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<InfType>())); }
+#line 1936 "parser.tab.cc"
+    break;
+
+  case 69: // expr: ID
+#line 549 "parser.yy"
      {
     bool non_declared;
     if(interpreter.is_const(yystack_[0].value.as < string > ()))
@@ -1149,128 +1957,311 @@ namespace CS {
         }
     }
 }
-#line 1153 "parser.tab.cc"
+#line 1961 "parser.tab.cc"
     break;
 
-  case 20: // expr: expr PLUS expr
-#line 244 "parser.yy"
+  case 70: // expr: function
+#line 569 "parser.yy"
+           { yylhs.value.as < shared_ptr<Expression> > () =  make_shared<LiteralExpression>(make_shared<Data>(yystack_[0].value.as < shared_ptr<Function> > ())); }
+#line 1967 "parser.tab.cc"
+    break;
+
+  case 71: // expr: expr PLUS expr
+#line 570 "parser.yy"
                  {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::ADD);}
-#line 1159 "parser.tab.cc"
+#line 1973 "parser.tab.cc"
     break;
 
-  case 21: // expr: expr MINUS expr
-#line 245 "parser.yy"
+  case 72: // expr: expr MINUS expr
+#line 571 "parser.yy"
                   {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::SUB);}
-#line 1165 "parser.tab.cc"
+#line 1979 "parser.tab.cc"
     break;
 
-  case 22: // expr: expr TIMES expr
-#line 246 "parser.yy"
+  case 73: // expr: expr TIMES expr
+#line 572 "parser.yy"
                   {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::MULT);}
-#line 1171 "parser.tab.cc"
+#line 1985 "parser.tab.cc"
     break;
 
-  case 23: // expr: expr DIVIDE expr
-#line 247 "parser.yy"
+  case 74: // expr: expr MOD expr
+#line 573 "parser.yy"
+                {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::MOD);}
+#line 1991 "parser.tab.cc"
+    break;
+
+  case 75: // expr: expr DIVIDE expr
+#line 574 "parser.yy"
                    {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::DIV);}
-#line 1177 "parser.tab.cc"
+#line 1997 "parser.tab.cc"
     break;
 
-  case 24: // expr: expr EQUAL expr
-#line 248 "parser.yy"
+  case 76: // expr: expr POWER expr
+#line 575 "parser.yy"
+                  {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::POW);}
+#line 2003 "parser.tab.cc"
+    break;
+
+  case 77: // expr: expr EQUAL expr
+#line 576 "parser.yy"
                   {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::EQ);}
-#line 1183 "parser.tab.cc"
+#line 2009 "parser.tab.cc"
     break;
 
-  case 25: // expr: expr NOT_EQUAL expr
-#line 249 "parser.yy"
+  case 78: // expr: expr NOT_EQUAL expr
+#line 577 "parser.yy"
                       {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::NEQ);}
-#line 1189 "parser.tab.cc"
+#line 2015 "parser.tab.cc"
     break;
 
-  case 26: // expr: expr GREATER_THAN expr
-#line 250 "parser.yy"
+  case 79: // expr: expr GREATER_THAN expr
+#line 578 "parser.yy"
                          {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::GT);}
-#line 1195 "parser.tab.cc"
+#line 2021 "parser.tab.cc"
     break;
 
-  case 27: // expr: expr LESS_THAN expr
-#line 251 "parser.yy"
+  case 80: // expr: expr LESS_THAN expr
+#line 579 "parser.yy"
                       {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::LT);}
-#line 1201 "parser.tab.cc"
+#line 2027 "parser.tab.cc"
     break;
 
-  case 28: // expr: expr GREATER_THAN_EQ expr
-#line 252 "parser.yy"
+  case 81: // expr: expr GREATER_THAN_EQ expr
+#line 580 "parser.yy"
                             {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::EQ_GT);}
-#line 1207 "parser.tab.cc"
+#line 2033 "parser.tab.cc"
     break;
 
-  case 29: // expr: expr LESS_THAN_EQ expr
-#line 253 "parser.yy"
+  case 82: // expr: expr LESS_THAN_EQ expr
+#line 581 "parser.yy"
                          {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::EQ_LT);}
-#line 1213 "parser.tab.cc"
+#line 2039 "parser.tab.cc"
     break;
 
-  case 30: // expr: expr AND expr
-#line 254 "parser.yy"
+  case 83: // expr: expr AND expr
+#line 582 "parser.yy"
                 {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::AND);}
-#line 1219 "parser.tab.cc"
+#line 2045 "parser.tab.cc"
     break;
 
-  case 31: // expr: expr OR expr
-#line 255 "parser.yy"
+  case 84: // expr: expr OR expr
+#line 583 "parser.yy"
                {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::OR);}
-#line 1225 "parser.tab.cc"
+#line 2051 "parser.tab.cc"
     break;
 
-  case 32: // expr: MINUS expr
-#line 256 "parser.yy"
+  case 85: // expr: expr XOR expr
+#line 584 "parser.yy"
+                {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::XOR);}
+#line 2057 "parser.tab.cc"
+    break;
+
+  case 86: // expr: expr NEITHER expr
+#line 585 "parser.yy"
+                    {yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression> (yystack_[2].value.as < shared_ptr<Expression> > (),yystack_[0].value.as < shared_ptr<Expression> > (), BinaryExpression::NEITHER);}
+#line 2063 "parser.tab.cc"
+    break;
+
+  case 87: // expr: expr AS NumType
+#line 586 "parser.yy"
+                  {yylhs.value.as < shared_ptr<Expression> > () = make_shared<UnaryExpression>(yystack_[2].value.as < shared_ptr<Expression> > (), UnaryExpression::TO_NUM);}
+#line 2069 "parser.tab.cc"
+    break;
+
+  case 88: // expr: expr AS BoolType
+#line 587 "parser.yy"
+                   {yylhs.value.as < shared_ptr<Expression> > () = make_shared<UnaryExpression>(yystack_[2].value.as < shared_ptr<Expression> > (), UnaryExpression::TO_BOOL);}
+#line 2075 "parser.tab.cc"
+    break;
+
+  case 89: // expr: expr AS StrType
+#line 588 "parser.yy"
+                  {yylhs.value.as < shared_ptr<Expression> > () = make_shared<UnaryExpression>(yystack_[2].value.as < shared_ptr<Expression> > (), UnaryExpression::TO_STR);}
+#line 2081 "parser.tab.cc"
+    break;
+
+  case 90: // expr: MINUS expr
+#line 589 "parser.yy"
              {yylhs.value.as < shared_ptr<Expression> > () = make_shared<UnaryExpression> (yystack_[0].value.as < shared_ptr<Expression> > (), UnaryExpression::INV);}
-#line 1231 "parser.tab.cc"
+#line 2087 "parser.tab.cc"
     break;
 
-  case 33: // expr: if_statement
-#line 257 "parser.yy"
+  case 91: // expr: NOT expr
+#line 590 "parser.yy"
+           {yylhs.value.as < shared_ptr<Expression> > () = make_shared<UnaryExpression> (yystack_[0].value.as < shared_ptr<Expression> > (), UnaryExpression::NOT);}
+#line 2093 "parser.tab.cc"
+    break;
+
+  case 92: // expr: if_statement
+#line 591 "parser.yy"
                { yylhs.value.as < shared_ptr<Expression> > () = make_shared<StatementExpression> (yystack_[0].value.as < shared_ptr<IfStatement> > ()); }
-#line 1237 "parser.tab.cc"
+#line 2099 "parser.tab.cc"
     break;
 
-  case 34: // expr: assignment
-#line 258 "parser.yy"
+  case 93: // expr: function_call
+#line 592 "parser.yy"
+                { yylhs.value.as < shared_ptr<Expression> > () = make_shared<StatementExpression> (yystack_[0].value.as < shared_ptr<FunctionStatement> > ()); }
+#line 2105 "parser.tab.cc"
+    break;
+
+  case 94: // expr: assignment
+#line 593 "parser.yy"
              { yylhs.value.as < shared_ptr<Expression> > () = make_shared<StatementExpression> (yystack_[0].value.as < shared_ptr<AssignStatement> > ());}
-#line 1243 "parser.tab.cc"
+#line 2111 "parser.tab.cc"
     break;
 
-  case 35: // expr: LEFT_PARENTHESES expr RIGHT_PARENTHESES
-#line 259 "parser.yy"
+  case 95: // expr: LEFT_PARENTHESES expr RIGHT_PARENTHESES
+#line 594 "parser.yy"
                                           {yylhs.value.as < shared_ptr<Expression> > () = yystack_[1].value.as < shared_ptr<Expression> > ();}
-#line 1249 "parser.tab.cc"
+#line 2117 "parser.tab.cc"
     break;
 
-  case 36: // id_list: %empty
-#line 262 "parser.yy"
+  case 96: // expr: LEFT_BRACKET expr_list RIGHT_BRACKET
+#line 595 "parser.yy"
+                                       { yylhs.value.as < shared_ptr<Expression> > () = make_shared<InititializerListExpression>(yystack_[1].value.as < vector<shared_ptr<Expression>> > ()); }
+#line 2123 "parser.tab.cc"
+    break;
+
+  case 97: // expr: expr LEFT_BRACKET expr RIGHT_BRACKET
+#line 596 "parser.yy"
+                                       { yylhs.value.as < shared_ptr<Expression> > () = make_shared<BinaryExpression>(yystack_[3].value.as < shared_ptr<Expression> > (), yystack_[1].value.as < shared_ptr<Expression> > (), BinaryExpression::INDEX); }
+#line 2129 "parser.tab.cc"
+    break;
+
+  case 98: // expr: LEN LEFT_PARENTHESES expr RIGHT_PARENTHESES
+#line 597 "parser.yy"
+                                              { yylhs.value.as < shared_ptr<Expression> > () = make_shared<LengthExpression>(yystack_[1].value.as < shared_ptr<Expression> > ()); }
+#line 2135 "parser.tab.cc"
+    break;
+
+  case 99: // expr_val: expr
+#line 600 "parser.yy"
+               {
+    yylhs.value.as < shared_ptr<Expression> > () = yystack_[0].value.as < shared_ptr<Expression> > ()->reduce_const();
+}
+#line 2143 "parser.tab.cc"
+    break;
+
+  case 100: // expr_list: %empty
+#line 605 "parser.yy"
+                  { yylhs.value.as < vector<shared_ptr<Expression>> > () = vector<shared_ptr<Expression>>(); }
+#line 2149 "parser.tab.cc"
+    break;
+
+  case 101: // expr_list: expr_val COMMA expr_list
+#line 606 "parser.yy"
+                           {
+    yystack_[0].value.as < vector<shared_ptr<Expression>> > ().push_back(yystack_[2].value.as < shared_ptr<Expression> > ());
+    yylhs.value.as < vector<shared_ptr<Expression>> > () = move(yystack_[0].value.as < vector<shared_ptr<Expression>> > ());
+}
+#line 2158 "parser.tab.cc"
+    break;
+
+  case 102: // expr_list: expr_val
+#line 610 "parser.yy"
+           { yylhs.value.as < vector<shared_ptr<Expression>> > () = {yystack_[0].value.as < shared_ptr<Expression> > ()}; }
+#line 2164 "parser.tab.cc"
+    break;
+
+  case 103: // @14: %empty
+#line 615 "parser.yy"
+{
+    interpreter.make_new_scope();
+    vector<int> arg_inds;
+    for(const auto& id_name : yystack_[3].value.as < vector<string> > ())
+    {
+        if(interpreter.is_const(id_name))
+        {
+            cout << id_name << " declared const, cannot be used as an argument name." << endl;
+            return 1;
+        }
+        bool non_declared;
+        interpreter.get_variable(id_name, non_declared);
+        if(!non_declared)
+        {
+            cout << id_name << " reused in function argument names" <<endl;
+            return 1;
+        }
+        arg_inds.push_back(interpreter.declare_variable(id_name));
+    }
+    yylhs.value.as < shared_ptr<Function> > () = make_shared<Function>(arg_inds);
+    interpreter.push_function(yylhs.value.as < shared_ptr<Function> > ());
+}
+#line 2191 "parser.tab.cc"
+    break;
+
+  case 104: // function: FUNC LEFT_PARENTHESES id_list RIGHT_PARENTHESES COLUMN EOL @14 program ENDFUNC
+#line 637 "parser.yy"
+               {
+    yystack_[2].value.as < shared_ptr<Function> > ()->attach_program(yystack_[1].value.as < shared_ptr<Program> > ());
+    yylhs.value.as < shared_ptr<Function> > () = yystack_[2].value.as < shared_ptr<Function> > ();
+    interpreter.pop_scope();
+    interpreter.pop_function();
+}
+#line 2202 "parser.tab.cc"
+    break;
+
+  case 105: // @15: %empty
+#line 645 "parser.yy"
+{
+    interpreter.make_new_scope();
+    vector<int> arg_inds;
+    for(const auto& id_name : yystack_[2].value.as < vector<string> > ())
+    {
+        if(interpreter.is_const(id_name))
+        {
+            cout << id_name << " declared const, cannot be used as an argument name." << endl;
+            return 1;
+        }
+        bool non_declared;
+        interpreter.get_variable(id_name, non_declared);
+        if(!non_declared)
+        {
+            cout << id_name << " reused in function argument names" <<endl;
+            return 1;
+        }
+        arg_inds.push_back(interpreter.declare_variable(id_name));
+    }
+    yylhs.value.as < shared_ptr<Function> > () = make_shared<Function>(arg_inds);
+    interpreter.push_function(yylhs.value.as < shared_ptr<Function> > ());
+}
+#line 2229 "parser.tab.cc"
+    break;
+
+  case 106: // function: FUNC LEFT_PARENTHESES id_list RIGHT_PARENTHESES COLUMN @15 statement
+#line 667 "parser.yy"
+         {
+    yystack_[1].value.as < shared_ptr<Function> > ()->attach_program(make_shared<Program>(yystack_[0].value.as < shared_ptr<Statement> > (), interpreter.get_scope_number(), 1 + yystack_[1].value.as < shared_ptr<Function> > ()->arg_count()));
+    yylhs.value.as < shared_ptr<Function> > () = yystack_[1].value.as < shared_ptr<Function> > ();
+    interpreter.pop_scope();
+    interpreter.pop_function();
+}
+#line 2240 "parser.tab.cc"
+    break;
+
+  case 107: // id_list: %empty
+#line 675 "parser.yy"
                 { yylhs.value.as < vector<string> > () = vector<string>(); }
-#line 1255 "parser.tab.cc"
+#line 2246 "parser.tab.cc"
     break;
 
-  case 37: // id_list: ID COMMA id_list
-#line 263 "parser.yy"
+  case 108: // id_list: ID COMMA id_list
+#line 676 "parser.yy"
                   {
     yystack_[0].value.as < vector<string> > ().push_back(yystack_[2].value.as < string > ());
     yylhs.value.as < vector<string> > () = move(yystack_[0].value.as < vector<string> > ());
 }
-#line 1264 "parser.tab.cc"
+#line 2255 "parser.tab.cc"
     break;
 
-  case 38: // id_list: ID
-#line 267 "parser.yy"
+  case 109: // id_list: ID
+#line 680 "parser.yy"
      { yylhs.value.as < vector<string> > () = {yystack_[0].value.as < string > ()}; }
-#line 1270 "parser.tab.cc"
+#line 2261 "parser.tab.cc"
     break;
 
 
-#line 1274 "parser.tab.cc"
+#line 2265 "parser.tab.cc"
 
             default:
               break;
@@ -1622,121 +2613,430 @@ namespace CS {
   }
 
 
-  const signed char CS_Parser::yypact_ninf_ = -18;
+  const short CS_Parser::yypact_ninf_ = -145;
 
   const signed char CS_Parser::yytable_ninf_ = -1;
 
-  const signed char
+  const short
   CS_Parser::yypact_[] =
   {
-     121,   121,    -4,    20,    20,   -17,    20,    11,    -5,     6,
-     -18,   -18,   -18,   -18,   -18,   -18,    20,    20,    -4,   -18,
-     -18,     3,   100,   -13,   -18,    67,   -18,   -18,   -18,   121,
-      20,    30,    84,    20,    20,    20,    20,    20,    20,    20,
-      20,    20,    20,    20,    20,   121,   -17,   -18,   -18,   100,
-     -18,    30,    30,   -18,   -18,    35,    35,    35,    35,    35,
-      35,   127,   114,    37,   -18,   121,   121,   -18,    -2,     5,
-     -18,   -18
+    -145,    13,   314,  -145,  -145,  -145,   -41,  1089,  1089,    -6,
+     -19,  1089,  -145,  -145,  -145,  -145,  1089,  -145,  -145,  -145,
+    -145,  1089,  -145,  -145,    12,  1089,  1089,     5,     6,  1089,
+      27,  1089,    30,  1089,    26,  -145,  -145,  -145,  -145,  -145,
+    1271,    70,  -145,  -145,  -145,  -145,  -145,    98,    -3,   107,
+    1089,  1296,  1296,  1220,  -145,  -145,  1296,   -33,    70,     9,
+      27,   -23,    58,  -145,  1296,  1089,   -26,    59,    84,  -145,
+    1089,  1089,  1089,  1089,  1089,  1089,  1089,  1089,  1089,  1089,
+    1089,  1089,  1089,  1089,  1089,  1089,    52,  1089,  1089,  1089,
+    -145,    89,  -145,  1089,  1089,   844,  1089,  1089,    90,    91,
+      27,  1245,  1089,  -145,  -145,    98,    98,     2,     2,    65,
+       2,    -3,    -3,    -3,    -3,    -3,    -3,  1322,    36,    36,
+      36,  -145,  -145,  -145,  1131,    95,  1156,  1089,  -145,    70,
+      70,  -145,   -31,   -15,   -11,    79,  -145,  1040,  -145,  -145,
+    -145,   129,  -145,  -145,    70,   371,    81,  1089,    75,  1089,
+    1089,    99,   103,  -145,  -145,  1089,    76,  1040,    53,    87,
+    -145,    60,    54,  -145,  1040,  -145,  1040,   420,  1296,    88,
+    -145,  -145,   893,   942,  1089,   106,   113,  -145,  -145,  -145,
+    -145,  -145,   991,  -145,   109,  -145,   102,    61,  -145,  1040,
+    -145,  1040,   469,   526,  -145,   118,   371,  -145,   583,  -145,
+     126,  -145,  -145,  -145,  -145,  -145,  -145,   632,  -145,  -145,
+    -145,  -145,  1040,   681,   738,  -145,  -145,  -145,  -145,  -145,
+     795,  -145
   };
 
   const signed char
   CS_Parser::yydefact_[] =
   {
-       0,     0,     0,     0,     0,    36,     0,     0,     0,     5,
-       7,    10,    11,     4,    12,    18,     0,     0,    19,    34,
-      33,     0,     8,    38,     9,     0,     1,     2,     6,     0,
-       0,    32,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    36,    16,     3,    13,
-      35,    20,    21,    22,    23,    24,    27,    26,    29,    28,
-      25,    30,    31,     0,    37,     0,     0,    14,     0,     0,
-      17,    15
+       3,     0,     0,     1,    63,    64,     0,     0,     0,     0,
+       0,     0,    15,    18,    16,    19,    20,    65,    66,    67,
+      68,     0,     6,     2,    69,     0,     0,     0,     0,     0,
+     107,     0,     0,   100,     0,    23,     8,    12,    14,    13,
+      99,     0,    70,     7,    93,    94,    92,    90,    91,     0,
+     100,    17,    21,    99,    26,    28,    99,     0,    10,     0,
+     107,     0,   109,    11,    22,     0,   102,     0,     0,     4,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,   100,     0,
+      30,     0,    95,     0,     0,     0,     0,     0,     0,    42,
+     107,    99,   100,    96,     5,    71,    72,    73,    75,    76,
+      74,    77,    80,    79,    82,    81,    78,    83,    84,    85,
+      86,    87,    88,    89,    99,     0,    99,     0,    25,    27,
+      29,     3,    39,     0,     0,     0,    40,     0,   108,    98,
+     101,    97,    24,    97,    31,    60,     0,     0,     0,     0,
+       0,    54,   105,     3,    43,     0,     0,     0,     0,     0,
+      34,     0,     0,    52,     0,   103,     0,     0,     9,     0,
+      32,    38,     0,     0,     0,    50,    58,     3,    55,     3,
+     106,    41,     0,     3,    60,     3,     0,     0,    48,     0,
+      56,     0,     0,     0,     3,     0,    60,    62,     0,    37,
+      46,     3,    51,     3,    59,    53,   104,     0,    36,    61,
+      35,    44,     0,     0,     0,    33,     3,    47,    49,    57,
+       0,    45
   };
 
-  const signed char
+  const short
   CS_Parser::yypgoto_[] =
   {
-     -18,   -18,     4,   -18,     0,   -18,     2,   -18,   -18,    18,
-      29
+    -145,  -145,   108,   -28,    -2,    31,  -145,  -145,  -145,    64,
+    -145,  -145,  -145,  -145,  -145,  -145,  -145,  -145,  -145,  -145,
+    -145,  -145,  -144,     3,   239,     1,  -145,  -145,  -145,   -39
   };
 
-  const signed char
+  const unsigned char
   CS_Parser::yydefgoto_[] =
   {
-       0,     7,     8,     9,    19,    30,    20,    12,    65,    21,
-      24
+       0,     1,     2,    34,    44,    45,    93,    94,   127,    46,
+      38,   153,   137,    39,   216,   212,   201,   189,   177,   164,
+     203,   191,   148,    40,    41,    67,    42,   179,   166,    63
   };
 
-  const signed char
+  const unsigned char
   CS_Parser::yytable_[] =
   {
-      10,    10,    11,    11,    14,    13,    23,    33,    34,    35,
-      36,    26,    37,    38,    39,    40,    41,    27,    42,    43,
-      44,    46,    22,    15,    25,    16,    28,    29,    45,    10,
-      70,    11,    71,    48,    31,    32,    35,    36,    17,    33,
-      34,    35,    36,    18,     3,    10,     0,    11,    49,    63,
-       0,    51,    52,    53,    54,    55,    56,    57,    58,    59,
-      60,    61,    62,    66,    67,    10,    10,    11,    11,    68,
-      69,    33,    34,    35,    36,    64,    37,    38,    39,    40,
-      41,     0,    42,    43,    44,     0,     0,     0,    33,    34,
-      35,    36,     0,    37,    38,    39,    40,    41,    47,    42,
-      43,    44,     0,    50,    33,    34,    35,    36,     0,    37,
-      38,    39,    40,    41,     0,    42,    43,    44,    33,    34,
-      35,    36,     0,    37,    38,    39,    40,    41,     0,    42,
-      43,    33,    34,    35,    36,     0,    37,    38,    39,    40,
-      41,     1,    42,     0,     2,     3,     0,     0,     0,     4,
-       5,     6
+      35,   156,    43,    70,    71,    72,    73,    74,    88,    75,
+      47,    48,    74,     3,    51,    88,   146,   147,    88,    52,
+      96,    98,    50,    54,    53,    55,    88,    95,    56,    56,
+      88,    68,    56,    36,    64,   102,    56,    99,   149,    49,
+     197,   150,    70,    71,    72,    73,    74,    60,    75,   151,
+      59,    91,   209,    56,    76,    77,    78,    79,    80,    86,
+      81,   138,    97,    82,    86,    89,    37,   132,   101,    69,
+      89,    65,    62,   105,   106,   107,   108,   109,   110,   111,
+     112,   113,   114,   115,   116,   117,   118,   119,   120,   125,
+     124,    56,   126,    35,    88,    88,    56,    56,    86,    56,
+      56,    88,    88,   140,    89,    56,    72,    73,    74,   154,
+      75,    88,   174,   172,   176,   121,   122,   123,    90,   100,
+     175,   200,   159,   169,   160,   170,    36,   104,   103,   171,
+      56,   128,   135,    89,   136,    35,   178,   142,   180,   152,
+     155,   157,   163,    35,   184,   186,   165,   173,   182,   188,
+      56,   199,    56,    56,   195,    35,   190,   147,   168,    37,
+      86,   202,    35,   204,    35,    35,    89,   208,    36,   211,
+      35,    35,     0,     0,     0,     0,    36,    56,     0,     0,
+      35,     0,     0,     0,   217,     0,     0,    35,    36,    35,
+      35,    35,     0,     0,    35,    36,    35,    36,    36,     0,
+       0,    37,     0,    36,    36,    35,     0,     0,     0,    37,
+      35,    35,    35,    36,     0,     0,     0,     0,    35,     0,
+      36,    37,    36,    36,    36,     0,     0,    36,    37,    36,
+      37,    37,     0,     0,     0,     0,    37,    37,    36,   145,
+       0,     0,     0,    36,    36,    36,    37,     0,     0,     0,
+       0,    36,     0,    37,     0,    37,    37,    37,     0,     0,
+      37,   167,    37,     0,    57,    58,     0,     0,    61,     0,
+       0,    37,    66,     0,     0,     0,    37,    37,    37,     0,
+       0,     0,     0,     0,    37,   192,     0,   193,     0,    66,
+       0,   196,     0,   198,     0,     0,     0,     0,     0,     0,
+       0,     0,   207,     0,     0,     0,     0,     0,     0,   213,
+       0,   214,     0,     0,     0,     0,     0,     4,     5,     6,
+       0,     7,     0,     0,   220,     0,     0,    66,     0,     0,
+       0,     0,   129,   130,     0,   133,   134,     8,     0,     9,
+      10,    66,     0,     0,     0,    11,    12,    13,    14,    15,
+      16,    17,    18,    19,    20,    21,     0,    22,    23,    24,
+      25,     0,     0,     0,    26,    27,   144,     0,     0,    28,
+       0,    29,     0,    30,     4,     5,     6,     0,     7,     0,
+      31,    32,    33,     0,     0,     0,   158,     0,   161,   162,
+       0,     0,     0,     0,     8,     0,     9,    10,     0,     0,
+       0,     0,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,   187,    22,     0,    24,    25,     0,   147,
+       0,    26,    27,     4,     5,     6,    28,     7,    29,     0,
+      30,     0,     0,     0,     0,     0,     0,    31,    32,    33,
+       0,     0,     0,     8,     0,     9,    10,     0,     0,     0,
+       0,    11,    12,    13,    14,    15,    16,    17,    18,    19,
+      20,    21,     0,    22,     0,    24,    25,     0,     0,     0,
+      26,    27,     4,     5,     6,    28,     7,    29,   181,    30,
+       0,     0,     0,     0,     0,     0,    31,    32,    33,     0,
+       0,     0,     8,     0,     9,    10,     0,     0,     0,     0,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,     0,    22,     0,    24,    25,     0,     0,     0,    26,
+      27,     0,     0,   205,    28,     0,    29,     0,    30,     4,
+       5,     6,     0,     7,     0,    31,    32,    33,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     8,
+       0,     9,    10,     0,     0,     0,     0,    11,    12,    13,
+      14,    15,    16,    17,    18,    19,    20,    21,     0,    22,
+       0,    24,    25,     0,     0,     0,    26,    27,     0,     0,
+       0,    28,   206,    29,     0,    30,     4,     5,     6,     0,
+       7,     0,    31,    32,    33,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     8,     0,     9,    10,
+       0,     0,     0,     0,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,     0,    22,     0,    24,    25,
+       0,     0,   210,    26,    27,     4,     5,     6,    28,     7,
+      29,     0,    30,     0,     0,     0,     0,     0,     0,    31,
+      32,    33,     0,     0,     0,     8,     0,     9,    10,     0,
+       0,     0,     0,    11,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    21,     0,    22,     0,    24,    25,     0,
+       0,   215,    26,    27,     4,     5,     6,    28,     7,    29,
+       0,    30,     0,     0,     0,     0,     0,     0,    31,    32,
+      33,     0,     0,     0,     8,     0,     9,    10,     0,     0,
+       0,     0,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,     0,    22,     0,    24,    25,     0,     0,
+       0,    26,    27,     0,     0,   218,    28,     0,    29,     0,
+      30,     4,     5,     6,     0,     7,     0,    31,    32,    33,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     8,     0,     9,    10,     0,     0,     0,     0,    11,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+       0,    22,     0,    24,    25,     0,     0,     0,    26,    27,
+       0,     0,   219,    28,     0,    29,     0,    30,     4,     5,
+       6,     0,     7,     0,    31,    32,    33,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     8,     0,
+       9,    10,     0,     0,     0,     0,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,     0,    22,     0,
+      24,    25,     0,     0,     0,    26,    27,     4,     5,   221,
+      28,     7,    29,     0,    30,     0,     0,     0,     0,     0,
+       0,    31,    32,    33,     0,     0,     0,     8,     0,     9,
+      10,     0,     0,     0,     0,    11,    12,    13,    14,    15,
+      16,    17,    18,    19,    20,    21,     0,   131,     0,    24,
+      25,     0,     0,     0,    26,    27,     4,     5,     0,    28,
+       7,    29,     0,    30,     0,     0,     0,     0,     0,     0,
+      31,    32,    33,     0,     0,     0,     8,     0,     9,    10,
+       0,     0,     0,     0,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,     0,   183,     0,    24,    25,
+       0,     0,     0,    26,    27,     4,     5,     0,    28,     7,
+      29,     0,    30,     0,     0,     0,     0,     0,     0,    31,
+      32,    33,     0,     0,     0,     8,     0,     9,    10,     0,
+       0,     0,     0,    11,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    21,     0,   185,     0,    24,    25,     0,
+       0,     0,    26,    27,     4,     5,     0,    28,     7,    29,
+       0,    30,     0,     0,     0,     0,     0,     0,    31,    32,
+      33,     0,     0,     0,     8,     0,     9,    10,     0,     0,
+       0,     0,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,     0,   194,     0,    24,    25,     0,     0,
+       0,    26,    27,     4,     5,     0,    28,     7,    29,     0,
+      30,     0,     0,     0,     0,     0,     0,    31,    32,    33,
+       0,     0,     0,     8,     0,     9,    10,     0,     0,     0,
+       0,    11,    12,    13,    14,    15,    16,    17,    18,    19,
+      20,    21,     0,     0,     0,    24,    25,     0,     0,     0,
+      26,    27,     4,     5,     0,    28,     7,    29,     0,    30,
+       0,     0,     0,     0,     0,     0,    31,    32,    33,     0,
+       0,     0,     8,     0,     9,    10,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    17,    18,    19,    20,
+      21,     0,     0,     0,    24,    25,     0,    70,    71,    72,
+      73,    74,     0,    75,    28,     0,     0,     0,     0,    76,
+      77,    78,    79,    80,     0,    81,    32,    33,    82,    83,
+      84,    85,    70,    71,    72,    73,    74,     0,    75,     0,
+       0,     0,     0,     0,    76,    77,    78,    79,    80,     0,
+      81,     0,     0,    82,    83,    84,    85,     0,     0,     0,
+       0,     0,     0,    86,     0,     0,     0,     0,     0,    89,
+     141,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    86,     0,
+       0,     0,     0,     0,    89,   143,    70,    71,    72,    73,
+      74,     0,    75,     0,     0,     0,     0,     0,    76,    77,
+      78,    79,    80,     0,    81,     0,     0,    82,    83,    84,
+      85,    70,    71,    72,    73,    74,     0,    75,     0,     0,
+       0,     0,    92,    76,    77,    78,    79,    80,     0,    81,
+       0,     0,    82,    83,    84,    85,     0,    70,    71,    72,
+      73,    74,    86,    75,     0,     0,     0,   139,    89,    76,
+      77,    78,    79,    80,     0,    81,     0,     0,    82,    83,
+      84,    85,    70,    71,    72,    73,    74,    86,    75,     0,
+       0,     0,     0,    89,    76,    77,    78,    79,    80,     0,
+      81,     0,     0,    82,    83,    84,    85,     0,    70,    71,
+      72,    73,    74,    86,    75,     0,     0,     0,     0,    87,
+      76,    77,    78,    79,    80,     0,    81,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    86,     0,
+       0,     0,     0,     0,    89,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    86,     0,     0,     0,     0,     0,
+      89
   };
 
-  const signed char
+  const short
   CS_Parser::yycheck_[] =
   {
-       0,     1,     0,     1,     8,     1,    23,     4,     5,     6,
-       7,     0,     9,    10,    11,    12,    13,    22,    15,    16,
-      17,    34,     4,     3,     6,     5,    20,    21,    25,    29,
-      32,    29,    27,    29,    16,    17,     6,     7,    18,     4,
-       5,     6,     7,    23,    24,    45,    -1,    45,    30,    45,
-      -1,    33,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    43,    44,    26,    27,    65,    66,    65,    66,    65,
-      66,     4,     5,     6,     7,    46,     9,    10,    11,    12,
-      13,    -1,    15,    16,    17,    -1,    -1,    -1,     4,     5,
-       6,     7,    -1,     9,    10,    11,    12,    13,    31,    15,
-      16,    17,    -1,    19,     4,     5,     6,     7,    -1,     9,
-      10,    11,    12,    13,    -1,    15,    16,    17,     4,     5,
-       6,     7,    -1,     9,    10,    11,    12,    13,    -1,    15,
-      16,     4,     5,     6,     7,    -1,     9,    10,    11,    12,
-      13,    20,    15,    -1,    23,    24,    -1,    -1,    -1,    28,
-      29,    30
+       2,   145,    43,     6,     7,     8,     9,    10,    41,    12,
+       7,     8,    10,     0,    11,    41,    47,    48,    41,    16,
+      11,    60,    41,    11,    21,    13,    41,    60,    25,    26,
+      41,     5,    29,     2,    31,    61,    33,    60,    53,    45,
+     184,    52,     6,     7,     8,     9,    10,    41,    12,    60,
+      45,    50,   196,    50,    18,    19,    20,    21,    22,    62,
+      24,   100,    53,    27,    62,    68,     2,    95,    65,    43,
+      68,    41,    45,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    79,    80,    81,    82,    83,    84,    85,    88,
+      87,    88,    89,    95,    41,    41,    93,    94,    62,    96,
+      97,    41,    41,   102,    68,   102,     8,     9,    10,   137,
+      12,    41,    52,    60,    60,    63,    64,    65,    11,    61,
+      60,    60,    47,    47,    49,    49,    95,    43,    69,   157,
+     127,    42,    42,    68,    43,   137,   164,    42,   166,    60,
+      11,    60,    43,   145,   172,   173,    43,    60,    60,    43,
+     147,    49,   149,   150,   182,   157,    43,    48,   155,    95,
+      62,   189,   164,   191,   166,   167,    68,    49,   137,    43,
+     172,   173,    -1,    -1,    -1,    -1,   145,   174,    -1,    -1,
+     182,    -1,    -1,    -1,   212,    -1,    -1,   189,   157,   191,
+     192,   193,    -1,    -1,   196,   164,   198,   166,   167,    -1,
+      -1,   137,    -1,   172,   173,   207,    -1,    -1,    -1,   145,
+     212,   213,   214,   182,    -1,    -1,    -1,    -1,   220,    -1,
+     189,   157,   191,   192,   193,    -1,    -1,   196,   164,   198,
+     166,   167,    -1,    -1,    -1,    -1,   172,   173,   207,   131,
+      -1,    -1,    -1,   212,   213,   214,   182,    -1,    -1,    -1,
+      -1,   220,    -1,   189,    -1,   191,   192,   193,    -1,    -1,
+     196,   153,   198,    -1,    25,    26,    -1,    -1,    29,    -1,
+      -1,   207,    33,    -1,    -1,    -1,   212,   213,   214,    -1,
+      -1,    -1,    -1,    -1,   220,   177,    -1,   179,    -1,    50,
+      -1,   183,    -1,   185,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,   194,    -1,    -1,    -1,    -1,    -1,    -1,   201,
+      -1,   203,    -1,    -1,    -1,    -1,    -1,     3,     4,     5,
+      -1,     7,    -1,    -1,   216,    -1,    -1,    88,    -1,    -1,
+      -1,    -1,    93,    94,    -1,    96,    97,    23,    -1,    25,
+      26,   102,    -1,    -1,    -1,    31,    32,    33,    34,    35,
+      36,    37,    38,    39,    40,    41,    -1,    43,    44,    45,
+      46,    -1,    -1,    -1,    50,    51,   127,    -1,    -1,    55,
+      -1,    57,    -1,    59,     3,     4,     5,    -1,     7,    -1,
+      66,    67,    68,    -1,    -1,    -1,   147,    -1,   149,   150,
+      -1,    -1,    -1,    -1,    23,    -1,    25,    26,    -1,    -1,
+      -1,    -1,    31,    32,    33,    34,    35,    36,    37,    38,
+      39,    40,    41,   174,    43,    -1,    45,    46,    -1,    48,
+      -1,    50,    51,     3,     4,     5,    55,     7,    57,    -1,
+      59,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,
+      -1,    -1,    -1,    23,    -1,    25,    26,    -1,    -1,    -1,
+      -1,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    -1,    43,    -1,    45,    46,    -1,    -1,    -1,
+      50,    51,     3,     4,     5,    55,     7,    57,    58,    59,
+      -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,    -1,
+      -1,    -1,    23,    -1,    25,    26,    -1,    -1,    -1,    -1,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    -1,    43,    -1,    45,    46,    -1,    -1,    -1,    50,
+      51,    -1,    -1,    54,    55,    -1,    57,    -1,    59,     3,
+       4,     5,    -1,     7,    -1,    66,    67,    68,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    23,
+      -1,    25,    26,    -1,    -1,    -1,    -1,    31,    32,    33,
+      34,    35,    36,    37,    38,    39,    40,    41,    -1,    43,
+      -1,    45,    46,    -1,    -1,    -1,    50,    51,    -1,    -1,
+      -1,    55,    56,    57,    -1,    59,     3,     4,     5,    -1,
+       7,    -1,    66,    67,    68,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    23,    -1,    25,    26,
+      -1,    -1,    -1,    -1,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    40,    41,    -1,    43,    -1,    45,    46,
+      -1,    -1,    49,    50,    51,     3,     4,     5,    55,     7,
+      57,    -1,    59,    -1,    -1,    -1,    -1,    -1,    -1,    66,
+      67,    68,    -1,    -1,    -1,    23,    -1,    25,    26,    -1,
+      -1,    -1,    -1,    31,    32,    33,    34,    35,    36,    37,
+      38,    39,    40,    41,    -1,    43,    -1,    45,    46,    -1,
+      -1,    49,    50,    51,     3,     4,     5,    55,     7,    57,
+      -1,    59,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    -1,    -1,    -1,    23,    -1,    25,    26,    -1,    -1,
+      -1,    -1,    31,    32,    33,    34,    35,    36,    37,    38,
+      39,    40,    41,    -1,    43,    -1,    45,    46,    -1,    -1,
+      -1,    50,    51,    -1,    -1,    54,    55,    -1,    57,    -1,
+      59,     3,     4,     5,    -1,     7,    -1,    66,    67,    68,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    23,    -1,    25,    26,    -1,    -1,    -1,    -1,    31,
+      32,    33,    34,    35,    36,    37,    38,    39,    40,    41,
+      -1,    43,    -1,    45,    46,    -1,    -1,    -1,    50,    51,
+      -1,    -1,    54,    55,    -1,    57,    -1,    59,     3,     4,
+       5,    -1,     7,    -1,    66,    67,    68,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    23,    -1,
+      25,    26,    -1,    -1,    -1,    -1,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    -1,    43,    -1,
+      45,    46,    -1,    -1,    -1,    50,    51,     3,     4,    54,
+      55,     7,    57,    -1,    59,    -1,    -1,    -1,    -1,    -1,
+      -1,    66,    67,    68,    -1,    -1,    -1,    23,    -1,    25,
+      26,    -1,    -1,    -1,    -1,    31,    32,    33,    34,    35,
+      36,    37,    38,    39,    40,    41,    -1,    43,    -1,    45,
+      46,    -1,    -1,    -1,    50,    51,     3,     4,    -1,    55,
+       7,    57,    -1,    59,    -1,    -1,    -1,    -1,    -1,    -1,
+      66,    67,    68,    -1,    -1,    -1,    23,    -1,    25,    26,
+      -1,    -1,    -1,    -1,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    40,    41,    -1,    43,    -1,    45,    46,
+      -1,    -1,    -1,    50,    51,     3,     4,    -1,    55,     7,
+      57,    -1,    59,    -1,    -1,    -1,    -1,    -1,    -1,    66,
+      67,    68,    -1,    -1,    -1,    23,    -1,    25,    26,    -1,
+      -1,    -1,    -1,    31,    32,    33,    34,    35,    36,    37,
+      38,    39,    40,    41,    -1,    43,    -1,    45,    46,    -1,
+      -1,    -1,    50,    51,     3,     4,    -1,    55,     7,    57,
+      -1,    59,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    -1,    -1,    -1,    23,    -1,    25,    26,    -1,    -1,
+      -1,    -1,    31,    32,    33,    34,    35,    36,    37,    38,
+      39,    40,    41,    -1,    43,    -1,    45,    46,    -1,    -1,
+      -1,    50,    51,     3,     4,    -1,    55,     7,    57,    -1,
+      59,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,
+      -1,    -1,    -1,    23,    -1,    25,    26,    -1,    -1,    -1,
+      -1,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    -1,    -1,    -1,    45,    46,    -1,    -1,    -1,
+      50,    51,     3,     4,    -1,    55,     7,    57,    -1,    59,
+      -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,    -1,
+      -1,    -1,    23,    -1,    25,    26,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    37,    38,    39,    40,
+      41,    -1,    -1,    -1,    45,    46,    -1,     6,     7,     8,
+       9,    10,    -1,    12,    55,    -1,    -1,    -1,    -1,    18,
+      19,    20,    21,    22,    -1,    24,    67,    68,    27,    28,
+      29,    30,     6,     7,     8,     9,    10,    -1,    12,    -1,
+      -1,    -1,    -1,    -1,    18,    19,    20,    21,    22,    -1,
+      24,    -1,    -1,    27,    28,    29,    30,    -1,    -1,    -1,
+      -1,    -1,    -1,    62,    -1,    -1,    -1,    -1,    -1,    68,
+      69,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    62,    -1,
+      -1,    -1,    -1,    -1,    68,    69,     6,     7,     8,     9,
+      10,    -1,    12,    -1,    -1,    -1,    -1,    -1,    18,    19,
+      20,    21,    22,    -1,    24,    -1,    -1,    27,    28,    29,
+      30,     6,     7,     8,     9,    10,    -1,    12,    -1,    -1,
+      -1,    -1,    42,    18,    19,    20,    21,    22,    -1,    24,
+      -1,    -1,    27,    28,    29,    30,    -1,     6,     7,     8,
+       9,    10,    62,    12,    -1,    -1,    -1,    42,    68,    18,
+      19,    20,    21,    22,    -1,    24,    -1,    -1,    27,    28,
+      29,    30,     6,     7,     8,     9,    10,    62,    12,    -1,
+      -1,    -1,    -1,    68,    18,    19,    20,    21,    22,    -1,
+      24,    -1,    -1,    27,    28,    29,    30,    -1,     6,     7,
+       8,     9,    10,    62,    12,    -1,    -1,    -1,    -1,    68,
+      18,    19,    20,    21,    22,    -1,    24,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    62,    -1,
+      -1,    -1,    -1,    -1,    68,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    62,    -1,    -1,    -1,    -1,    -1,
+      68
   };
 
   const signed char
   CS_Parser::yystos_[] =
   {
-       0,    20,    23,    24,    28,    29,    30,    36,    37,    38,
-      39,    41,    42,    37,     8,     3,     5,    18,    23,    39,
-      41,    44,    44,    23,    45,    44,     0,    22,    20,    21,
-      40,    44,    44,     4,     5,     6,     7,     9,    10,    11,
-      12,    13,    15,    16,    17,    25,    34,    31,    37,    44,
-      19,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    44,    37,    45,    43,    26,    27,    37,    37,
-      32,    27
+       0,    71,    72,     0,     3,     4,     5,     7,    23,    25,
+      26,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    43,    44,    45,    46,    50,    51,    55,    57,
+      59,    66,    67,    68,    73,    74,    75,    79,    80,    83,
+      93,    94,    96,    43,    74,    75,    79,    93,    93,    45,
+      41,    93,    93,    93,    11,    13,    93,    94,    94,    45,
+      41,    94,    45,    99,    93,    41,    94,    95,     5,    43,
+       6,     7,     8,     9,    10,    12,    18,    19,    20,    21,
+      22,    24,    27,    28,    29,    30,    62,    68,    41,    68,
+      11,    95,    42,    76,    77,    60,    11,    53,    99,    60,
+      61,    93,    61,    69,    43,    93,    93,    93,    93,    93,
+      93,    93,    93,    93,    93,    93,    93,    93,    93,    93,
+      93,    63,    64,    65,    93,    95,    93,    78,    42,    94,
+      94,    43,    73,    94,    94,    42,    43,    82,    99,    42,
+      95,    69,    42,    69,    94,    72,    47,    48,    92,    53,
+      52,    60,    60,    81,    73,    11,    92,    60,    94,    47,
+      49,    94,    94,    43,    89,    43,    98,    72,    93,    47,
+      49,    73,    60,    60,    52,    60,    60,    88,    73,    97,
+      73,    58,    60,    43,    73,    43,    73,    94,    43,    87,
+      43,    91,    72,    72,    43,    73,    72,    92,    72,    49,
+      60,    86,    73,    90,    73,    54,    56,    72,    49,    92,
+      49,    43,    85,    72,    72,    49,    84,    73,    54,    54,
+      72,    54
   };
 
   const signed char
   CS_Parser::yyr1_[] =
   {
-       0,    35,    36,    37,    37,    37,    37,    38,    38,    38,
-      38,    38,    40,    39,    41,    41,    43,    42,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    45,    45,    45
+       0,    70,    71,    72,    72,    72,    72,    72,    73,    73,
+      73,    73,    73,    73,    73,    73,    73,    73,    73,    73,
+      73,    73,    73,    73,    74,    74,    76,    75,    77,    75,
+      78,    75,    79,    79,    79,    79,    79,    79,    79,    79,
+      81,    80,    82,    80,    84,    83,    85,    83,    86,    83,
+      87,    83,    88,    83,    89,    83,    90,    83,    91,    83,
+      92,    92,    92,    93,    93,    93,    93,    93,    93,    93,
+      93,    93,    93,    93,    93,    93,    93,    93,    93,    93,
+      93,    93,    93,    93,    93,    93,    93,    93,    93,    93,
+      93,    93,    93,    93,    93,    93,    93,    93,    93,    94,
+      95,    95,    95,    97,    96,    98,    96,    99,    99,    99
   };
 
   const signed char
   CS_Parser::yyr2_[] =
   {
-       0,     2,     2,     3,     2,     1,     2,     1,     2,     2,
-       1,     1,     0,     4,     5,     7,     0,     6,     1,     1,
+       0,     2,     2,     0,     3,     4,     2,     3,     1,     6,
+       2,     2,     1,     1,     1,     1,     1,     2,     1,     1,
+       1,     2,     2,     1,     4,     4,     0,     4,     0,     4,
+       0,     5,     7,    11,     6,    10,    10,     9,     7,     4,
+       0,     7,     0,     5,     0,    13,     0,    11,     0,    11,
+       0,     9,     0,     9,     0,     7,     0,    11,     0,     9,
+       0,     6,     5,     1,     1,     1,     1,     1,     1,     1,
+       1,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     2,     1,     1,     3,     0,     3,     1
+       2,     2,     1,     1,     1,     3,     3,     4,     4,     1,
+       0,     3,     1,     0,     9,     0,     7,     0,     3,     1
   };
 
 
@@ -1746,14 +3046,22 @@ namespace CS {
   const char*
   const CS_Parser::yytname_[] =
   {
-  "\"end of file\"", "error", "\"invalid token\"", "DEC", "PLUS", "MINUS",
-  "TIMES", "DIVIDE", "ASSIGN", "EQUAL", "LESS_THAN", "GREATER_THAN",
-  "LESS_THAN_EQ", "GREATER_THAN_EQ", "NOT", "NOT_EQUAL", "AND", "OR",
-  "LEFT_PARENTHESES", "RIGHT_PARENTHESES", "EOL", "SCOL", "END_OF_FILE",
-  "ID", "IF", "THEN", "ELSE", "ENDIF", "PRINT", "READ", "WHILE", "DO",
-  "OD", "COLUMN", "COMMA", "$accept", "input", "program", "statement",
-  "assignment", "@1", "if_statement", "while_loop", "$@2", "expr",
-  "id_list", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "DEC", "STR",
+  "ONE_LINE_COMMENT", "PLUS", "MINUS", "TIMES", "DIVIDE", "POWER",
+  "ASSIGN", "MOD", "PLUS_ASSIGN", "MINUS_ASSIGN", "TIMES_ASSIGN",
+  "DIVIDE_ASSIGN", "MOD_ASSIGN", "EQUAL", "LESS_THAN", "GREATER_THAN",
+  "LESS_THAN_EQ", "GREATER_THAN_EQ", "NOT", "NOT_EQUAL", "CONST", "SELF",
+  "AND", "OR", "XOR", "NEITHER", "ADVANCE", "BREAK", "CONTINUE",
+  "BREAK_ALL", "REPEAT", "RETURN", "TRUE", "FALSE", "NULL_TOKEN", "INF",
+  "LEFT_PARENTHESES", "RIGHT_PARENTHESES", "EOL", "END_OF_FILE", "ID",
+  "IF", "ELSE", "ELIF", "ENDIF", "PRINT", "FOR", "BY", "TO", "ENDFOR",
+  "FUNC", "ENDFUNC", "WHILE", "ENDWHILE", "READ", "COLUMN", "COMMA", "AS",
+  "NumType", "BoolType", "StrType", "GIVE", "LEN", "LEFT_BRACKET",
+  "RIGHT_BRACKET", "$accept", "input", "program", "statement",
+  "function_call", "assignment", "@1", "@2", "@3", "if_statement",
+  "while_loop", "$@4", "$@5", "for_counter_loop", "@6", "@7", "@8", "@9",
+  "@10", "@11", "@12", "@13", "elif_branch", "expr", "expr_val",
+  "expr_list", "function", "@14", "@15", "id_list", YY_NULLPTR
   };
 #endif
 
@@ -1762,10 +3070,17 @@ namespace CS {
   const short
   CS_Parser::yyrline_[] =
   {
-       0,   125,   125,   131,   140,   143,   155,   168,   171,   175,
-     183,   186,   192,   191,   203,   207,   214,   213,   223,   224,
-     244,   245,   246,   247,   248,   249,   250,   251,   252,   253,
-     254,   255,   256,   257,   258,   259,   262,   263,   267
+       0,   140,   140,   146,   152,   160,   168,   171,   176,   179,
+     182,   186,   194,   197,   200,   203,   210,   217,   224,   231,
+     238,   241,   244,   247,   252,   255,   270,   269,   280,   279,
+     290,   289,   315,   319,   323,   327,   331,   335,   339,   343,
+     350,   349,   359,   358,   369,   368,   389,   388,   409,   408,
+     429,   428,   449,   448,   469,   468,   490,   489,   511,   510,
+     532,   533,   537,   543,   544,   545,   546,   547,   548,   549,
+     569,   570,   571,   572,   573,   574,   575,   576,   577,   578,
+     579,   580,   581,   582,   583,   584,   585,   586,   587,   588,
+     589,   590,   591,   592,   593,   594,   595,   596,   597,   600,
+     605,   606,   610,   615,   613,   645,   643,   675,   676,   680
   };
 
   void
@@ -1832,10 +3147,14 @@ namespace CS {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,    66,    67,    68,    69
     };
     // Last valid token kind.
-    const int code_max = 289;
+    const int code_max = 324;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1847,9 +3166,9 @@ namespace CS {
 
 #line 7 "parser.yy"
 } // CS
-#line 1851 "parser.tab.cc"
+#line 3170 "parser.tab.cc"
 
-#line 269 "parser.yy"
+#line 682 "parser.yy"
 
 
 void CS::CS_Parser::error( const location_type &l, const std::string &err_message )
