@@ -4,7 +4,7 @@ read a;
 while a > 0 do
   n:=n+1;
   sum:=sum+a;
-  read a;
+  read a
 end;
-write n, sum;
-
+write n;
+write sum

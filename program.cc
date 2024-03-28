@@ -531,13 +531,13 @@ Data BinaryExpression::not_equals(const Data op1, const Data op2)
 {
     if(op1->type() == NULLTYPE)
     {
-        return make_shared<Boolean>(op2->type() == NULLTYPE);
+        return make_shared<Boolean>(op2->type() != NULLTYPE);
     }
-    else if(op2->type() != NULLTYPE)
+    else if(op2->type() == NULLTYPE)
     {
-        return make_shared<Boolean>(op1->type() == NULLTYPE);
+        return make_shared<Boolean>(op1->type() != NULLTYPE);
     }
-    else if(op1->type() != BOOLEAN)
+    else if(op1->type() == BOOLEAN)
     { 
         BinaryExpression::assert_types(op1, op2, BOOLEAN, BOOLEAN, "!=");
         return make_shared<Boolean>(static_cast<const Boolean&>(*op1) != static_cast<const Boolean&>(*op2));    
@@ -549,6 +549,7 @@ Data BinaryExpression::not_equals(const Data op1, const Data op2)
         {
             return make_shared<Boolean>(true);
         }
+
         return make_shared<Boolean>(static_cast<const Number&>(*op1) != static_cast<const Number&>(*op2));
     }
     else if(op1->type() == INF)
@@ -1247,8 +1248,9 @@ void Program::attach_statement(shared_ptr<Statement> statement)
 ExecutionResult Program::run(vector<Data>& callstack)
 {
     int i = 0;
-    for(auto& statement : statements)
+    for(auto riter = statements.rbegin(); riter != statements.rend(); riter++)
     {
+        auto statement = *riter;
         auto res = statement->exec(callstack);
         if(res.flag != NONE && res.flag != ASSIGN_RES && (res.original_scope == -1 || res.original_scope == scope))
         {
@@ -1291,7 +1293,7 @@ ExecutionResult ReadStatement::exec(vector<Data>& callstack) {
     string in_str;
     for(auto arg_ind : this->arg_inds) {
         IN >> in_str;
-        callstack[arg_ind] = make_shared<String>(in_str);
+        callstack[arg_ind] = make_shared<Number>(in_str);
     }
 
     return ExecutionResult(NONE);
