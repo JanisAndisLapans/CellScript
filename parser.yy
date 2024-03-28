@@ -98,7 +98,7 @@
 %token EOL
 %token END_OF_FILE
 %token<string> ID
-%token IF ELSE ELIF ENDIF PRINT FOR BY TO ENDFOR FUNC ENDFUNC WHILE ENDWHILE
+%token IF ELSE ELIF ENDIF PRINT FOR BY TO ENDFOR FUNC ENDFUNC WHILE ENDWHILE READ
 %token COLUMN COMMA
 %token AS NumType BoolType StrType
 
@@ -182,6 +182,14 @@ statement: assignment {
 | PRINT expr_val {
     $$ = make_shared<PrintStatement>($2);
 
+}
+| READ id_list {
+    vector<int> arg_inds;
+    for(const auto& id_name : $2)
+    {
+        arg_inds.push_back(get_variable(id_name));
+    }
+    $$ = make_shared<ReadStatement>(arg_inds);
 }
 | if_statement {
     $$ = $1;
@@ -682,17 +690,48 @@ int main(int argc, char *argv[])
 {
     if(argc < 2)
     {
-        cout << "ERROR: No file provided" << endl;
-        return 0;
+        cout << "ERROR: No program file provided" << endl;
+        return 1;
     } 
 
     std::ifstream ifs(argv[1], std::ifstream::in);
+
+    Program::output_stream = &cout;
+    Program::input_stream = &cin;
+
+    for(int i = 2; i < argc; i++) {
+        char* arg = argv[i];
+
+        if(strcmp(arg, "-i") == 0) {
+            if(i++ == argc) {
+                std::cerr << "Error: input parameter specified but file not provided" << endl;
+                return 1;
+            }
+            
+            Program::input_stream = new ifstream(argv[i]);
+            if(Program::input_stream->fail()) {
+                std::cerr << "Error: failed to read input file" << endl;
+                return 1;
+            }
+        }
+        else if(strcmp(arg, "-o") == 0) {
+            if(i++ == argc) {
+                std::cerr << "Error: output parameter specified but file not provided" << endl;
+                return 1;
+            }
+            
+            Program::output_stream = new ofstream(argv[i]);
+        } else {
+            std::cerr << "Error: unrecognized parameter " << argv[i] << endl;
+            return 1;
+        }
+    }
+
     auto lexer = make_unique<CS::CS_Scanner>(&ifs);
     auto parser = make_unique<CS::CS_Parser>(*lexer);
     interpreter.make_new_scope(); //Globālais
-    if(parser->parse() == 0) //Nav kļūdu
-    {
-        //
-    }
+    parser->parse();
     interpreter.pop_scope();
+
+    return 0;
 }

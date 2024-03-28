@@ -1,0 +1,1 @@
+Type Boolean not compatible with Number for operator '+'

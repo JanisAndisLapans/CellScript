@@ -88,6 +88,7 @@ one_line_comment #.*
 "LEN" return token::LEN;
 "WHILE" return token::WHILE;
 "ENDWHILE" return token::ENDWHILE;
+"READ" return token::READ;
 
 "," return token::COMMA;
 ":" return token::COLUMN;

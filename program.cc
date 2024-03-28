@@ -1,6 +1,8 @@
 #include "program.h"
 
 vector<Data> Expression::const_stack;
+istream* Program::input_stream;
+ostream* Program::output_stream;
 
 BinaryExpression::BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op)
 : sub_expression1(e1), sub_expression2(e2), op_flag(op)
@@ -200,7 +202,7 @@ Data VariableExpression::eval(vector<Data>& callstack)
 {
     if(callstack[var_ind] == nullptr)
     {
-        cout << "Variable " << variable_name << " was never inititialized" << endl;
+        OUT << "Variable " << variable_name << " was never inititialized" << endl;
     }
     return callstack[var_ind];
 }
@@ -209,7 +211,7 @@ Data LiteralExpression::eval(vector<Data>& callstack)
 {
     if(*value == nullptr)
     {
-        cout << "May not use same CONST variable to initialize itself" << endl;
+        OUT << "May not use same CONST variable to initialize itself" << endl;
         throw "EXCEPTION";
     }
     return *value;
@@ -231,7 +233,7 @@ Data LengthExpression::eval(vector<Data>& callstack)
 {
     auto llist = list->eval(callstack);
     if(llist->type() != LIST) {
-        cout << "LEN may only be used on a List type" << endl;
+        OUT << "LEN may only be used on a List type" << endl;
         throw "EXCEPTION";
     }
     
@@ -256,7 +258,7 @@ void BinaryExpression::assert_types(const Data op1, const Data op2, TypeLabel op
 {
     if(op1->type() != op1_type || op2->type() != op2_type)
     {
-        cout << "Type " << op1->type_name() <<" not compatible with " << op2->type_name() << " for operator '" << op_name << "'" << endl;
+        OUT << "Type " << op1->type_name() <<" not compatible with " << op2->type_name() << " for operator '" << op_name << "'" << endl;
         throw "EXCEPTION";
     }
 }
@@ -273,7 +275,7 @@ void BinaryExpression::assert_types_multiple(const Data op1, const Data op2, Typ
             }
         }
     }
-    cout << "Type " << op1->type_name() <<" not compatible with " << op2->type_name() << " for operator '" << op_name << "'" << endl;
+    OUT << "Type " << op1->type_name() <<" not compatible with " << op2->type_name() << " for operator '" << op_name << "'" << endl;
     throw "EXCEPTION";
 }
 
@@ -287,7 +289,7 @@ void UnaryExpression::assert_type(const Data op, const vector<TypeLabel>& op_typ
             return;
         }
     }
-    cout << "Type " << op->type_name() <<" not compatible with operator '" << op_name << "'" << endl;
+    OUT << "Type " << op->type_name() <<" not compatible with operator '" << op_name << "'" << endl;
     throw "EXCEPTION";
 }
 
@@ -305,7 +307,7 @@ Data BinaryExpression::add(const Data op1, const Data op2)
         {
             if(static_cast<const InfType&>(*op1).getPositivity() != static_cast<const InfType&>(*op2).getPositivity())
             {
-                cout << "Addition (+) of inifinity (INF) with two different signs is undefined" << endl;
+                OUT << "Addition (+) of inifinity (INF) with two different signs is undefined" << endl;
                 throw "EXCEPTION";
             }
         }
@@ -352,7 +354,7 @@ Data BinaryExpression::subtract(const Data op1, const Data op2)
         {
             if(static_cast<const InfType&>(*op1).getPositivity() == static_cast<const InfType&>(*op2).getPositivity())
             {
-                cout << "Addition (+) of inifinity (INF) with two different signs is undefined" << endl;
+                OUT << "Addition (+) of inifinity (INF) with two different signs is undefined" << endl;
                 throw "EXCEPTION";
             }
         }
@@ -377,7 +379,7 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
         auto op2_ind = static_cast<const Number&>(*op2);
         if(op2_ind < 0 || op2_ind % 1 != 0)
         {
-            cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
+            OUT << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
             throw "Exception";
         }
         auto s = make_shared<String>(""); 
@@ -405,7 +407,7 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
         auto op2_ind = static_cast<const Number&>(*op2);
         if(op2_ind < 0 || op2_ind % 1 != 0)
         {
-            cout << "List repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
+            OUT << "List repeat mulitipier can only be a non-negative integer. (Illegal value: " << op2_ind.to_str() << endl;
             throw "Exception";
         }
 
@@ -431,7 +433,7 @@ Data BinaryExpression::multiply(const Data op1, const Data op2)
             auto op1_ind = static_cast<const Number&>(*op1);
             if(op1_ind < 0 || op1_ind % 1 != 0)
             {
-                cout << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op1_ind.to_str() << endl;
+                OUT << "String repeat mulitipier can only be a non-negative integer. (Illegal value: " << op1_ind.to_str() << endl;
                 throw "Exception";
             }
             auto s = make_shared<String>(""); 
@@ -464,7 +466,7 @@ Data BinaryExpression::divide(const Data op1, const Data op2)
     auto op2_ind = static_cast<const Number&>(*op2);
     if(op2_ind == 0)
     {
-        cout << "Divison by zero" << endl;
+        OUT << "Divison by zero" << endl;
         throw "Exception";
     }
     return make_shared<Number>(static_cast<const Number&>(*op1) / op2_ind);
@@ -476,7 +478,7 @@ Data BinaryExpression::modulo(const Data op1, const Data op2)
     auto op2_ind = static_cast<const Number&>(*op2);
     if(op2_ind == 0)
     {
-        cout << "Divison by zero" << endl;
+        OUT << "Divison by zero" << endl;
         throw "Exception";
     }
     return make_shared<Number>(static_cast<const Number&>(*op1) % op2_ind);
@@ -692,7 +694,7 @@ Data BinaryExpression::index(const Data op1, const Data op2)
         auto index = dynamic_pointer_cast<Number>(op2);
         if(*index >= list->get_size())
         {
-            cout << "Index " << index->to_str() << " out of range! List size: " << list->get_size() << endl;
+            OUT << "Index " << index->to_str() << " out of range! List size: " << list->get_size() << endl;
             throw "EXCEPTION"; 
         }
         return list->get(index->get_int());
@@ -763,7 +765,7 @@ Data UnaryExpression::to_bool(const Data op)
             else if(str == "FALSE")
                 return make_shared<Boolean>(false);
             
-            cout << "Attempt to cast to Booltype from string which is equal to neither \"TRUE\" or \"FALSE\" (any case)" << endl;
+            OUT << "Attempt to cast to Booltype from string which is equal to neither \"TRUE\" or \"FALSE\" (any case)" << endl;
             throw "EXCEPTION";
         }
         case NULLTYPE:
@@ -1279,10 +1281,19 @@ ExecutionResult Program::run()
     return run(callstack);
 }
 
-
 ExecutionResult PrintStatement::exec(vector<Data>& callstack)
 {
-    cout << data->eval(callstack)->to_str() << endl;
+    OUT << data->eval(callstack)->to_str() << endl;
+    return ExecutionResult(NONE);
+}
+
+ExecutionResult ReadStatement::exec(vector<Data>& callstack) {
+    string in_str;
+    for(auto arg_ind : this->arg_inds) {
+        IN >> in_str;
+        callstack[arg_ind] = make_shared<String>(in_str);
+    }
+
     return ExecutionResult(NONE);
 }
 
@@ -1306,19 +1317,19 @@ ExecutionResult IndexAssignStatement::exec(vector<Data>& callstack)
 
     if(list->type() != LIST) 
     {
-        cout << "Not an array" << endl;
+        OUT << "Not an array" << endl;
         throw "EXCEPTION";
     }
     else
     {
         if(index->type() != NUMBER) {
-            cout << "Index must be a number" << endl;
+            OUT << "Index must be a number" << endl;
             throw "EXCEPTION";
         }
         auto idx_int = dynamic_pointer_cast<Number>(index)->get_int();
         auto llist = dynamic_pointer_cast<List>(list);
         if(llist->get_size() <= idx_int) {
-            cout << "Index " << idx_int << " out of range. Size: " << llist->get_size() << endl;
+            OUT << "Index " << idx_int << " out of range. Size: " << llist->get_size() << endl;
             throw "EXCEPTION";
         }
 
@@ -1345,7 +1356,7 @@ ExecutionResult IfStatement::exec(vector<Data>& callstack)
         shared_ptr<Boolean> test_val_bool;
         if(!(test_val_bool = dynamic_pointer_cast<Boolean>(test_val)))
         {
-            cout <<"Value " <<test_val->to_str() <<" of type " << test_val->type_name() << " is of wrong type! BOOLEAN required." <<endl;
+            OUT <<"Value " <<test_val->to_str() <<" of type " << test_val->type_name() << " is of wrong type! BOOLEAN required." <<endl;
             throw "Exception";
         }
 
@@ -1379,16 +1390,16 @@ ExecutionResult WhileLoop::exec(vector<Data>& callstack) {
             } else if(res.flag == BREAK_ALL || res.flag == RETURN) {
                 return res;
             } else if(res.flag == ADVANCE && *dynamic_pointer_cast<Number>(res.value) > 1) {
-                cout << "ADVANCE not allowed in WHILE loop" << endl;
+                OUT << "ADVANCE not allowed in WHILE loop" << endl;
                 throw exception();
             } else if(res.flag == ADVANCE && *dynamic_pointer_cast<Number>(res.value) == 0) {
-                cout << "REPEAT not allowed in WHILE loop" << endl;
+                OUT << "REPEAT not allowed in WHILE loop" << endl;
                 throw exception();
             } else if (res.flag != NONE) {
                 return res;
             }
         } else {
-            cout << "Only boolean conditions allowed for WHILE loop!" << endl;
+            OUT << "Only boolean conditions allowed for WHILE loop!" << endl;
             throw exception();
         }
     }
@@ -1411,7 +1422,7 @@ ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
     {
         if(!(counter_num = dynamic_pointer_cast<Number>(callstack[counter_ind])))
         {
-            cout << "Counter must be of type Number, " << (callstack[counter_ind])->type_name() << " is invalid" << endl;
+            OUT << "Counter must be of type Number, " << (callstack[counter_ind])->type_name() << " is invalid" << endl;
             throw "Exception";        
         }
 
@@ -1430,7 +1441,7 @@ ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
         }
         else if(!(end_val_num = dynamic_pointer_cast<Number>(end_val)))
         {
-            cout << "Loop end must be of type Number or InfinityType, " << end_val->type_name() << " is invalid" << endl;
+            OUT << "Loop end must be of type Number or InfinityType, " << end_val->type_name() << " is invalid" << endl;
             throw "Exception";    
         }
 
@@ -1440,7 +1451,7 @@ ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
 
         if(!(jump_val_num = dynamic_pointer_cast<Number>(jump_val)))
         {
-            cout << "Jump amount (BY) must be of type Number, " << end_val->type_name() << " is invalid" << endl;
+            OUT << "Jump amount (BY) must be of type Number, " << end_val->type_name() << " is invalid" << endl;
             throw "Exception";    
         }
 
@@ -1503,7 +1514,7 @@ ExecutionResult Advance::exec(vector<Data>& callstack)
     auto advance_amount = amount->eval(callstack);
     if(advance_amount->type() != NUMBER)
     {
-        cout << "ADVANCE parameter must be a Number, " << advance_amount->type_name() << " provided"<<endl;
+        OUT << "ADVANCE parameter must be a Number, " << advance_amount->type_name() << " provided"<<endl;
         throw "EXCEPTION";
     }
     return ExecutionResult(ADVANCE, advance_amount);
@@ -1525,13 +1536,13 @@ ExecutionResult FunctionStatement::exec(vector<Data>& callstack)
     shared_ptr<Function> function; 
     if(!(function = dynamic_pointer_cast<Function>(function_data)))
     {
-        cout << "Attempt to call a non callable object of type " << function_data->type_name() << endl;
+        OUT << "Attempt to call a non callable object of type " << function_data->type_name() << endl;
         throw "EXCEPTION";
     }
 
     if(arg_vals.size() != function->arg_variables.size())
     {
-        cout << arg_vals.size() << " arguemnts provided to function but " << function->arg_variables.size() << " required.";
+        OUT << arg_vals.size() << " arguemnts provided to function but " << function->arg_variables.size() << " required.";
     }
 
     vector<pair<int, Data>> args;

@@ -15,6 +15,9 @@
 #include <algorithm>
 #include <iostream>
 
+#define IN (*Program::input_stream)
+#define OUT (*Program::output_stream)
+
 using namespace placeholders;
 
 class Expression
@@ -256,6 +259,20 @@ public:
     virtual bool is_const() const override { return false; }
 };
 
+class ReadStatement : public Statement
+{
+    /*
+        Ielasa vertibas mainigajos
+    */
+private:
+    vector<int> arg_inds;
+public:
+    ReadStatement(vector<int> arg_inds) : arg_inds(arg_inds) {}
+
+    virtual ExecutionResult exec(vector<Data>& callstack) override;
+    virtual bool is_const() const override { return false; }
+};
+
 class AssignmentOperation
 {
     public:
@@ -455,6 +472,9 @@ private:
     bool constness = true;
 
 public:
+    static istream* input_stream;
+    static ostream* output_stream;
+
     Program(int scope, int callstack_size=-1) : scope(scope), callstack_size (callstack_size)  {};
     Program(shared_ptr<Statement> first_statement, int scope, int callstack_size=-1) 
      : scope(scope), callstack_size (callstack_size)

@@ -1,11 +1,6 @@
-CONST modify = FUNC(s):
-    s += "123"
-ENDFUNC
-
-s = "test"
-PRINT s
-modify(s)
-PRINT s
+a = TRUE
+b = 4
+PRINT a + b
 
 
 
