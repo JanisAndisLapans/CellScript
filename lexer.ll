@@ -81,6 +81,7 @@ id {alpha}{alphanum}*
 "!=" return token::NOT_EQUAL;
 "&&" return token::AND;
 "||" return token::OR;
+"!" return token::NOT;
 "true" return token::TRUE;
 "false" return token::FALSE;
 "\n" return token::EOL;

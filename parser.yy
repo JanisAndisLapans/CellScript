@@ -88,7 +88,7 @@
 %token<string> DEC 
 %token TRUE FALSE
 %token PLUS MINUS TIMES DIVIDE ASSIGN
-%token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL
+%token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL NOT
 %token AND OR
 %token LEFT_PARENTHESES RIGHT_PARENTHESES
 %token EOL SCOL
@@ -114,6 +114,7 @@
 %left OR
 %left AND
 %left EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT_EQUAL
+%left NOT
 %left PLUS MINUS
 %left TIMES DIVIDE
 %left LEFT_PARENTHESES RIGHT_PARENTHESES
@@ -257,6 +258,7 @@ expr: DEC { $$ = make_shared<LiteralExpression>(make_shared<Data>(make_shared<Nu
 | expr AND expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::AND);}
 | expr OR expr {$$ = make_shared<BinaryExpression> ($1,$3, BinaryExpression::OR);}
 | MINUS expr {$$ = make_shared<UnaryExpression> ($2, UnaryExpression::INV);}
+| NOT expr {$$ = make_shared<UnaryExpression> ($2, UnaryExpression::NOT);}
 | if_statement { $$ = make_shared<StatementExpression> ($1); }
 | assignment { $$ = make_shared<StatementExpression> ($1);}
 | LEFT_PARENTHESES expr RIGHT_PARENTHESES {$$ = $2;}
