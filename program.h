@@ -32,6 +32,9 @@ public:
     virtual Data eval(vector<Data>& callstack) = 0;
     virtual bool is_const() const = 0; // Vai izteiksme satur mainīgas daļas
     virtual shared_ptr<Expression> reduce_const() = 0; // Saīsina izteiksmi pārveršot konstantās daļas par LiteralExpression
+    virtual string get_byte_code () {
+        return "NOT IMPLEMENTED COMMAND\n";
+   };
 };
 
 class BinaryExpression : public Expression, public std::enable_shared_from_this<BinaryExpression>
@@ -53,6 +56,7 @@ public:
     BinaryExpression(shared_ptr<Expression> e1, shared_ptr<Expression> e2, BinaryOperationFlag op);
 
     virtual Data eval(vector<Data>& callstack) override;
+    virtual string get_byte_code () override;
     
     virtual shared_ptr<Expression> reduce_const() override;
     virtual bool is_const() const override { return false; }
@@ -105,6 +109,7 @@ public:
     virtual Data eval(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
     virtual shared_ptr<Expression> reduce_const() override;
+    virtual string get_byte_code () override;
 
 private:
 
@@ -156,6 +161,8 @@ public:
     virtual Data eval(vector<Data>& callstack) override;
     virtual bool is_const() const override { return true; }
     virtual shared_ptr<Expression> reduce_const() override;
+    virtual string get_byte_code () override;
+
 
 };
 
@@ -207,6 +214,7 @@ public:
     virtual Data eval(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
     virtual shared_ptr<Expression> reduce_const() override;
+    virtual string get_byte_code () override;
 };
 
 enum ExecutionFlag
@@ -243,6 +251,9 @@ class Statement
 public:
    virtual ExecutionResult exec(vector<Data>& callstack) = 0;
    virtual bool is_const() const = 0;
+   virtual string get_byte_code () {
+        return "NOT IMPLEMENTED COMMAND\n";
+   };
 };
 
 class PrintStatement : public Statement
@@ -302,13 +313,15 @@ class AssignStatement : public BaseAssignStatement
     */
 private:
     int variable_ind;
-    shared_ptr<Expression> data;  
+    shared_ptr<Expression> data;
+    string variable_name;  
 public:
-    AssignStatement(int variable_ind, shared_ptr<Expression> data, shared_ptr<AssignmentOperation> assignOper = nullptr) 
-        : variable_ind(variable_ind) , data(data), BaseAssignStatement(assignOper) {}
+    AssignStatement(int variable_ind, shared_ptr<Expression> data, string variable_name, shared_ptr<AssignmentOperation> assignOper = nullptr) 
+        : variable_ind(variable_ind) , data(data), BaseAssignStatement(assignOper), variable_name(variable_name)  {}
 
     virtual ExecutionResult exec(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
+    virtual string get_byte_code() override;
 };
 
 class IndexAssignStatement : public BaseAssignStatement
@@ -338,6 +351,7 @@ private:
     vector<pair<shared_ptr<Expression>, shared_ptr<Program>>> branches;
     shared_ptr<Program> else_prog;
     bool constness;
+    virtual string get_byte_code() override;
 public:
     IfStatement(vector<pair<shared_ptr<Expression>, shared_ptr<Program>>>&& branches, shared_ptr<Program> else_prog=nullptr);
 
@@ -379,6 +393,7 @@ public:
     
     virtual ExecutionResult exec(vector<Data>& callstack) override;
     virtual bool is_const() const override { return false; }
+    virtual string get_byte_code() override;
 };
 
 
@@ -487,4 +502,5 @@ public:
     ExecutionResult run(vector<Data>& callstack);
     bool is_const() const { return constness; }
     void set_callstack_size(int size) {callstack_size = size;}
+    string get_byte_code();
 };

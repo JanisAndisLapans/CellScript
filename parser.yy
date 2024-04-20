@@ -83,12 +83,14 @@
 
         return index;
     } 
+
+    bool compile_to_bytecode = false;
 }
 
 %token<string> DEC 
 %token TRUE FALSE
 %token PLUS MINUS TIMES DIVIDE ASSIGN
-%token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL NOT
+%token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL
 %token AND OR
 %token LEFT_PARENTHESES RIGHT_PARENTHESES
 %token EOL SCOL
@@ -125,7 +127,11 @@
 %%
  
 input: program END_OF_FILE { 
-    $1->run();
+    if(compile_to_bytecode) {
+        (*Program::output_stream) << $1->get_byte_code();
+    } else {
+        $1->run();
+    }
     return 0;
     }
 ;
@@ -198,7 +204,7 @@ assignment: ID ASSIGN
     }
 }
 expr{
-    $$ = make_shared<AssignStatement>($3, $4);
+    $$ = make_shared<AssignStatement>($3, $4, $1);
 }
 ;
 
@@ -313,7 +319,11 @@ int main(int argc, char *argv[])
             }
             
             Program::output_stream = new ofstream(argv[i]);
-        } else {
+        }
+        else if(strcmp(arg, "-c") == 0) {
+            compile_to_bytecode = true;
+        }
+        else {
             std::cerr << "Error: unrecognized parameter " << argv[i] << endl;
             return 1;
         }
@@ -324,6 +334,13 @@ int main(int argc, char *argv[])
     interpreter.make_new_scope(); //Globālais
     parser->parse();
     interpreter.pop_scope();
+
+    if(auto ofs = dynamic_cast<ofstream*>(Program::output_stream)) {
+        if (ofs->is_open()) {
+            ofs->flush();
+            ofs->close();
+        }
+    }
 
     return 0;
 }

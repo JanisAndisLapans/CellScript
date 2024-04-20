@@ -193,9 +193,86 @@ Data BinaryExpression::eval(vector<Data>& callstack)
     return operation(sub_expression1->eval(callstack), sub_expression2->eval(callstack));
 }
 
+string BinaryExpression::get_byte_code()
+{
+    static long long tmp_index = 1;
+    
+    // Transform
+    switch(this -> op_flag) {
+        case LT:
+            return make_shared<BinaryExpression>(make_shared<BinaryExpression>(sub_expression1, sub_expression2, EQ_LT), 
+                                               make_shared<UnaryExpression>(make_shared<BinaryExpression>(sub_expression1, sub_expression2, EQ), UnaryExpression::NOT), AND)
+                                               ->get_byte_code();
+        case EQ_GT:
+            return make_shared<BinaryExpression>(make_shared<UnaryExpression>(make_shared<BinaryExpression>(sub_expression1, sub_expression2, EQ_LT), UnaryExpression::NOT), 
+                                               make_shared<BinaryExpression>(sub_expression1, sub_expression2, EQ), OR)
+                                               ->get_byte_code();
+    }
+
+    auto code = sub_expression2->get_byte_code();
+    auto tmp = "tmp_binary" + to_string(tmp_index++);
+    code += "STORE(" + tmp + ")\n";
+    code += sub_expression1->get_byte_code();
+    code += "FETCH(" + tmp + ")\n";
+    
+    // Translate
+    switch(this->op_flag) 
+    {
+        case ADD:
+            code += "ADD\n";
+            break;
+        case SUB:
+            code += "SUB\n";
+            break;
+        case MULT:
+            code += "MULT\n";
+            break;
+        case DIV:
+            code += "DIV\n";
+            break;
+        case EQ:
+            code += "EQ\n";
+            break;
+        case EQ_LT:
+            code += "LE\n";
+            break;
+        case GT:
+            code += "LE\nNEG\n";
+            break;
+        case NEQ:
+            code += "EQ\nNEG\n";
+            break;
+        case AND:
+            code += "AND\n";
+            break;
+        case OR:
+            code += "OR\n";
+            break;
+        default:
+            code += "NOT IMPLEMENTED\n";
+    }
+
+    return code;
+}
+
 Data UnaryExpression::eval(vector<Data>& callstack)
 {
     return operation(sub_expression->eval(callstack));
+}
+
+string UnaryExpression::get_byte_code()
+{
+    auto code = sub_expression->get_byte_code();
+
+    switch(op_flag) {
+        case NOT:
+            code += "NEG\n";
+            break;
+        default:
+            code += "NOT IMPLEMENTED\n";
+    }
+
+    return code;
 }
 
 Data VariableExpression::eval(vector<Data>& callstack)
@@ -207,6 +284,11 @@ Data VariableExpression::eval(vector<Data>& callstack)
     return callstack[var_ind];
 }
 
+string VariableExpression::get_byte_code()
+{
+    return "FETCH(" + variable_name + ")\n";
+}
+
 Data LiteralExpression::eval(vector<Data>& callstack)
 {
     if(*value == nullptr)
@@ -215,6 +297,15 @@ Data LiteralExpression::eval(vector<Data>& callstack)
         throw "EXCEPTION";
     }
     return *value;
+}
+
+string LiteralExpression::get_byte_code()
+{
+    if((*value)->type() == BOOLEAN) {
+        return (*value)->to_str() + "\n"; //TRUE/FALSE
+    } else {
+        return "PUSH(" + (*value)->to_str() + ")\n";
+    }
 }
 
 Data InititializerListExpression::eval(vector<Data>& callstack)
@@ -1267,6 +1358,16 @@ ExecutionResult Program::run(vector<Data>& callstack)
     return ExecutionResult(NONE);
 }
 
+string Program::get_byte_code()
+{
+    string code = "";
+    for(auto riter = statements.rbegin(); riter != statements.rend(); riter++) {
+        code += (*riter)->get_byte_code();
+    }
+
+    return code;
+}
+
 ExecutionResult Program::run(const vector<pair<int, Data>>& init_vars)
 {
     vector<Data> callstack(callstack_size, nullptr);
@@ -1309,6 +1410,13 @@ ExecutionResult AssignStatement::exec(vector<Data>& callstack)
     
     callstack[variable_ind] = val;
     return ExecutionResult(ASSIGN_RES, callstack[variable_ind]);
+}
+
+string AssignStatement::get_byte_code()
+{
+    auto code = data->get_byte_code(); //expression
+    code += "STORE(" + variable_name + ")\n";
+    return code;
 }
 
 ExecutionResult IndexAssignStatement::exec(vector<Data>& callstack)
@@ -1376,6 +1484,15 @@ ExecutionResult IfStatement::exec(vector<Data>& callstack)
     return ExecutionResult(NONE);
 }
 
+string IfStatement::get_byte_code()
+{
+    auto code = branches[0].first->get_byte_code(); // bool expr
+    auto sub_code1 = branches[0].second->get_byte_code();
+    auto sub_code2 = else_prog == nullptr ? "NOOP\n" : else_prog->get_byte_code();
+    code += "BRANCH(" + sub_code1 + ", " + sub_code2 + ")\n";
+    return code;
+}
+
 ExecutionResult WhileLoop::exec(vector<Data>& callstack) {
     while(true)
     {
@@ -1406,6 +1523,14 @@ ExecutionResult WhileLoop::exec(vector<Data>& callstack) {
         }
     }
 }
+
+string WhileLoop::get_byte_code()
+{
+    auto cond_code = condition->get_byte_code(); // bool expr
+    auto sub_code = loop_program->get_byte_code();
+    return "LOOP(" + cond_code + ", " + sub_code + ")\n";
+}
+
 
 ExecutionResult ForCounterLoop::exec(vector<Data>& callstack)
 {
