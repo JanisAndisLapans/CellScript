@@ -85,7 +85,8 @@
     } 
 }
 
-%token<string> DEC
+%token<string> DEC 
+%token TRUE FALSE
 %token PLUS MINUS TIMES DIVIDE ASSIGN
 %token EQUAL LESS_THAN GREATER_THAN LESS_THAN_EQ GREATER_THAN_EQ NOT NOT_EQUAL
 %token AND OR
@@ -221,6 +222,8 @@ program OD {
 }
 
 expr: DEC { $$ = make_shared<LiteralExpression>(make_shared<Data>(make_shared<Number>($1))); }
+| TRUE { $$ =  make_shared<LiteralExpression>(make_shared<Data>(make_shared<Boolean>(true))); }
+| FALSE { $$ = make_shared<LiteralExpression>( make_shared<Data>(make_shared<Boolean>(false))); }
 | ID {
     bool non_declared;
     if(interpreter.is_const($1))

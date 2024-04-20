@@ -81,13 +81,17 @@ id {alpha}{alphanum}*
 "!=" return token::NOT_EQUAL;
 "&&" return token::AND;
 "||" return token::OR;
-
+"true" return token::TRUE;
+"false" return token::FALSE;
 "\n" return token::EOL;
 
 <<EOF>> return token::END_OF_FILE;
 
+
 {id} {yylval->build<string>(yytext); return token::ID;}
 {real} {yylval->build<string>(yytext); return token::DEC;}
+
+
 
 %%
 
